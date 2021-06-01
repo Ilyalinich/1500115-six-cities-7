@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Илья Линич](https://up.htmlacademy.ru/react/7/user/1500115).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Шершнев](https://htmlacademy.ru/profile/shv_sergey).
 
 ---
 
