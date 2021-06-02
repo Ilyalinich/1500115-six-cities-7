@@ -99,10 +99,7 @@ function Main({placesCount}) {
                 {
                   new Array(PLACES_RENDER_COUNT)
                     .fill(null)
-                    .map((item, i) => {
-                      const keyValue = i;
-                      return <Offer key={keyValue}/>;
-                    })
+                    .map((item, i) => <Offer key={i.toString()}/>)
                 }
               </div>
             </section>
