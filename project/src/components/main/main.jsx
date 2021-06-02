@@ -1,11 +1,12 @@
 import React from 'react';
 import Offer from '../offer/offer';
+import PropTypes from 'prop-types';
 
 
-const OFFERS_COUNT = 5;
+const PLACES_RENDER_COUNT = 5;
 
 
-function Main() {
+function Main({placesCount}) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -78,7 +79,7 @@ function Main() {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -96,7 +97,7 @@ function Main() {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 {
-                  new Array(OFFERS_COUNT)
+                  new Array(PLACES_RENDER_COUNT)
                     .fill(null)
                     .map((item, i) => {
                       const keyValue = i;
@@ -114,6 +115,10 @@ function Main() {
     </div>
   );
 }
+
+Main.propTypes = {
+  placesCount: PropTypes.number.isRequired,
+};
 
 
 export default Main;
