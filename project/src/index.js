@@ -4,14 +4,14 @@ import App from './components/app/app';
 
 
 const MainPageData = {
-  PLACES_COUNT: 312,
+  OFFERS_COUNT: 312,
 };
 
 
 ReactDOM.render(
   <React.StrictMode>
     <App
-      placesCount={MainPageData.PLACES_COUNT}
+      offersCount={MainPageData.OFFERS_COUNT}
     />
   </React.StrictMode>,
   document.getElementById('root'),
