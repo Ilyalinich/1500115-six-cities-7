@@ -1,35 +1,36 @@
 import React from 'react';
-import Offer from '../offer/offer';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import Offer from '../offer/offer';
 
 
-const PLACES_RENDER_COUNT = 5;
+const OFFERS_RENDER_COUNT = 5;
 
 
-function Main({placesCount}) {
+function Main({offersCount}) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link header__logo-link--active" href="##">
+              <Link className="header__logo-link header__logo-link--active" to="#">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="##">
+                  <Link className="header__nav-link header__nav-link--profile" to="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="##">
+                  <Link className="header__nav-link" to="#">
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -43,34 +44,34 @@ function Main({placesCount}) {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="##">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="##">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="##">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="##">
+                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="##">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="##">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -79,7 +80,7 @@ function Main({placesCount}) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -97,7 +98,7 @@ function Main({placesCount}) {
               </form>
               <div className="cities__places-list places__list tabs__content">
                 {
-                  new Array(PLACES_RENDER_COUNT)
+                  new Array(OFFERS_RENDER_COUNT)
                     .fill(null)
                     .map((item, i) => <Offer key={i.toString()}/>)
                 }
@@ -114,7 +115,7 @@ function Main({placesCount}) {
 }
 
 Main.propTypes = {
-  placesCount: PropTypes.number.isRequired,
+  offersCount: PropTypes.number.isRequired,
 };
 
 
