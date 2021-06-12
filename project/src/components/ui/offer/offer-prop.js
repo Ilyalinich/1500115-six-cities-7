@@ -16,9 +16,9 @@ const offerFullProp = {
   ...offerBasicProp,
   bedrooms: PropTypes.number.isRequired,
   maxAdults: PropTypes.number.isRequired,
-  description: PropTypes.string,
-  goods: PropTypes.arrayOf(PropTypes.string),
-  images: PropTypes.arrayOf(PropTypes.string),
+  description: PropTypes.stringisRequired,
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
   city: PropTypes.shape(
     {
       location: PropTypes.objectOf(PropTypes.number.isRequired),

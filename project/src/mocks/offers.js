@@ -12,7 +12,7 @@ export const OFFERS = [
     'is_premium': true,
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
-    images: ['img/apartment-small-03.jpg', 'img/apartment-small-04.jpg'],
+    images: ['img/apartment-small-03.jpg', 'img/apartment-small-04.jpg', 'img/apartment-01.jpg'],
     city: {
       location: {
         latitude: 52.370216,

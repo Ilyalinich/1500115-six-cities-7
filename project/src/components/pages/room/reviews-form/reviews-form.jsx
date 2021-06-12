@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import RatingChanger from '../rating-changer/rating-changer';
 
 
-const RATING_VALUES = {
+const RatingValuesMap = {
   1: 'terribly',
   2: 'badly',
   3: 'not bad',
@@ -12,8 +12,9 @@ const RATING_VALUES = {
 
 
 function ReviewsForm() {
-  const [currentRatingValue, setRatingValue] = useState(null);
+  const [ratingValue, setRatingValue] = useState('');
   const [comment, setComment] = useState('');
+
 
   return (
     <form
@@ -29,13 +30,14 @@ function ReviewsForm() {
       <div className="reviews__rating-form form__rating">
         {
           Object
-            .keys(RATING_VALUES)
+            .keys(RatingValuesMap)
             .sort((valueA, valueB) => valueB - valueA)
             .map((value) => (
               <RatingChanger
                 key={value}
                 value={value}
-                title={RATING_VALUES[value]}
+                title={RatingValuesMap[value]}
+                currentRatingValue={ratingValue}
                 changeHandler={({target}) => setRatingValue(target.value)}
               />
             ))
@@ -46,6 +48,7 @@ function ReviewsForm() {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        value={comment}
         onChange={({target}) => setComment(target.value)}
       />
       <div className="reviews__button-wrapper">

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../offer/offer-prop';
-import {AppRoute} from '../../constant';
+import {offerFullProp} from '../../ui/offer/offer-prop';
+import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
-import OffersList from '../offers-list/offers-list';
+import OffersList from './offers-list/offers-list';
 
 
 function Main({offers}) {

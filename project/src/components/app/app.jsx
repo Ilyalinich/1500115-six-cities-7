@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../offer/offer-prop';
+import {offerFullProp} from '../ui/offer/offer-prop';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../constant';
-import Main from '../main/main';
-import SignIn from '../sign-in/sign-in';
-import Favorites from '../favorites/favorites';
-import Room from '../room/room';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
-
-
-// const CURRENT_OFFER_ID = 'id';
+import Main from '../pages/main/main';
+import SignIn from '../pages/sign-in/sign-in';
+import Favorites from '../pages/favorites/favorites';
+import Room from '../pages/room/room';
+import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 
 
 function App({offers}) {
@@ -51,12 +48,12 @@ App.propTypes = {
     PropTypes.shape(offerFullProp),
   ),
   match: PropTypes.shape({
-    isExact: PropTypes.bool,
+    isExact: PropTypes.bool.isRequired,
     params: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.string.isRequired,
     }),
-    path: PropTypes.string,
-    url: PropTypes.string,
+    path: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
   }),
 };
 

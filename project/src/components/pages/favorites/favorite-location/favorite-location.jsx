@@ -1,35 +1,29 @@
+import {PropertyTypesMap, AppRoute} from '../../../../constant';
+import {getRatingInPercents} from '../../../../util';
 import React from 'react';
-import PropTypes from 'prop-types';
-import {offerBasicProp} from '../offer/offer-prop';
-// import {useHistory} from 'react-router-dom';
-import {AppRoute} from '../../constant';
+import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
 
 
-const MAX_RATING_VALUE = 5;
+function FavoriteLocation(props) {
+  const {id, price, rating, title, type, isFavorite, isPremium, previewImage} = props;
 
-
-function Offer({offer, onMouseEnter}) {
-  const {id, price, rating, title, type, previewImage, isFavorite, isPremium} = offer;
-
-  // const history = useHistory();
-
-  const ratingInPercents = rating/MAX_RATING_VALUE*100;
+  const ratingInPercents = getRatingInPercents(rating);
   // почему если поставить это выражение напрямую, будет ошибка?
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter} id={id}>
+    <article className="favorites__card place-card">
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.OFFER}/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt=""/>
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt=""/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -51,17 +45,13 @@ function Offer({offer, onMouseEnter}) {
         <h2 className="place-card__name">
           <Link to={`${AppRoute.OFFER}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{PropertyTypesMap[type]}</p>
       </div>
     </article>
   );
 }
 
-
-Offer.propTypes = {
-  offer: PropTypes.shape(offerBasicProp),
-  onMouseEnter: PropTypes.func.isRequired,
-};
+FavoriteLocation.propTypes = offerBasicProp;
 
 
-export default Offer;
+export default FavoriteLocation;

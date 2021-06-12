@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppRoute} from '../../constant';
+import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
 
 

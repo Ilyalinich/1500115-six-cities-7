@@ -1,23 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../offer/offer-prop';
+import {offerFullProp} from '../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
-import FavoritesLocations from '../favorites-locations/favorites-locations';
+import FavoritesList from './favorites-list/favorites-list';
 
 
 function Favorites({offers}) {
-
-  const offersMap = offers.reduce((accumulator, offer) => {
-    if (accumulator[offer.city.name]) {
-      accumulator[offer.city.name].push(offer);
-    } else {
-      accumulator[offer.city.name] = [offer];
-    }
-
-    return accumulator;
-  }, {});
-
-
   return (
     <div className="page">
       <header className="header">
@@ -52,13 +40,7 @@ function Favorites({offers}) {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {
-                Object
-                  .keys(offersMap)
-                  .map((city) => <FavoritesLocations key={city} city={city} offers={offersMap[city]}/>)
-              }
-            </ul>
+            <FavoritesList offers={offers}/>
           </section>
         </div>
       </main>

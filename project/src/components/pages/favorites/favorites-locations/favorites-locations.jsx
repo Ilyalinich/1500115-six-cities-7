@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../offer/offer-prop';
+import {offerFullProp} from '../../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
-import FavoritesLocation from '../favorite-location/favorite-location';
+import FavoriteLocation from '../favorite-location/favorite-location';
 
 
 function FavoritesLocations({city, offers}) {
@@ -18,9 +18,16 @@ function FavoritesLocations({city, offers}) {
       <div className="favorites__places">
         {
           offers.map((offer) => (
-            <FavoritesLocation
+            <FavoriteLocation
               key={offer.id.toString()}
-              offer={offer}
+              id={offer.id}
+              price={offer.price}
+              rating={offer.rating}
+              title={offer.title}
+              type={offer.type}
+              previewImage={offer.previewImage}
+              isFavorite={offer.isFavorite}
+              isPremium={offer.isPremium}
             />
           ))
         }
