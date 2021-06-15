@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {OFFERS} from './mocks/offers';
+import {adaptOfferToClient} from './util';
 import App from './components/app/app';
 
 
-const MainPageData = {
-  OFFERS_COUNT: 312,
-};
+const offers = OFFERS.map((offer) => adaptOfferToClient(offer));
 
 
 ReactDOM.render(
   <React.StrictMode>
     <App
-      offersCount={MainPageData.OFFERS_COUNT}
+      offers={offers}
     />
   </React.StrictMode>,
   document.getElementById('root'),
