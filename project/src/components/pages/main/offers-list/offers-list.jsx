@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {offerFullProp} from '../../../ui/offer/offer-prop';
 import Offer from '../../../ui/offer/offer';
 
 
-function OffersList({offers}) {
-  const [ , setActiveOfferId] = useState('');
-
+function OffersList({offers, onListItemHover}) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {
@@ -21,7 +19,7 @@ function OffersList({offers}) {
             previewImage={offer.previewImage}
             isFavorite={offer.isFavorite}
             isPremium={offer.isPremium}
-            onMouseEnter={() => setActiveOfferId(offer.id)}
+            onMouseEnter={() => onListItemHover(offer.id)}
           />
         ))
       }
@@ -34,6 +32,7 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerFullProp),
   ),
+  onListItemHover: PropTypes.func.isRequired,
 };
 
 

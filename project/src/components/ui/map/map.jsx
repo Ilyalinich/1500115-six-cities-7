@@ -21,37 +21,35 @@ const MarkerTypeUrl = {
   ACTIVE: 'img/pin-active.svg',
 };
 
-const defaultIcon = leaflet.icon({
-  iconUrl: MarkerTypeUrl.DEFAULT,
-  iconSize: [IconSize.WIDTH, IconSize.HEIGTH],
-  iconAnchor: [IconSize.WIDTH/2, IconSize.HEIGTH],
-});
-
-// const activeIcon = leaflet.icon({
-//   iconUrl: MarkerTypeUrl.ACTIVE,
-//   iconSize: [IconSize.WIDTH, IconSize.HEIGTH],
-//   iconAnchor: [IconSize.WIDTH/2, IconSize.HEIGTH],
-// });
+const createIcon = (iconUrl) => leaflet.icon(
+  {
+    iconUrl,
+    iconSize: [IconSize.WIDTH, IconSize.HEIGTH],
+    iconAnchor: [IconSize.WIDTH/2, IconSize.HEIGTH],
+  },
+);
 
 
-function Map({offers}) {
+function Map({offers, activeOfferId}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, CITY);
 
   useEffect(() => {
     if (map) {
-      offers.forEach(({location}) => {
+      offers.forEach(({id, location}) => {
         leaflet
           .marker({
             lat: location.latitude,
             lng: location.longitude,
           }, {
-            icon: defaultIcon,
+            icon: id === activeOfferId
+              ? createIcon(MarkerTypeUrl.ACTIVE)
+              : createIcon(MarkerTypeUrl.DEFAULT),
           })
           .addTo(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, activeOfferId]);
 
   return (
     <div
@@ -66,6 +64,7 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerFullProp),
   ),
+  activeOfferId: PropTypes.number,
 };
 
 export default Map;
