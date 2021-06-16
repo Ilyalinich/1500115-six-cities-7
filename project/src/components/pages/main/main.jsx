@@ -4,6 +4,7 @@ import {offerFullProp} from '../../ui/offer/offer-prop';
 import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
 import OffersList from './offers-list/offers-list';
+import Map from '../../ui/map/map';
 
 
 function Main({offers}) {
@@ -98,7 +99,9 @@ function Main({offers}) {
               <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers}/>
+              </section>
             </div>
           </div>
         </div>
