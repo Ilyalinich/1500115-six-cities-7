@@ -22,8 +22,8 @@ export const OFFERS = [
       name: 'Amsterdam',
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     host: {
@@ -56,8 +56,8 @@ export const OFFERS = [
       name: 'Amsterdam',
     },
     location: {
-      latitude: 53.35514938496378,
-      longitude: 5.673877537499948,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     host: {
@@ -90,8 +90,8 @@ export const OFFERS = [
       name: 'Paris',
     },
     location: {
-      latitude: 54.35514938496378,
-      longitude: 6.673877537499948,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     host: {
@@ -124,8 +124,8 @@ export const OFFERS = [
       name: 'Amsterdam',
     },
     location: {
-      latitude: 51.35514938496378,
-      longitude: 3.673877537499948,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8,
     },
     host: {
