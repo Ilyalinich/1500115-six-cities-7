@@ -1,5 +1,5 @@
 import {PropertyTypesMap} from '../../../constant';
-import {getRatingInPercents} from '../../../util';
+import {getRatingInPercents} from '../../../util/common';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerBasicProp} from '../../ui/offer/offer-prop';

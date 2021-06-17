@@ -1,5 +1,5 @@
 import {PropertyTypesMap, AppRoute} from '../../../../constant';
-import {getRatingInPercents} from '../../../../util';
+import {getRatingInPercents} from '../../../../util/common';
 import React from 'react';
 import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';

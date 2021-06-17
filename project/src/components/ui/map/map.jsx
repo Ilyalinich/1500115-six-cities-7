@@ -30,9 +30,9 @@ const createIcon = (iconUrl) => leaflet.icon(
 );
 
 
-function Map({offers, activeOfferId}) {
+function Map({offers, activeOfferId, initialPosition = CITY}) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, CITY);
+  const map = useMap(mapRef, initialPosition);
 
   useEffect(() => {
     if (map) {
@@ -65,6 +65,7 @@ Map.propTypes = {
     PropTypes.shape(offerFullProp),
   ),
   activeOfferId: PropTypes.number,
+  initialPosition: PropTypes.objectOf(PropTypes.number.isRequired),
 };
 
 export default Map;

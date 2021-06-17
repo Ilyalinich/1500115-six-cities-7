@@ -24,7 +24,7 @@ export const OFFERS = [
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
-      zoom: 8,
+      zoom: 13,
     },
     host: {
       'avatar_url': 'img/avatar-max.jpg',
@@ -58,7 +58,7 @@ export const OFFERS = [
     location: {
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
-      zoom: 8,
+      zoom: 13,
     },
     host: {
       'avatar_url': 'img/avatar-max.jpg',
@@ -92,7 +92,7 @@ export const OFFERS = [
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
-      zoom: 8,
+      zoom: 13,
     },
     host: {
       'avatar_url': 'img/avatar-angelina.jpg',
@@ -126,7 +126,7 @@ export const OFFERS = [
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
-      zoom: 8,
+      zoom: 13,
     },
     host: {
       'avatar_url': 'img/avatar-angelina.jpg',
