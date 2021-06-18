@@ -25,7 +25,7 @@ function Offer(props) {
 
   const {id, price, rating, title, type, previewImage, isFavorite, isPremium, onMouseEnter} = restProps;
 
-  const ratingInPercents = getRatingInPercents(rating);
+  // const ratingInPercents = getRatingInPercents(rating);
 
   return (
     <article className={`${cardClassName} place-card`} onMouseEnter={onMouseEnter}>
@@ -54,7 +54,7 @@ function Offer(props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${ratingInPercents}%`}}/>
+            <span style={{width: `${getRatingInPercents(rating)}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
