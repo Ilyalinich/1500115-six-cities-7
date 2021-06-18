@@ -7,25 +7,39 @@ import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
 
 
+const StandartImageSize = {
+  WiDTH: 260,
+  HEIGTH: 200,
+};
+
+
 function Offer(props) {
-  const {id, price, rating, title, type, previewImage, isFavorite, isPremium, onMouseEnter} = props;
+  const {
+    cardClassName,
+    imageWrapperClassName,
+    cardInfoClassName = '',
+    imageWidth = StandartImageSize.WiDTH,
+    imageHeigth = StandartImageSize.HEIGTH,
+    ...restProps
+  } = props;
+
+  const {id, price, rating, title, type, previewImage, isFavorite, isPremium, onMouseEnter} = restProps;
 
   const ratingInPercents = getRatingInPercents(rating);
 
-
   return (
-    <article className="cities__place-card place-card" onMouseEnter={onMouseEnter}>
+    <article className={`${cardClassName} place-card`} onMouseEnter={onMouseEnter}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${imageWrapperClassName} place-card__image-wrapper`}>
         <Link to={`${AppRoute.OFFER}/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt=""/>
+          <img className="place-card__image" src={previewImage} width={imageWidth} height={imageHeigth} alt=""/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${cardInfoClassName} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -56,7 +70,12 @@ function Offer(props) {
 
 Offer.propTypes = {
   ...offerBasicProp,
-  onMouseEnter: PropTypes.func.isRequired,
+  cardClassName: PropTypes.string.isRequired,
+  imageWrapperClassName: PropTypes.string.isRequired,
+  cardInfoClassName: PropTypes.string,
+  imageWidth: PropTypes.number,
+  imageHeigth: PropTypes.number,
+  onMouseEnter: PropTypes.func,
 };
 
 export default Offer;
