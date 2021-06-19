@@ -1,7 +1,3 @@
-const MAX_RATING_VALUE = 5;
-const FULL_PERCENTS_VALUE = 100;
-
-
 const adaptOfferToClient = (offer) => {
   const adaptedOffer = {
     ...offer,
@@ -25,7 +21,19 @@ const adaptOfferToClient = (offer) => {
   return adaptedOffer;
 };
 
-const getRatingInPercents = (rating) => Math.round(rating)/MAX_RATING_VALUE*FULL_PERCENTS_VALUE;
+const adaptReviewToClient = (review) => {
+  const adaptedReview = {
+    ...review,
+    user: {
+      avatarUrl: review.user.avatar_url,
+      id: review.user.id,
+      isPro: review.user.is_pro,
+      name: review.user.name,
+    },
+  };
+
+  return adaptedReview;
+};
 
 
-export {adaptOfferToClient, getRatingInPercents};
+export {adaptOfferToClient, adaptReviewToClient};

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerFullProp} from '../ui/offer/offer-prop';
+import {reviewProp} from '../pages/room/review/review-prop';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../constant';
 import Main from '../pages/main/main';
@@ -10,7 +11,7 @@ import Room from '../pages/room/room';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 
 
-function App({offers}) {
+function App({offers, reviews}) {
   return (
     <BrowserRouter>
       <Switch>
@@ -30,10 +31,7 @@ function App({offers}) {
         <Route
           exact
           path={`${AppRoute.OFFER}/:id`}
-          render={(props) => {
-            const offer = offers.find(({id}) => id.toString() === props.match.params.id);
-            return <Room offer={offer}/>;
-          }}
+          render={(props) => <Room offers={offers} reviews={reviews} pageId={props.match.params.id}/>}
         />
         <Route>
           <NotFoundScreen />
@@ -46,6 +44,9 @@ function App({offers}) {
 App.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerFullProp),
+  ),
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape(reviewProp),
   ),
   match: PropTypes.shape({
     isExact: PropTypes.bool.isRequired,

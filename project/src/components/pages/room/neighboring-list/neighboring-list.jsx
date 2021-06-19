@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerFullProp} from '../../../ui/offer/offer-prop';
-import CitiesOffer from '../cities-offer/cities-offer';
+import NeighboringOffer from '../neighboring-offer/neighboring-offer';
 
 
-function OffersList({offers, onListItemHover}) {
+function NeighboringList({offers}) {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className="near-places__list places__list">
       {
         offers.map((offer) => (
-          <CitiesOffer
+          <NeighboringOffer
             key={offer.id.toString()}
             id={offer.id}
             price={offer.price}
@@ -19,7 +19,6 @@ function OffersList({offers, onListItemHover}) {
             previewImage={offer.previewImage}
             isFavorite={offer.isFavorite}
             isPremium={offer.isPremium}
-            onMouseEnter={() => onListItemHover(offer.id)}
           />
         ))
       }
@@ -28,12 +27,11 @@ function OffersList({offers, onListItemHover}) {
 }
 
 
-OffersList.propTypes = {
+NeighboringList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerFullProp),
   ),
-  onListItemHover: PropTypes.func.isRequired,
 };
 
 
-export default OffersList;
+export default NeighboringList;
