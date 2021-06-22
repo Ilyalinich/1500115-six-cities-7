@@ -1,16 +1,14 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {offerFullProp} from '../../ui/offer/offer-prop';
+import React from 'react';
 import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
 import OffersList from './offers-list/offers-list';
-import Map from '../../ui/map/map';
-import CitiesList from './cities-list/cities-list';
+import CityMap from './city-map/city-map';
+import CitiesNavMenu from './cities-nav-menu/cities-nav-menu';
+import FoundOffersTitle from './found-offers-title/found-offers-title';
+import OffersSortForm from './offers-sort-form/offers-sort-form';
 
 
-function Main({offers}) {
-  const [activeOfferId , setActiveOfferId] = useState(0);
-
+function Main() {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -45,40 +43,19 @@ function Main({offers}) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList />
+            <CitiesNavMenu />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
-              <OffersList
-                offers={offers}
-                onListItemHover={(offerId) => setActiveOfferId(offerId)}
-              />
+              <FoundOffersTitle />
+              <OffersSortForm />
+              <OffersList />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map
-                  offers={offers}
-                  activeOfferId={activeOfferId}
-                />
+                <CityMap />
               </section>
             </div>
           </div>
@@ -88,10 +65,5 @@ function Main({offers}) {
   );
 }
 
-Main.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
-  ),
-};
 
 export default Main;

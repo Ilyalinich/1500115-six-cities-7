@@ -6,7 +6,7 @@ import City from '../../../ui/city/city';
 import {ActionCreator} from '../../../../store/action';
 
 
-function CitiesList({currentCity, changeCity}) {
+function CitiesNavMenu({currentCity, changeCity}) {
   return (
     <ul className="locations__list tabs__list">
       {
@@ -24,7 +24,7 @@ function CitiesList({currentCity, changeCity}) {
 }
 
 
-CitiesList.propTypes = {
+CitiesNavMenu.propTypes = {
   currentCity: PropTypes.string.isRequired,
   changeCity: PropTypes.func.isRequired,
 };
@@ -40,5 +40,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-export {CitiesList};
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+export {CitiesNavMenu};
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesNavMenu);

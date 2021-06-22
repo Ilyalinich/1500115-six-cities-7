@@ -1,4 +1,4 @@
-import {PropertyTypesMap, AppRoute} from '../../../constant';
+import {PropertyTypesMap, AppRoute, SINGULAR_NUMBER} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ import NeighboringList from './neighboring-list/neighboring-list';
 
 const MAX_NEIGHBORING_OFFERS_COUNT = 3;
 const MAX_IMAGES_COUNT = 6;
-const SINGULAR_NUMBER = 1;
+
 
 const getNeighboringOffers = (offers, currentOfferId) => {
   const neighboringOffers = offers.filter(({id}) => id !== currentOfferId);

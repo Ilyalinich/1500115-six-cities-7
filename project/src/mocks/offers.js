@@ -2,7 +2,7 @@ export const OFFERS = [
   {
     id: 1,
     price: 120,
-    rating: 3,
+    rating: 5,
     bedrooms: 3,
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
@@ -17,7 +17,7 @@ export const OFFERS = [
       location: {
         latitude: 52.370216,
         longitude: 4.895168,
-        zoom: 10,
+        zoom: 12,
       },
       name: 'Amsterdam',
     },
@@ -51,7 +51,7 @@ export const OFFERS = [
       location: {
         latitude: 53.370216,
         longitude: 5.895168,
-        zoom: 10,
+        zoom: 12,
       },
       name: 'Amsterdam',
     },
@@ -83,15 +83,15 @@ export const OFFERS = [
     images: ['img/apartment-small-03.jpg', 'img/apartment-small-04.jpg'],
     city: {
       location: {
-        latitude: 54.370216,
-        longitude: 6.895168,
-        zoom: 10,
+        latitude: 48.8534,
+        longitude: 2.3488,
+        zoom: 12,
       },
       name: 'Paris',
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.929309666406198,
+      latitude: 48.8624,
+      longitude: 2.3688,
       zoom: 13,
     },
     host: {
@@ -117,15 +117,49 @@ export const OFFERS = [
     images: ['img/apartment-small-03.jpg', 'img/apartment-small-04.jpg'],
     city: {
       location: {
-        latitude: 51.370216,
-        longitude: 3.895168,
-        zoom: 10,
+        latitude: 51.2217,
+        longitude: 6.77616,
+        zoom: 12,
+      },
+      name: 'Dusseldorf',
+    },
+    location: {
+      latitude: 51.2217,
+      longitude: 6.79816,
+      zoom: 13,
+    },
+    host: {
+      'avatar_url': 'img/avatar-angelina.jpg',
+      id: 2,
+      'is_pro': false,
+      name: 'Angelina',
+    },
+  },
+  {
+    id: 5,
+    price: 700,
+    rating: 3.8,
+    bedrooms: 1,
+    title: 'Ordinary room on the outskirts',
+    type: 'room',
+    'max_adults': 3,
+    'preview_image': 'img/apartment-01.jpg',
+    'is_favorite': true,
+    'is_premium': false,
+    description: 'Just an room like any other.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine'],
+    images: ['img/apartment-small-03.jpg', 'img/apartment-small-04.jpg'],
+    city: {
+      location: {
+        latitude: 53.370216,
+        longitude: 5.895168,
+        zoom: 12,
       },
       name: 'Amsterdam',
     },
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 52.368553943508,
+      longitude: 4.86709666406198,
       zoom: 13,
     },
     host: {

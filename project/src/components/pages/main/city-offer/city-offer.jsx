@@ -10,7 +10,7 @@ const SpecialClassName = {
 };
 
 
-function CitiesOffer(props) {
+function CityOffer(props) {
   return (
     <Offer
       cardClassName={SpecialClassName.CARD_CLASS}
@@ -21,9 +21,9 @@ function CitiesOffer(props) {
 }
 
 
-CitiesOffer.propTypes = {
+CityOffer.propTypes = {
   ...offerBasicProp,
   onMouseEnter: PropTypes.func.isRequired,
 };
 
-export default CitiesOffer;
+export default CityOffer;

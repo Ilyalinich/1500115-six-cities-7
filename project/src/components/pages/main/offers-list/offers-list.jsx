@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerFullProp} from '../../../ui/offer/offer-prop';
-import CitiesOffer from '../cities-offer/cities-offer';
+import {connect} from 'react-redux';
+import CityOffer from '../city-offer/city-offer';
+import {ActionCreator} from '../../../../store/action';
 
 
 function OffersList({offers, onListItemHover}) {
@@ -9,7 +11,7 @@ function OffersList({offers, onListItemHover}) {
     <div className="cities__places-list places__list tabs__content">
       {
         offers.map((offer) => (
-          <CitiesOffer
+          <CityOffer
             key={offer.id.toString()}
             id={offer.id}
             price={offer.price}
@@ -36,4 +38,16 @@ OffersList.propTypes = {
 };
 
 
-export default OffersList;
+const mapStateToProps = (state) => ({
+  offers: state.sortedCityOffers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onListItemHover(offerId) {
+    dispatch(ActionCreator.changeActiveOfferId(offerId));
+  },
+});
+
+
+export {OffersList};
+export default connect(mapStateToProps, mapDispatchToProps)(OffersList);
