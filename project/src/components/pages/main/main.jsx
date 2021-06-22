@@ -1,11 +1,7 @@
 import React from 'react';
 import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
-import OffersList from './offers-list/offers-list';
-import CityMap from './city-map/city-map';
-import CitiesNavMenu from './cities-nav-menu/cities-nav-menu';
-import FoundOffersTitle from './found-offers-title/found-offers-title';
-import OffersSortForm from './offers-sort-form/offers-sort-form';
+import ContentBoard from './content-board/content-board';
 
 
 function Main() {
@@ -39,28 +35,7 @@ function Main() {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <CitiesNavMenu />
-          </section>
-        </div>
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <FoundOffersTitle />
-              <OffersSortForm />
-              <OffersList />
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <CityMap />
-              </section>
-            </div>
-          </div>
-        </div>
-      </main>
+      <ContentBoard />
     </div>
   );
 }
