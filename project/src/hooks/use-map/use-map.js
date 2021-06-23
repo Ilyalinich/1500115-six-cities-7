@@ -25,7 +25,7 @@ function useMap(mapRef, initialPosition) {
       setMap(newMap);
 
     } else if (mapRef.current !== null && map !== null) {
-      map.setView({
+      map.flyTo({
         lat: initialPosition.latitude,
         lng: initialPosition.longitude,
       }, initialPosition.zoom);

@@ -1,8 +1,9 @@
 const ActionType = {
   CHANGE_CITY: 'citySelect/changeCity',
   CHANGE_ACTIVE_OFFER_ID: 'offerSelect/changeActiveOfferId',
+  REST_ACTIVE_OFFER_ID: 'offerSelect/restActiveOfferId',
   CHANGE_SORT_TYPE: 'sort/changeSortType',
-  SET_OFFERS: 'api/setOffers',
+  // SET_OFFERS: 'api/setOffers',
 };
 // подумать над названиями 1.20 лекции;
 
@@ -15,14 +16,17 @@ const ActionCreator = {
     type: ActionType.CHANGE_ACTIVE_OFFER_ID,
     payload: id,
   }),
+  restActiveOfferId: () => ({
+    type: ActionType.REST_ACTIVE_OFFER_ID,
+  }),
   changeSortType: (sortType) => ({
     type: ActionType.CHANGE_SORT_TYPE,
     payload: sortType,
   }),
-  setOffers: (offers) => ({
-    type: ActionType.SET_OFFERS,
-    payload: offers,
-  }),
+  // setOffers: (offers) => ({
+  //   type: ActionType.SET_OFFERS,
+  //   payload: offers,
+  // }),
 };
 
 export {ActionType, ActionCreator};

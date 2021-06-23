@@ -24,6 +24,7 @@ function CityOffer(props) {
 CityOffer.propTypes = {
   ...offerBasicProp,
   onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
 };
 
 export default CityOffer;

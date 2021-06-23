@@ -23,6 +23,7 @@ const sortCityOffers = (cityOffers, sortType) => {
   }
 };
 
+
 const defaultCityOffers = offers.filter(({city}) => city.name === CITIES[0]);
 
 const initialState ={
@@ -33,7 +34,7 @@ const initialState ={
   offers,
   activeOfferId: 0,
 };
-// подумать над названиями действий
+
 
 const reducer = (state = initialState, action) => {
   const currentCityOffers = offers.filter(({city}) => city.name === action.payload);
@@ -52,6 +53,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeOfferId: action.payload,
+      };
+    case ActionType.REST_ACTIVE_OFFER_ID:
+      return {
+        ...state,
+        activeOfferId: initialState.activeOfferId,
       };
     case ActionType.CHANGE_SORT_TYPE:
       return {

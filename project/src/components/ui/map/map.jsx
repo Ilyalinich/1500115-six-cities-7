@@ -24,16 +24,15 @@ const createIcon = (iconUrl) => leaflet.icon(
   },
 );
 
-const markersLayer = new leaflet.LayerGroup();
-
 
 function Map({offers, activeOfferId, initialPosition}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, initialPosition);
 
   useEffect(() => {
+    const markersLayer = new leaflet.LayerGroup();
+
     if (map) {
-      markersLayer.clearLayers();
       offers.forEach(({id, location}) => {
         const marker = leaflet
           .marker({
@@ -48,6 +47,7 @@ function Map({offers, activeOfferId, initialPosition}) {
       });
       markersLayer.addTo(map);
     }
+    return () => markersLayer.removeFrom(map);
   }, [map, offers, activeOfferId, initialPosition]);
 
   return (
