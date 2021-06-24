@@ -8,7 +8,7 @@ import OffersSortForm from '../offers-sort-form/offers-sort-form';
 import EmptyList from '../empty-list/empty-list';
 
 
-function ContentContainer({offersCount, currentCity}) {
+function ContentContainer({offersCount}) {
   const isOffersListEmpty = offersCount === 0;
 
   return (
@@ -16,7 +16,7 @@ function ContentContainer({offersCount, currentCity}) {
       <section className={isOffersListEmpty ? 'cities__no-places' : 'cities__places places'}>
         {
           isOffersListEmpty
-            ? <EmptyList cityName={currentCity} />
+            ? <EmptyList />
             : (
               <>
                 <FoundOffersTitle />
@@ -41,12 +41,10 @@ function ContentContainer({offersCount, currentCity}) {
 
 ContentContainer.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  currentCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offersCount: state.currentCityOffers.length,
-  currentCity: state.currentCity,
 });
 
 

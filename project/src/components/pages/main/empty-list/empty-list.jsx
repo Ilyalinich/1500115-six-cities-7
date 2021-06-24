@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 
 function EmptyList({cityName}) {
@@ -15,5 +16,10 @@ EmptyList.propTypes = {
   cityName: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  cityName: state.currentCity,
+});
 
-export default EmptyList;
+
+export {EmptyList};
+export default connect(mapStateToProps)(EmptyList);
