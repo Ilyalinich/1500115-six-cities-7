@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerFullProp} from '../../../ui/offer/offer-prop';
-import CitiesOffer from '../cities-offer/cities-offer';
+import {connect} from 'react-redux';
+import CityOffer from '../city-offer/city-offer';
+import {ActionCreator} from '../../../../store/action';
 
 
-function OffersList({offers, onListItemHover}) {
+function OffersList({offers, onListItemHover, onListItemHoverLost}) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {
         offers.map((offer) => (
-          <CitiesOffer
+          <CityOffer
             key={offer.id.toString()}
             id={offer.id}
             price={offer.price}
@@ -20,6 +22,7 @@ function OffersList({offers, onListItemHover}) {
             isFavorite={offer.isFavorite}
             isPremium={offer.isPremium}
             onMouseEnter={() => onListItemHover(offer.id)}
+            onMouseLeave={() => onListItemHoverLost()}
           />
         ))
       }
@@ -33,7 +36,23 @@ OffersList.propTypes = {
     PropTypes.shape(offerFullProp),
   ),
   onListItemHover: PropTypes.func.isRequired,
+  onListItemHoverLost: PropTypes.func.isRequired,
 };
 
 
-export default OffersList;
+const mapStateToProps = (state) => ({
+  offers: state.sortedCityOffers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onListItemHover(offerId) {
+    dispatch(ActionCreator.changeActiveOfferId(offerId));
+  },
+  onListItemHoverLost() {
+    dispatch(ActionCreator.restActiveOfferId());
+  },
+});
+
+
+export {OffersList};
+export default connect(mapStateToProps, mapDispatchToProps)(OffersList);

@@ -3,17 +3,17 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 
-function useMap(mapRef, city) {
+function useMap(mapRef, initialPosition) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
       const newMap = leaflet.map(mapRef.current, {
         center: {
-          lat: city.latitude,
-          lng: city.longitude,
+          lat: initialPosition.latitude,
+          lng: initialPosition.longitude,
         },
-        zoom: city.zoom,
+        zoom: initialPosition.zoom,
       });
 
       leaflet
@@ -23,8 +23,14 @@ function useMap(mapRef, city) {
         .addTo(newMap);
 
       setMap(newMap);
+
+    } else if (mapRef.current !== null && map !== null) {
+      map.flyTo({
+        lat: initialPosition.latitude,
+        lng: initialPosition.longitude,
+      }, initialPosition.zoom);
     }
-  }, [mapRef, map, city]);
+  }, [mapRef, map, initialPosition]);
 
   return map;
 }

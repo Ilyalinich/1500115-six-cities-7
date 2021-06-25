@@ -23,12 +23,12 @@ function Offer(props) {
     ...restProps
   } = props;
 
-  const {id, price, rating, title, type, previewImage, isFavorite, isPremium, onMouseEnter} = restProps;
+  const {id, price, rating, title, type, previewImage, isFavorite, isPremium, onMouseEnter, onMouseLeave} = restProps;
 
-  // const ratingInPercents = getRatingInPercents(rating);
+  const ratingInPercents = getRatingInPercents(rating);
 
   return (
-    <article className={`${cardClassName} place-card`} onMouseEnter={onMouseEnter}>
+    <article className={`${cardClassName} place-card`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -54,7 +54,7 @@ function Offer(props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${getRatingInPercents(rating)}%`}}/>
+            <span style={{width: `${ratingInPercents}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -76,6 +76,7 @@ Offer.propTypes = {
   imageWidth: PropTypes.number,
   imageHeigth: PropTypes.number,
   onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
 export default Offer;

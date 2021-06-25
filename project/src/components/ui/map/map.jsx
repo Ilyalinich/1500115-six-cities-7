@@ -5,11 +5,6 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../../hooks/use-map/use-map';
 
-const CITY = {
-  latitude: 52.38333,
-  longitude: 4.9,
-  zoom: 12,
-};
 
 const IconSize = {
   WIDTH: 30,
@@ -30,14 +25,16 @@ const createIcon = (iconUrl) => leaflet.icon(
 );
 
 
-function Map({offers, activeOfferId, initialPosition = CITY}) {
+function Map({offers, activeOfferId, initialPosition}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, initialPosition);
 
   useEffect(() => {
+    const markersLayer = new leaflet.LayerGroup();
+
     if (map) {
       offers.forEach(({id, location}) => {
-        leaflet
+        const marker = leaflet
           .marker({
             lat: location.latitude,
             lng: location.longitude,
@@ -45,11 +42,13 @@ function Map({offers, activeOfferId, initialPosition = CITY}) {
             icon: id === activeOfferId
               ? createIcon(MarkerTypeUrl.ACTIVE)
               : createIcon(MarkerTypeUrl.DEFAULT),
-          })
-          .addTo(map);
+          });
+        markersLayer.addLayer(marker);
       });
+      markersLayer.addTo(map);
     }
-  }, [map, offers, activeOfferId]);
+    return () => markersLayer.removeFrom(map);
+  }, [map, offers, activeOfferId, initialPosition]);
 
   return (
     <div

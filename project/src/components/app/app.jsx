@@ -16,9 +16,7 @@ function App({offers, reviews}) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main
-            offers={offers}
-          />
+          <Main />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignIn />
