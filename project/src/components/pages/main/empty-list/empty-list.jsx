@@ -16,8 +16,8 @@ EmptyList.propTypes = {
   cityName: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  cityName: state.currentCity,
+const mapStateToProps = ({currentCity}) => ({
+  cityName: currentCity,
 });
 
 
