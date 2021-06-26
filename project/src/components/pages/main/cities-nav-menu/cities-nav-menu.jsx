@@ -8,18 +8,20 @@ import {ActionCreator} from '../../../../store/action';
 
 function CitiesNavMenu({currentCity, changeCity}) {
   return (
-    <ul className="locations__list tabs__list">
-      {
-        CITIES.map((city) => (
-          <City
-            key={city}
-            cityName={city}
-            currentCity={currentCity}
-            onClick={() => changeCity(city)}
-          />
-        ))
-      }
-    </ul>
+    <section className="locations container">
+      <ul className="locations__list tabs__list">
+        {
+          CITIES.map((city) => (
+            <City
+              key={city}
+              cityName={city}
+              isActive={city === currentCity}
+              onClick={() => changeCity(city)}
+            />
+          ))
+        }
+      </ul>
+    </section>
   );
 }
 
@@ -29,8 +31,8 @@ CitiesNavMenu.propTypes = {
   changeCity: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
+const mapStateToProps = ({currentCity}) => ({
+  currentCity,
 });
 
 const mapDispatchToProps = (dispatch) => ({

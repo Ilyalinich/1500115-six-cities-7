@@ -40,8 +40,8 @@ OffersList.propTypes = {
 };
 
 
-const mapStateToProps = (state) => ({
-  offers: state.sortedCityOffers,
+const mapStateToProps = ({sortedCityOffers}) => ({
+  offers: sortedCityOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -12,13 +12,9 @@ function ContentBoard({offersCount}) {
     <main className={`page__main page__main--index ${isOffersListEmpty && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <section className="locations container">
-          <CitiesNavMenu />
-        </section>
+        <CitiesNavMenu />
       </div>
-      <div className="cities">
-        <ContentContainer />
-      </div>
+      <ContentContainer />
     </main>
   );
 }
@@ -28,8 +24,8 @@ ContentBoard.propTypes = {
   offersCount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offersCount: state.currentCityOffers.length,
+const mapStateToProps = ({currentCityOffers}) => ({
+  offersCount: currentCityOffers.length,
 });
 
 

@@ -19,9 +19,9 @@ FoundOffersTitle.propTypes = {
 };
 
 
-const mapStateToProps = (state) => ({
-  offersCount: state.currentCityOffers.length,
-  currentCity: state.currentCity,
+const mapStateToProps = ({currentCity, currentCityOffers}) => ({
+  offersCount: currentCityOffers.length,
+  currentCity,
 });
 
 

@@ -5,28 +5,28 @@ import {connect} from 'react-redux';
 import Map from '../../../ui/map/map';
 
 
-function CityMap({offers, activeOfferId}) {
+function CityMap({currentCityOffers, activeOfferId}) {
   return (
     <Map
-      offers={offers}
+      offers={currentCityOffers}
       activeOfferId={activeOfferId}
-      initialPosition={offers[0].city.location}
+      initialPosition={currentCityOffers[0].city.location}
     >
     </Map>
   );
 }
 
 CityMap.propTypes = {
-  offers: PropTypes.arrayOf(
+  currentCityOffers: PropTypes.arrayOf(
     PropTypes.shape(offerFullProp),
   ),
   activeOfferId: PropTypes.number,
 };
 
 
-const mapStateToProps = (state) => ({
-  offers: state.currentCityOffers,
-  activeOfferId: state.activeOfferId,
+const mapStateToProps = ({currentCityOffers, activeOfferId}) => ({
+  currentCityOffers,
+  activeOfferId,
 });
 
 

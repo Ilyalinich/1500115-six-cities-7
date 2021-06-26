@@ -12,28 +12,30 @@ function ContentContainer({offersCount}) {
   const isOffersListEmpty = offersCount === 0;
 
   return (
-    <div className={`cities__places-container ${isOffersListEmpty && 'cities__places-container--empty'} container`}>
-      <section className={isOffersListEmpty ? 'cities__no-places' : 'cities__places places'}>
-        {
-          isOffersListEmpty
-            ? <EmptyList />
-            : (
-              <>
-                <FoundOffersTitle />
-                <OffersSortForm />
-                <OffersList />
-              </>
+    <div className="cities">
+      <div className={`cities__places-container ${isOffersListEmpty && 'cities__places-container--empty'} container`}>
+        <section className={isOffersListEmpty ? 'cities__no-places' : 'cities__places places'}>
+          {
+            isOffersListEmpty
+              ? <EmptyList />
+              : (
+                <>
+                  <FoundOffersTitle />
+                  <OffersSortForm />
+                  <OffersList />
+                </>
+              )
+          }
+        </section>
+        <div className="cities__right-section">
+          {
+            !isOffersListEmpty && (
+              <section className="cities__map map">
+                <CityMap />
+              </section>
             )
-        }
-      </section>
-      <div className="cities__right-section">
-        {
-          !isOffersListEmpty && (
-            <section className="cities__map map">
-              <CityMap />
-            </section>
-          )
-        }
+          }
+        </div>
       </div>
     </div>
   );
@@ -43,8 +45,8 @@ ContentContainer.propTypes = {
   offersCount: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offersCount: state.currentCityOffers.length,
+const mapStateToProps = ({currentCityOffers}) => ({
+  offersCount: currentCityOffers.length,
 });
 
 
