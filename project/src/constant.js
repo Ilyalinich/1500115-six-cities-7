@@ -7,8 +7,14 @@ const AppRoute = {
 
 const ApiRoute = {
   OFFERS: '/hotels',
-  // LOGIN: '/login',
-  // LOGOUT: '/logout',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
 };
 
 const PropertyTypesMap = {
@@ -30,4 +36,4 @@ const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam','Hamburg', 'Dusseldo
 const SINGULAR_NUMBER = 1;
 
 
-export {AppRoute, ApiRoute, PropertyTypesMap, SortType, CITIES, SINGULAR_NUMBER};
+export {AppRoute, ApiRoute, AuthorizationStatus, PropertyTypesMap, SortType, CITIES, SINGULAR_NUMBER};

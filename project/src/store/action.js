@@ -4,6 +4,8 @@ const ActionType = {
   REST_ACTIVE_OFFER_ID: 'offerSelect/restActiveOfferId',
   CHANGE_SORT_TYPE: 'sort/changeSortType',
   SET_OFFERS: 'data/setOffers',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGOUT: 'user/logout',
 };
 
 
@@ -26,6 +28,13 @@ const ActionCreator = {
   setOffers: (offers) => ({
     type: ActionType.SET_OFFERS,
     payload: offers,
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
   }),
 };
 

@@ -7,10 +7,14 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
-import {loadOffers} from './store/api-action';
+import {loadOffers, checkAuth} from './store/api-action';
+import {ActionCreator} from './store/action';
+import {AuthorizationStatus} from './constant';
 
 
-const api = createApi();
+const api = createApi(
+  () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
+);
 
 const store = createStore(
   reducer,
@@ -19,6 +23,7 @@ const store = createStore(
   ),
 );
 
+store.dispatch(checkAuth());
 store.dispatch(loadOffers());
 
 ReactDOM.render(

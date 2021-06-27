@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import {AppRoute} from '../../constant';
+import {AppRoute, AuthorizationStatus} from '../../constant';
 import Main from '../pages/main/main';
 import SignIn from '../pages/sign-in/sign-in';
 import Favorites from '../pages/favorites/favorites';
@@ -11,8 +11,10 @@ import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../ui/loading-screen/loading-screen';
 
 
-function App({isDataLoaded}) {
-  if (!isDataLoaded) {
+function App({authorizationStatus, isDataLoaded}) {
+  const isCheckingAuthStatus = authorizationStatus === AuthorizationStatus.UNKNOWN;
+
+  if (isCheckingAuthStatus || !isDataLoaded) {
     return (
       <LoadingScreen />
     );
@@ -44,6 +46,7 @@ function App({isDataLoaded}) {
 }
 
 App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
   isDataLoaded: PropTypes.bool.isRequired,
   match: PropTypes.shape({
     isExact: PropTypes.bool.isRequired,
@@ -55,7 +58,8 @@ App.propTypes = {
   }),
 };
 
-const mapStateToProps = ({isDataLoaded}) => ({
+const mapStateToProps = ({authorizationStatus, isDataLoaded}) => ({
+  authorizationStatus,
   isDataLoaded,
 });
 
