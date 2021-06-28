@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../ui/offer/offer-prop';
-import {reviewProp} from '../pages/room/review/review-prop';
+import {connect} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../constant';
 import Main from '../pages/main/main';
@@ -9,9 +8,16 @@ import SignIn from '../pages/sign-in/sign-in';
 import Favorites from '../pages/favorites/favorites';
 import Room from '../pages/room/room';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
+import LoadingScreen from '../ui/loading-screen/loading-screen';
 
 
-function App({offers, reviews}) {
+function App({isDataLoaded}) {
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -22,14 +28,12 @@ function App({offers, reviews}) {
           <SignIn />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <Favorites
-            offers={offers.filter((offer) => offer.isFavorite)}
-          />
+          <Favorites />
         </Route>
         <Route
           exact
           path={`${AppRoute.OFFER}/:id`}
-          render={(props) => <Room offers={offers} reviews={reviews} pageId={props.match.params.id}/>}
+          render={(props) => <Room pageId={props.match.params.id}/>}
         />
         <Route>
           <NotFoundScreen />
@@ -40,12 +44,7 @@ function App({offers, reviews}) {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
-  ),
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape(reviewProp),
-  ),
+  isDataLoaded: PropTypes.bool.isRequired,
   match: PropTypes.shape({
     isExact: PropTypes.bool.isRequired,
     params: PropTypes.shape({
@@ -56,4 +55,10 @@ App.propTypes = {
   }),
 };
 
-export default App;
+const mapStateToProps = ({isDataLoaded}) => ({
+  isDataLoaded,
+});
+
+
+export {App};
+export default connect(mapStateToProps)(App);

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {offerFullProp} from '../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
 import FavoritesList from './favorites-list/favorites-list';
@@ -60,4 +61,10 @@ Favorites.propTypes = {
 };
 
 
-export default Favorites;
+const mapStateToProps = ({offers}) => ({
+  offers: offers.filter((offer) => offer.isFavorite),
+});
+
+
+export {Favorites};
+export default connect(mapStateToProps)(Favorites);

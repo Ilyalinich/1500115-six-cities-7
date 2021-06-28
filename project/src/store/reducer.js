@@ -1,10 +1,5 @@
 import {ActionType} from './action';
 import {CITIES, SortType} from '../constant';
-import {OFFERS} from '../mocks/offers';
-import {adaptOfferToClient} from '../util/adapter';
-
-
-const offers = OFFERS.map((offer) => adaptOfferToClient(offer));
 
 
 const sortCityOffers = (cityOffers, sortType) => {
@@ -24,52 +19,56 @@ const sortCityOffers = (cityOffers, sortType) => {
 };
 
 
-const defaultCityOffers = offers.filter(({city}) => city.name === CITIES[0]);
-
 const initialState ={
   currentCity: CITIES[0],
-  currentCityOffers: defaultCityOffers,
-  sortedCityOffers: defaultCityOffers,
+  currentCityOffers: [],
+  sortedCityOffers: [],
   currentSortType: SortType.POPULAR,
-  offers,
+  offers: [],
   activeOfferId: 0,
+  isDataLoaded: false,
 };
 
 
 const reducer = (state = initialState, action) => {
-  const currentCityOffers = offers.filter(({city}) => city.name === action.payload);
-
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return {
         ...state,
         currentCity: action.payload,
-        currentCityOffers: currentCityOffers,
-        sortedCityOffers: currentCityOffers,
+        currentCityOffers: state.offers.filter(({city}) => city.name === action.payload),
+        sortedCityOffers: state.offers.filter(({city}) => city.name === action.payload),
         currentSortType: initialState.currentSortType,
-        activeOfferId: initialState.activeOfferId,
       };
+
     case ActionType.CHANGE_ACTIVE_OFFER_ID:
       return {
         ...state,
         activeOfferId: action.payload,
       };
+
     case ActionType.REST_ACTIVE_OFFER_ID:
       return {
         ...state,
         activeOfferId: initialState.activeOfferId,
       };
+
     case ActionType.CHANGE_SORT_TYPE:
       return {
         ...state,
         currentSortType: action.payload,
         sortedCityOffers: sortCityOffers(state.currentCityOffers, action.payload),
       };
-    // case ActionType.SET_OFFERS:
-    //   return {
-    //     ...state,
-    //     offers: action.payload,
-    //   };
+
+    case ActionType.SET_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+        currentCityOffers: action.payload.filter(({city}) => city.name === initialState.currentCity),
+        sortedCityOffers: action.payload.filter(({city}) => city.name === initialState.currentCity),
+        isDataLoaded: true,
+      };
+
     default:
       return state;
   }

@@ -5,6 +5,12 @@ const AppRoute = {
   OFFER: '/offer',
 };
 
+const ApiRoute = {
+  OFFERS: '/hotels',
+  // LOGIN: '/login',
+  // LOGOUT: '/logout',
+};
+
 const PropertyTypesMap = {
   apartment: 'Apartment',
   room: 'Private Room',
@@ -24,4 +30,4 @@ const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam','Hamburg', 'Dusseldo
 const SINGULAR_NUMBER = 1;
 
 
-export {AppRoute, PropertyTypesMap, SortType, CITIES, SINGULAR_NUMBER};
+export {AppRoute, ApiRoute, PropertyTypesMap, SortType, CITIES, SINGULAR_NUMBER};
