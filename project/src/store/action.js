@@ -4,7 +4,8 @@ const ActionType = {
   REST_ACTIVE_OFFER_ID: 'offerSelect/restActiveOfferId',
   CHANGE_SORT_TYPE: 'sort/changeSortType',
   SET_OFFERS: 'data/setOffers',
-  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  REQUIRE_AUTHORIZATION: 'user/requireAuthorization',
+  LOGIN: 'user/login',
   LOGOUT: 'user/logout',
 };
 
@@ -30,8 +31,12 @@ const ActionCreator = {
     payload: offers,
   }),
   requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
+    type: ActionType.REQUIRE_AUTHORIZATION,
     payload: status,
+  }),
+  login: (userInfo) => ({
+    type: ActionType.LOGIN,
+    payload: userInfo,
   }),
   logout: () => ({
     type: ActionType.LOGOUT,

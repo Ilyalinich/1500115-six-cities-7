@@ -28,20 +28,23 @@ const initialState ={
   activeOfferId: 0,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  authInfo: {},
+  userInfo: {},
 };
 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.CHANGE_CITY:
+    case ActionType.CHANGE_CITY: {
+      const currentCityOffers = state.offers.filter(({city}) => city.name === action.payload);
+
       return {
         ...state,
         currentCity: action.payload,
-        currentCityOffers: state.offers.filter(({city}) => city.name === action.payload),
-        sortedCityOffers: state.offers.filter(({city}) => city.name === action.payload),
+        currentCityOffers,
+        sortedCityOffers: currentCityOffers,
         currentSortType: initialState.currentSortType,
       };
+    }
 
     case ActionType.CHANGE_ACTIVE_OFFER_ID:
       return {
@@ -62,25 +65,36 @@ const reducer = (state = initialState, action) => {
         sortedCityOffers: sortCityOffers(state.currentCityOffers, action.payload),
       };
 
-    case ActionType.SET_OFFERS:
+    case ActionType.SET_OFFERS: {
+      const currentCityOffers = action.payload.filter(({city}) => city.name === initialState.currentCity);
+
       return {
         ...state,
         offers: action.payload,
-        currentCityOffers: action.payload.filter(({city}) => city.name === initialState.currentCity),
-        sortedCityOffers: action.payload.filter(({city}) => city.name === initialState.currentCity),
+        currentCityOffers,
+        sortedCityOffers: currentCityOffers,
         isDataLoaded: true,
       };
+    }
 
-    case ActionType.REQUIRED_AUTHORIZATION:
+    case ActionType.REQUIRE_AUTHORIZATION:
       return {
         ...state,
         authorizationStatus: action.payload,
+      };
+
+    case ActionType.LOGIN:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userInfo: action.payload,
       };
 
     case ActionType.LOGOUT:
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
+        userInfo: initialState.userInfo,
       };
 
     default:

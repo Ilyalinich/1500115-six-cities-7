@@ -1,6 +1,7 @@
 import {ActionCreator} from './action';
-import {ApiRoute, AuthorizationStatus} from '../constant';
-import {adaptOfferToClient} from '../util/adapter';
+import {ApiRoute, AppRoute} from '../constant';
+import {adaptOfferToClient, adaptUserInfoToClient} from '../util/adapter';
+import browserHistory from '../browser-history';
 
 
 const loadOffers = () => (dispatch, _getState, api) => (
@@ -11,15 +12,23 @@ const loadOffers = () => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.LOGIN)
-    // .then((response) => console.log(response))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+  // .then(({data}) => {
+  //   localStorage.setItem('token', data.token);
+  //   dispatch(ActionCreator.login(adaptUserInfoToClient(data)));
+  // })
+  // .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );
 
-const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(ApiRoute.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+// нужен ли нам этот метод checkAuth? почему не сразу login
+
+const login = (authData) => (dispatch, _getState, api) => (
+  api.post(ApiRoute.LOGIN, authData)
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(ActionCreator.login(adaptUserInfoToClient(data)));
+    })
+    .then(() => browserHistory.push(AppRoute.ROOT))
 );
 
 const logout = () => (dispatch, _getState, api) => (
