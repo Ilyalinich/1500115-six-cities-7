@@ -12,15 +12,11 @@ const loadOffers = () => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.LOGIN)
-  // .then(({data}) => {
-  //   localStorage.setItem('token', data.token);
-  //   dispatch(ActionCreator.login(adaptUserInfoToClient(data)));
-  // })
-  // .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      dispatch(ActionCreator.login(adaptUserInfoToClient(data)));
+    })
     .catch(() => {})
 );
-
-// нужен ли нам этот метод checkAuth? почему не сразу login
 
 const login = (authData) => (dispatch, _getState, api) => (
   api.post(ApiRoute.LOGIN, authData)

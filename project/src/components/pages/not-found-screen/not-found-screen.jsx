@@ -16,7 +16,7 @@ function NotFoundScreen() {
               <div className="cities__status-wrapper tabs__content">
                 <b className="cities__status">404. Page not found</b>
                 <p className="cities__status-description">We could not find the page with the specified address</p>
-                <Link to={AppRoute.ROOT} className='form__submit'
+                <Link to={AppRoute.ROOT} className="form__submit"
                   style={{
                     marginTop: '30px',
                     display: 'inline-block',

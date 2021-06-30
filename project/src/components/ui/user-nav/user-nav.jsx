@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {AppRoute, AuthorizationStatus} from '../../../constant';
 import {Link} from 'react-router-dom';
-import {ActionCreator} from '../../../store/action';
+import {logout} from '../../../store/api-action';
 
 
-function UserNav({authorizationStatus, avatar, email, logout}) {
+function UserNav({authorizationStatus, avatar, email, onSignOutClick}) {
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
@@ -39,7 +39,7 @@ function UserNav({authorizationStatus, avatar, email, logout}) {
         {
           isUserAuthorized && (
             <li className="header__nav-item">
-              <Link className="header__nav-link" to="#" onClick={logout}>
+              <Link className="header__nav-link" to="#" onClick={onSignOutClick}>
                 <span className="header__signout">Sign out</span>
               </Link>
             </li>
@@ -55,7 +55,7 @@ UserNav.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   avatar: PropTypes.string,
   email: PropTypes.string,
-  logout: PropTypes.func.isRequired,
+  onSignOutClick: PropTypes.func.isRequired,
 };
 
 
@@ -66,8 +66,8 @@ const mapStateToProps = ({authorizationStatus, userInfo}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logout() {
-    dispatch(ActionCreator.logout());
+  onSignOutClick() {
+    dispatch(logout());
   },
 });
 

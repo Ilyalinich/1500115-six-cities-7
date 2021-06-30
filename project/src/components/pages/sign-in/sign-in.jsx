@@ -2,7 +2,6 @@ import React, {useRef} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-// import {AppRoute} from '../../../constant';
 import {login} from '../../../store/api-action';
 import Header from '../../ui/header/header';
 
@@ -10,7 +9,6 @@ import Header from '../../ui/header/header';
 function SignIn ({onSubmit}) {
   const emailRef = useRef();
   const passwordRef = useRef();
-  // const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -18,6 +16,18 @@ function SignIn ({onSubmit}) {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     });
+  };
+
+  const onPasswordInput = () => {
+    const password = passwordRef.current.value;
+    let validationMessage = '';
+
+    if (password && !Array.from(password).find((symbol) => symbol !== ' ')) {
+      validationMessage = 'Пароль не должен состоять только из пробелов';
+    }
+
+    passwordRef.current.setCustomValidity(validationMessage);
+    passwordRef.current.reportValidity();
   };
 
   return (
@@ -50,15 +60,14 @@ function SignIn ({onSubmit}) {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  // pattern=""
                   ref={passwordRef}
+                  onInput={onPasswordInput}
                   required
                 />
               </div>
               <button
                 className="login__submit form__submit button"
                 type="submit"
-                // onClick={() => history.push(AppRoute.ROOT)}
               >
                 Sign in
               </button>

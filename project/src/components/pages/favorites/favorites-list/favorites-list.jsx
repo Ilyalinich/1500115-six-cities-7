@@ -18,13 +18,16 @@ function FavoritesList({offers}) {
 
 
   return (
-    <ul className="favorites__list">
-      {
-        Object
-          .keys(offersMap)
-          .map((city) => <FavoritesLocations key={city} city={city} offers={offersMap[city]}/>)
-      }
-    </ul>
+    <section className="favorites">
+      <h1 className="favorites__title">Saved listing</h1>
+      <ul className="favorites__list">
+        {
+          Object
+            .keys(offersMap)
+            .map((city) => <FavoritesLocations key={city} city={city} offers={offersMap[city]}/>)
+        }
+      </ul>
+    </section>
   );
 }
 
