@@ -9,6 +9,8 @@ const ApiRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  REVIEWS: '/comments',
+  NEARBY: '/nearby',
 };
 
 const AuthorizationStatus = {

@@ -1,14 +1,8 @@
 import {ActionCreator} from './action';
 import {ApiRoute, AppRoute} from '../constant';
-import {adaptOfferToClient, adaptUserInfoToClient} from '../util/adapter';
+import {adaptOfferToClient, adaptUserInfoToClient, adaptReviewToClient} from '../util/adapter';
 import browserHistory from '../browser-history';
 
-
-const loadOffers = () => (dispatch, _getState, api) => (
-  api.get(ApiRoute.OFFERS)
-    .then(({data}) => data.map((offer) => adaptOfferToClient(offer)))
-    .then((offers) => dispatch(ActionCreator.setOffers(offers)))
-);
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.LOGIN)
@@ -33,5 +27,29 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
+const loadOffers = () => (dispatch, _getState, api) => (
+  api.get(ApiRoute.OFFERS)
+    .then(({data}) => data.map((offer) => adaptOfferToClient(offer)))
+    .then((offers) => dispatch(ActionCreator.setOffers(offers)))
+);
 
-export {loadOffers, checkAuth, login, logout};
+const loadOffer = (offerId) => (dispatch, _getState, api) => (
+  api.get(`${ApiRoute.OFFERS}/${offerId}`)
+    .then(({data}) => adaptOfferToClient(data))
+    .then((offer) => dispatch(ActionCreator.setOffer(offer)))
+);
+
+const loadReviews = (offerId) => (dispatch, _getState, api) => (
+  api.get(`${ApiRoute.REVIEWS}/${offerId}`)
+    .then(({data}) => data.map((review) => adaptReviewToClient(review)))
+    .then((reviews) => dispatch(ActionCreator.setReviews(reviews)))
+);
+
+const loadNeighboringOffers = (offerId) => (dispatch, _getState, api) => (
+  api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
+    .then(({data}) => data.map((offers) => adaptOfferToClient(offers)))
+    .then((offers) => dispatch(ActionCreator.setNeighboringOffers(offers)))
+);
+
+
+export {loadOffers, checkAuth, login, logout, loadOffer, loadReviews, loadNeighboringOffers};

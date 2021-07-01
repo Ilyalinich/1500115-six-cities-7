@@ -29,6 +29,45 @@ const initialState ={
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   userInfo: {},
+  roomPageData: {
+    isRoomPageDataLoaded: false,
+    currentOffer: {
+      id: 0,
+      description: '',
+      price: 0,
+      maxAdults: 0,
+      goods: [],
+      rating: 0,
+      title: '',
+      type: '',
+      bedrooms: 0,
+      isFavorite: false,
+      isPremium: false,
+      images: [],
+      previewImage: '',
+      city: {
+        location: {
+          latitude: 0,
+          longitude: 0,
+          zoom: 0,
+        },
+        name: '',
+      },
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 0,
+      },
+      host: {
+        avatarUrl: '',
+        id: 0,
+        isPro: true,
+        name: '',
+      },
+    },
+    reviews: [],
+    neighboringOffers: [],
+  },
 };
 
 
@@ -74,6 +113,38 @@ const reducer = (state = initialState, action) => {
         currentCityOffers,
         sortedCityOffers: currentCityOffers,
         isDataLoaded: true,
+      };
+    }
+
+    case ActionType.SET_OFFER: {
+      return {
+        ...state,
+        roomPageData: {
+          ...state.roomPageData,
+          currentOffer: action.payload,
+          isRoomPageDataLoaded: true,
+        },
+      };
+    }
+
+    case ActionType.SET_REVIEWS: {
+      return {
+        ...state,
+        roomPageData: {
+          ...state.roomPageData,
+          reviews: action.payload,
+          isRoomPageDataLoaded: true,
+        },
+      };
+    }
+
+    case ActionType.SET_NEIGHBORING_OFFERS: {
+      return {
+        ...state,
+        roomPageData: {
+          ...state.roomPageData,
+          neighboringOffers: action.payload,
+        },
       };
     }
 

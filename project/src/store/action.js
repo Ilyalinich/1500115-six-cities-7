@@ -4,6 +4,9 @@ const ActionType = {
   REST_ACTIVE_OFFER_ID: 'offerSelect/restActiveOfferId',
   CHANGE_SORT_TYPE: 'sort/changeSortType',
   SET_OFFERS: 'data/setOffers',
+  SET_OFFER: 'data/setOffer',
+  SET_REVIEWS: 'data/setReviews',
+  SET_NEIGHBORING_OFFERS: 'data/setNeighboringOffers',
   LOGIN: 'user/login',
   LOGOUT: 'user/logout',
 };
@@ -27,6 +30,18 @@ const ActionCreator = {
   }),
   setOffers: (offers) => ({
     type: ActionType.SET_OFFERS,
+    payload: offers,
+  }),
+  setOffer: (offer) => ({
+    type: ActionType.SET_OFFER,
+    payload: offer,
+  }),
+  setReviews: (reviews) => ({
+    type: ActionType.SET_REVIEWS,
+    payload: reviews,
+  }),
+  setNeighboringOffers: (offers) => ({
+    type: ActionType.SET_NEIGHBORING_OFFERS,
     payload: offers,
   }),
   login: (userInfo) => ({

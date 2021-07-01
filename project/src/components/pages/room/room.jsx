@@ -1,7 +1,8 @@
-import {PropertyTypesMap, SINGULAR_NUMBER} from '../../../constant';
+import {PropertyTypesMap, AuthorizationStatus, SINGULAR_NUMBER} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {offerFullProp} from '../../ui/offer/offer-prop';
 import {reviewProp} from '../room/review/review-prop';
 import Header from '../../ui/header/header';
@@ -10,31 +11,34 @@ import OfferGallery from './offer-gallery/offer-gallery';
 import ReviewsList from './reviews-list/reviews-list';
 import Map from '../../ui/map/map';
 import NeighboringList from './neighboring-list/neighboring-list';
+import LoadingScreen from '../../ui/loading-screen/loading-screen';
+import {loadOffer, loadReviews, loadNeighboringOffers} from '../../../store/api-action';
 
 
-const MAX_NEIGHBORING_OFFERS_COUNT = 3;
 const MAX_IMAGES_COUNT = 6;
 
 
-const getNeighboringOffers = (offers, currentOfferId) => {
-  const neighboringOffers = offers.filter(({id}) => id !== currentOfferId);
+function Room({match, authorizationStatus, isRoomPageDataLoaded, currentOffer, reviews, neighboringOffers, onInit}) {
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+  const offerId = match.params.id;
 
-  if (neighboringOffers.length > MAX_NEIGHBORING_OFFERS_COUNT) {
-    return neighboringOffers.slice(0, MAX_NEIGHBORING_OFFERS_COUNT);
+  useEffect(() => {
+    onInit(offerId);
+    // return () => ;
+  }, [onInit, offerId]);
+
+  if (!isRoomPageDataLoaded) {
+    return <LoadingScreen />;
   }
 
-  return neighboringOffers;
-};
+  // const [reviews, setReviews] = useState([]);
+  // const [neighboringOffers, setNeighboringOffers] = useState([]);
 
-
-function Room({offers, reviews, pageId}) {
-  const currentOffer = offers.find((offer) => offer.id.toString() === pageId);
-
-  const {id, description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images, location} = currentOffer;
-
+  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images, location} = currentOffer;
 
   const imagesToRender = images.length > MAX_IMAGES_COUNT ? images.slice(0, MAX_IMAGES_COUNT) : images;
   const ratingInPercents = getRatingInPercents(rating);
+
 
   return (
     <div className="page">
@@ -120,23 +124,20 @@ function Room({offers, reviews, pageId}) {
               </div>
               <section className="property__reviews reviews">
                 <ReviewsList reviews={reviews}/>
-                <ReviewsForm />
+                {isUserAuthorized && <ReviewsForm />}
               </section>
             </div>
           </div>
           <section className="property__map map">
             <Map
-              offers={offers}
-              activeOfferId={id}
-              initialPosition={location}
+              offers={[...neighboringOffers, currentOffer]}
+              activeOfferId={currentOffer.id}
+              initialPosition={currentOffer.location}
             />
           </section>
         </section>
         <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NeighboringList offers={getNeighboringOffers(offers, currentOffer.id)}/>
-          </section>
+          <NeighboringList offers={neighboringOffers}/>
         </div>
       </main>
     </div>
@@ -145,14 +146,43 @@ function Room({offers, reviews, pageId}) {
 
 
 Room.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
-  ),
+  match: PropTypes.shape({
+    isExact: PropTypes.bool.isRequired,
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+    path: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  }),
+  authorizationStatus: PropTypes.string.isRequired,
+  onInit: PropTypes.func.isRequired,
+  isRoomPageDataLoaded: PropTypes.bool.isRequired,
+  currentOffer: PropTypes.shape(offerFullProp),
   reviews: PropTypes.arrayOf(
     PropTypes.shape(reviewProp),
   ),
-  pageId: PropTypes.string.isRequired,
+  neighboringOffers: PropTypes.arrayOf(
+    PropTypes.shape(offerFullProp),
+  ),
 };
 
 
-export default Room;
+const mapStateToProps = ({authorizationStatus, roomPageData}) => ({
+  authorizationStatus,
+  isRoomPageDataLoaded: roomPageData.isRoomPageDataLoaded,
+  currentOffer: roomPageData.currentOffer,
+  reviews: roomPageData.reviews,
+  neighboringOffers: roomPageData.neighboringOffers,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onInit(currentOfferId) {
+    dispatch(loadOffer(currentOfferId));
+    dispatch(loadReviews(currentOfferId));
+    dispatch(loadNeighboringOffers(currentOfferId));
+  },
+});
+
+
+export {Room};
+export default connect(mapStateToProps, mapDispatchToProps)(Room);
