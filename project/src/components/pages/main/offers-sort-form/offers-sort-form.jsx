@@ -31,14 +31,14 @@ function OffersSortForm({currentSortType, changeSortType}) {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isOpened && 'places__options--opened'}`} ref={optionsListRef}>
+      <ul className={`places__options places__options--custom ${isOpened ? 'places__options--opened' : ''}`} ref={optionsListRef}>
         {
           Object
             .values(SortType)
             .map((sortType) => (
               <li
                 key={sortType}
-                className={`places__option ${sortType === currentSortType && 'places__option--active'}`}
+                className={`places__option ${sortType === currentSortType ? 'places__option--active' : ''}`}
                 tabIndex="0"
                 onClick={() => changeSortType(sortType)}
               >

@@ -9,7 +9,7 @@ function ContentBoard({offersCount}) {
   const isOffersListEmpty = offersCount === 0;
 
   return (
-    <main className={`page__main page__main--index ${isOffersListEmpty && 'page__main--index-empty'}`}>
+    <main className={`page__main page__main--index ${isOffersListEmpty ? 'page__main--index-empty' : ''}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <CitiesNavMenu />

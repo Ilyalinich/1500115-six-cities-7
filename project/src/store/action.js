@@ -6,6 +6,7 @@ const ActionType = {
   SET_OFFERS: 'data/setOffers',
   LOGIN: 'user/login',
   LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'redirect/redirectToRoute',
 };
 
 
@@ -35,6 +36,10 @@ const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
 
