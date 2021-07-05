@@ -1,10 +1,10 @@
 import {PropertyTypesMap, AuthorizationStatus, SINGULAR_NUMBER} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {offerFullProp} from '../../ui/offer/offer-prop';
-import {reviewProp} from '../room/review/review-prop';
+// import {offerFullProp} from '../../ui/offer/offer-prop';
+// import {reviewProp} from '../room/review/review-prop';
 import Header from '../../ui/header/header';
 import ReviewsForm from './reviews-form/reviews-form';
 import OfferGallery from './offer-gallery/offer-gallery';
@@ -12,29 +12,37 @@ import ReviewsList from './reviews-list/reviews-list';
 import Map from '../../ui/map/map';
 import NeighboringList from './neighboring-list/neighboring-list';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
-import {loadOffer, loadReviews, loadNeighboringOffers} from '../../../store/api-action';
+import {loadRoomPageData} from '../../../store/api-action';
 
 
 const MAX_IMAGES_COUNT = 6;
 
 
-function Room({match, authorizationStatus, isRoomPageDataLoaded, currentOffer, reviews, neighboringOffers, onInit}) {
-  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+function Room({match, authorizationStatus, onInit}) {
+  const [pageData, setPageData] = useState(
+    {
+      currentOffer: {},
+      neighboringOffers: [],
+    },
+  );
+
+  const {currentOffer, neighboringOffers} = pageData;
+
   const offerId = match.params.id;
 
   useEffect(() => {
-    onInit(offerId);
+    onInit(offerId, setPageData);
+
     // return () => ;
   }, [onInit, offerId]);
 
-  if (!isRoomPageDataLoaded) {
+  if (Object.keys(currentOffer).length === 0) {
     return <LoadingScreen />;
   }
 
-  // const [reviews, setReviews] = useState([]);
-  // const [neighboringOffers, setNeighboringOffers] = useState([]);
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
-  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images, location} = currentOffer;
+  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images} = pageData.currentOffer;
 
   const imagesToRender = images.length > MAX_IMAGES_COUNT ? images.slice(0, MAX_IMAGES_COUNT) : images;
   const ratingInPercents = getRatingInPercents(rating);
@@ -123,8 +131,8 @@ function Room({match, authorizationStatus, isRoomPageDataLoaded, currentOffer, r
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList reviews={reviews}/>
-                {isUserAuthorized && <ReviewsForm />}
+                <ReviewsList offerId={offerId}/>
+                {isUserAuthorized && <ReviewsForm offerId={offerId}/>}
               </section>
             </div>
           </div>
@@ -156,30 +164,30 @@ Room.propTypes = {
   }),
   authorizationStatus: PropTypes.string.isRequired,
   onInit: PropTypes.func.isRequired,
-  isRoomPageDataLoaded: PropTypes.bool.isRequired,
-  currentOffer: PropTypes.shape(offerFullProp),
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape(reviewProp),
-  ),
-  neighboringOffers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
-  ),
+  // isRoomPageDataLoaded: PropTypes.bool.isRequired,
+  // currentOffer: PropTypes.shape(offerFullProp),
+  // reviews: PropTypes.arrayOf(
+  //   PropTypes.shape(reviewProp),
+  // ),
+  // neighboringOffers: PropTypes.arrayOf(
+  //   PropTypes.shape(offerFullProp),
+  // ),
 };
 
 
-const mapStateToProps = ({authorizationStatus, roomPageData}) => ({
+const mapStateToProps = ({authorizationStatus}) => ({
   authorizationStatus,
-  isRoomPageDataLoaded: roomPageData.isRoomPageDataLoaded,
-  currentOffer: roomPageData.currentOffer,
-  reviews: roomPageData.reviews,
-  neighboringOffers: roomPageData.neighboringOffers,
+  // isRoomPageDataLoaded: roomPageData.isRoomPageDataLoaded,
+  // currentOffer: roomPageData.currentOffer,
+  // reviews: roomPageData.reviews,
+  // neighboringOffers: roomPageData.neighboringOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onInit(currentOfferId) {
-    dispatch(loadOffer(currentOfferId));
-    dispatch(loadReviews(currentOfferId));
-    dispatch(loadNeighboringOffers(currentOfferId));
+  onInit(currentOfferId, updateInnerState) {
+    dispatch(loadRoomPageData(currentOfferId, updateInnerState));
+    // dispatch(loadReviews(currentOfferId));
+    // dispatch(loadNeighboringOffers(currentOfferId));
   },
 });
 

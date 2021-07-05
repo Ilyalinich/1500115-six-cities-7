@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {reviewProp} from '../review/review-prop';
 import Review from '../review/review';
 import {compareDate} from '../../../../util/day-js';
+import ReviewsLoadingScreen from '../reviews-loading-screen/reviews-loading-screen';
+import {loadReviews} from '../../../../store/api-action';
 
 
 const REVIEWS_MAX_COUNT = 10;
@@ -19,7 +22,32 @@ const getSortedReviews = (reviews) => {
   return sortedReviews;
 };
 
-function ReviewsList({reviews}) {
+
+function ReviewsList({isReviewsLoaded, reviews, offerId, onInit}) {
+  const [isNeedErrorMessage, setIsNeedErrorMessage] = useState(false);
+
+  const loadFailAction = () => {
+    setIsNeedErrorMessage(true);
+  };
+
+  useEffect(() => {
+    onInit(offerId, loadFailAction);
+
+    // return () => ;
+  }, [onInit, offerId]);
+
+  if (!isReviewsLoaded) {
+    return <ReviewsLoadingScreen />;
+  }
+
+  if (isNeedErrorMessage) {
+    return (
+      <span style={{color: 'red'}}>
+        Reviews loading error, please try again later...
+      </span>
+    );
+  }
+
   const sortedReviews = getSortedReviews(reviews);
 
   return (
@@ -41,10 +69,25 @@ function ReviewsList({reviews}) {
 
 
 ReviewsList.propTypes = {
+  isReviewsLoaded: PropTypes.bool.isRequired,
   reviews: PropTypes.arrayOf(
     PropTypes.shape(reviewProp),
   ),
+  onInit: PropTypes.func.isRequired,
+  offerId: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = ({isReviewsLoaded, reviews}) => ({
+  isReviewsLoaded,
+  reviews,
+});
 
-export default ReviewsList;
+const mapDispatchToProps = (dispatch) => ({
+  onInit(offerId, loadFailAction) {
+    dispatch(loadReviews(offerId, loadFailAction));
+  },
+});
+
+
+export {ReviewsList};
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsList);

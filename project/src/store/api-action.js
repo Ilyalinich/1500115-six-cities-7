@@ -33,23 +33,44 @@ const loadOffers = () => (dispatch, _getState, api) => (
     .then((offers) => dispatch(ActionCreator.setOffers(offers)))
 );
 
-const loadOffer = (offerId) => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.OFFERS}/${offerId}`)
-    .then(({data}) => adaptOfferToClient(data))
-    .then((offer) => dispatch(ActionCreator.setOffer(offer)))
+const loadRoomPageData = (offerId, updateInnerState) => (dispatch, _getState, api) => (
+  Promise.all(
+    [
+      api.get(`${ApiRoute.OFFERS}/${offerId}`)
+        .then(({data}) => adaptOfferToClient(data)),
+      api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
+        .then(({data}) => data.map((offers) => adaptOfferToClient(offers))),
+    ],
+  )
+    .then(([currentOffer, neighboringOffers]) => updateInnerState({currentOffer, neighboringOffers}))
 );
 
-const loadReviews = (offerId) => (dispatch, _getState, api) => (
+const loadReviews = (offerId, onFail) => (dispatch, _getState, api) => (
   api.get(`${ApiRoute.REVIEWS}/${offerId}`)
     .then(({data}) => data.map((review) => adaptReviewToClient(review)))
     .then((reviews) => dispatch(ActionCreator.setReviews(reviews)))
+    .catch(() => onFail())
 );
 
-const loadNeighboringOffers = (offerId) => (dispatch, _getState, api) => (
-  api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
-    .then(({data}) => data.map((offers) => adaptOfferToClient(offers)))
-    .then((offers) => dispatch(ActionCreator.setNeighboringOffers(offers)))
+const postReview = (offerId, newReview, onSuccess, onFail) => (dispatch, _getState, api) => (
+  api.post(`${ApiRoute.REVIEWS}/${offerId}`, newReview)
+    .then(({data}) => data.map((review) => adaptReviewToClient(review)))
+    .then((reviews) => dispatch(ActionCreator.setReviews(reviews)))
+    .then(() => onSuccess())
+    .catch(() => onFail())
 );
 
+// const loadOffer = (offerId, updateInnerState) => (dispatch, _getState, api) => (
+//   api.get(`${ApiRoute.OFFERS}/${offerId}`)
+//     .then(({data}) => adaptOfferToClient(data))
+//     .then((offer) => updateInnerState(offer))
+// );
 
-export {loadOffers, checkAuth, login, logout, loadOffer, loadReviews, loadNeighboringOffers};
+// const loadNeighboringOffers = (offerId) => (dispatch, _getState, api) => (
+//   api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
+//     .then(({data}) => data.map((offers) => adaptOfferToClient(offers)))
+//     .then((offers) => dispatch(ActionCreator.setNeighboringOffers(offers)))
+// );
+
+
+export {loadOffers, checkAuth, login, logout, loadReviews, loadRoomPageData, postReview};
