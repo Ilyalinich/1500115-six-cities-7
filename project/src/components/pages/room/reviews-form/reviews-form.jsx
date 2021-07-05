@@ -38,16 +38,18 @@ function ReviewsForm({authorizationStatus, offerId, sendReview}) {
 
   const isStateValid = rating && comment.length > CommentLength.MIN && comment.length < CommentLength.MAX;
 
-  const sendSuccessAction = () => {
+  const onSendSuccess = () => {
     setIsBlocked(false);
     setRatingValue('');
     setComment('');
   };
 
-  const sendFailAction = () => {
+  const onSendFail = () => {
     setIsNeedErrorMessage(true);
-    setTimeout(() => setIsNeedErrorMessage(false), ERROR_MESSAGE_SHOW_TIME);
-    setIsBlocked(false);
+    setTimeout(() => {
+      setIsNeedErrorMessage(false);
+      setIsBlocked(false);
+    }, ERROR_MESSAGE_SHOW_TIME);
   };
 
   const handleSubmit = (evt) => {
@@ -60,8 +62,8 @@ function ReviewsForm({authorizationStatus, offerId, sendReview}) {
         comment,
         rating,
       },
-      sendSuccessAction,
-      sendFailAction,
+      onSendSuccess,
+      onSendFail,
     );
   };
 

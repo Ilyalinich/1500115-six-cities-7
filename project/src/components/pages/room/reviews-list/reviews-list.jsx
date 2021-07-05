@@ -10,7 +10,7 @@ import {loadReviews} from '../../../../store/api-action';
 
 const REVIEWS_MAX_COUNT = 10;
 
-const getSortedReviews = (reviews) => {
+const sortReviews = (reviews) => {
   const sortedReviews = reviews
     .slice()
     .sort((prevReview, nextReview) => compareDate(nextReview.date, prevReview.date));
@@ -36,10 +36,6 @@ function ReviewsList({isReviewsLoaded, reviews, offerId, onInit}) {
     // return () => ;
   }, [onInit, offerId]);
 
-  if (!isReviewsLoaded) {
-    return <ReviewsLoadingScreen />;
-  }
-
   if (isNeedErrorMessage) {
     return (
       <span style={{color: 'red'}}>
@@ -48,7 +44,11 @@ function ReviewsList({isReviewsLoaded, reviews, offerId, onInit}) {
     );
   }
 
-  const sortedReviews = getSortedReviews(reviews);
+  if (!isReviewsLoaded) {
+    return <ReviewsLoadingScreen />;
+  }
+
+  const sortedReviews = sortReviews(reviews);
 
   return (
     <>
