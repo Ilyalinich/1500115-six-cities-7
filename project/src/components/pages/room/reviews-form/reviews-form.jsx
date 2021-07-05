@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import RatingChanger from '../rating-changer/rating-changer';
 import {connect} from 'react-redux';
+import {AuthorizationStatus} from '../../../../constant';
 import {postReview} from '../../../../store/api-action';
 import HelpMessage from './help-message/help-message';
 import PostErrorMessage from './post-error-message/post-error-message';
@@ -23,11 +24,17 @@ const RatingValuesMap = {
 };
 
 
-function ReviewsForm({offerId, sendReview}) {
+function ReviewsForm({authorizationStatus, offerId, sendReview}) {
   const [rating, setRatingValue] = useState('');
   const [comment, setComment] = useState('');
   const [isBlocked, setIsBlocked] = useState(false);
   const [isNeedErrorMessage, setIsNeedErrorMessage] = useState(false);
+
+  const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  if (!isUserAuthorized) {
+    return '';
+  }
 
   const isStateValid = rating && comment.length > CommentLength.MIN && comment.length < CommentLength.MAX;
 
@@ -105,7 +112,12 @@ function ReviewsForm({offerId, sendReview}) {
 ReviewsForm.propTypes = {
   sendReview: PropTypes.func.isRequired,
   offerId: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = ({authorizationStatus}) => ({
+  authorizationStatus,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   sendReview(offerId, newReview, onSuccess, onFail) {
@@ -115,4 +127,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 export {ReviewsForm};
-export default connect(null, mapDispatchToProps)(ReviewsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);

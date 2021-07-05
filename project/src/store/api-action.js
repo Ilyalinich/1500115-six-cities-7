@@ -38,8 +38,9 @@ const loadRoomPageData = (offerId, updateInnerState) => (dispatch, _getState, ap
     [
       api.get(`${ApiRoute.OFFERS}/${offerId}`)
         .then(({data}) => adaptOfferToClient(data)),
-      api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
-        .then(({data}) => data.map((offers) => adaptOfferToClient(offers))),
+      api.get(`${ApiRoute.OFFERS}/${offerId}/k`)
+        .then(({data}) => data.map((offers) => adaptOfferToClient(offers)))
+        .catch(() => {}),
     ],
   )
     .then(([currentOffer, neighboringOffers]) => updateInnerState({currentOffer, neighboringOffers}))

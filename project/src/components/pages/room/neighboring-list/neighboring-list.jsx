@@ -10,19 +10,23 @@ function NeighboringList({offers}) {
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
         {
-          offers.map((offer) => (
-            <NeighboringOffer
-              key={offer.id.toString()}
-              id={offer.id}
-              price={offer.price}
-              rating={offer.rating}
-              title={offer.title}
-              type={offer.type}
-              previewImage={offer.previewImage}
-              isFavorite={offer.isFavorite}
-              isPremium={offer.isPremium}
-            />
-          ))
+          offers
+            ? (
+              offers.map((offer) => (
+                <NeighboringOffer
+                  key={offer.id.toString()}
+                  id={offer.id}
+                  price={offer.price}
+                  rating={offer.rating}
+                  title={offer.title}
+                  type={offer.type}
+                  previewImage={offer.previewImage}
+                  isFavorite={offer.isFavorite}
+                  isPremium={offer.isPremium}
+                />
+              ))
+            )
+            : <span style={{color: 'red'}}>Other places loading error, please try again later...</span>
         }
       </div>
     </section>
