@@ -4,6 +4,9 @@ const ActionType = {
   REST_ACTIVE_OFFER_ID: 'offerSelect/restActiveOfferId',
   CHANGE_SORT_TYPE: 'sort/changeSortType',
   SET_OFFERS: 'data/setOffers',
+  LOGIN: 'user/login',
+  LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'redirect/redirectToRoute',
 };
 
 
@@ -26,6 +29,17 @@ const ActionCreator = {
   setOffers: (offers) => ({
     type: ActionType.SET_OFFERS,
     payload: offers,
+  }),
+  login: (userInfo) => ({
+    type: ActionType.LOGIN,
+    payload: userInfo,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
 

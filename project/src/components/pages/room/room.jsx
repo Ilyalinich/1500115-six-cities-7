@@ -1,10 +1,10 @@
-import {PropertyTypesMap, AppRoute, SINGULAR_NUMBER} from '../../../constant';
+import {PropertyTypesMap, SINGULAR_NUMBER} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {offerFullProp} from '../../ui/offer/offer-prop';
 import {reviewProp} from '../room/review/review-prop';
-import {Link} from 'react-router-dom';
+import Header from '../../ui/header/header';
 import ReviewsForm from './reviews-form/reviews-form';
 import OfferGallery from './offer-gallery/offer-gallery';
 import ReviewsList from './reviews-list/reviews-list';
@@ -38,34 +38,7 @@ function Room({offers, reviews, pageId}) {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to="#">
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
