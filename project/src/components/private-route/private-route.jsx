@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {AuthorizationStatus} from '../../constant';
+import {AppRoute, AuthorizationStatus} from '../../constant';
 
 
-function PrivateRoute({renderIfAuth, renderIfNoAuth, path, exact, authorizationStatus}) {
+function PrivateRoute({render, path, exact, authorizationStatus}) {
   return (
     <Route
       path={path}
       exact={exact}
       render={(routeProps) => (
         authorizationStatus === AuthorizationStatus.AUTH
-          ? renderIfAuth(routeProps)
-          : renderIfNoAuth(routeProps)
+          ? render(routeProps)
+          : <Redirect to={AppRoute.LOGIN} />
       )}
     />
   );
@@ -23,8 +23,7 @@ PrivateRoute.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
-  renderIfAuth: PropTypes.func.isRequired,
-  renderIfNoAuth: PropTypes.func.isRequired,
+  render: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({authorizationStatus}) => ({

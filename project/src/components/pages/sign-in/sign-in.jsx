@@ -75,7 +75,11 @@ function SignIn ({onSubmit}) {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="#">
+              <Link
+                className="locations__item-link"
+                to="#"
+                style={{cursor: 'default'}}
+              >
                 <span>Amsterdam</span>
               </Link>
             </div>

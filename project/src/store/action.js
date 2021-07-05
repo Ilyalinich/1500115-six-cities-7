@@ -9,6 +9,7 @@ const ActionType = {
   SET_NEIGHBORING_OFFERS: 'data/setNeighboringOffers',
   LOGIN: 'user/login',
   LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'redirect/redirectToRoute',
 };
 
 
@@ -50,6 +51,10 @@ const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
 

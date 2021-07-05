@@ -13,7 +13,7 @@ function ContentContainer({offersCount}) {
 
   return (
     <div className="cities">
-      <div className={`cities__places-container ${isOffersListEmpty && 'cities__places-container--empty'} container`}>
+      <div className={`cities__places-container ${isOffersListEmpty ? 'cities__places-container--empty': ''} container`}>
         <section className={isOffersListEmpty ? 'cities__no-places' : 'cities__places places'}>
           {
             isOffersListEmpty

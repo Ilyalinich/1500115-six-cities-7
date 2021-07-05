@@ -1,7 +1,6 @@
 import {ActionCreator} from './action';
 import {ApiRoute, AppRoute} from '../constant';
 import {adaptOfferToClient, adaptUserInfoToClient, adaptReviewToClient} from '../util/adapter';
-import browserHistory from '../browser-history';
 
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -18,7 +17,7 @@ const login = (authData) => (dispatch, _getState, api) => (
       localStorage.setItem('token', data.token);
       dispatch(ActionCreator.login(adaptUserInfoToClient(data)));
     })
-    .then(() => browserHistory.push(AppRoute.ROOT))
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );
 
 const logout = () => (dispatch, _getState, api) => (
