@@ -3,6 +3,7 @@ const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer',
+  NOT_FOUND: '/not found',
 };
 
 const ApiRoute = {

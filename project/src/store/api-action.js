@@ -36,7 +36,8 @@ const loadRoomPageData = (offerId, updateInnerState) => (dispatch, _getState, ap
   Promise.all(
     [
       api.get(`${ApiRoute.OFFERS}/${offerId}`)
-        .then(({data}) => adaptOfferToClient(data)),
+        .then(({data}) => adaptOfferToClient(data))
+        .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND))),
       api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
         .then(({data}) => data.map((offers) => adaptOfferToClient(offers)))
         .catch(() => {}),
@@ -59,18 +60,6 @@ const postReview = (offerId, newReview, onSuccess, onFail) => (dispatch, _getSta
     .then(() => onSuccess())
     .catch(() => onFail())
 );
-
-// const loadOffer = (offerId, updateInnerState) => (dispatch, _getState, api) => (
-//   api.get(`${ApiRoute.OFFERS}/${offerId}`)
-//     .then(({data}) => adaptOfferToClient(data))
-//     .then((offer) => updateInnerState(offer))
-// );
-
-// const loadNeighboringOffers = (offerId) => (dispatch, _getState, api) => (
-//   api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
-//     .then(({data}) => data.map((offers) => adaptOfferToClient(offers)))
-//     .then((offers) => dispatch(ActionCreator.setNeighboringOffers(offers)))
-// );
 
 
 export {loadOffers, checkAuth, login, logout, loadReviews, loadRoomPageData, postReview};

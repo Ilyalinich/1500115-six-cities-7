@@ -33,18 +33,18 @@ const ActionCreator = {
     type: ActionType.SET_OFFERS,
     payload: offers,
   }),
-  setOffer: (offer) => ({
-    type: ActionType.SET_OFFER,
-    payload: offer,
-  }),
   setReviews: (reviews) => ({
     type: ActionType.SET_REVIEWS,
     payload: reviews,
   }),
-  setNeighboringOffers: (offers) => ({
-    type: ActionType.SET_NEIGHBORING_OFFERS,
-    payload: offers,
-  }),
+  // setOffer: (offer) => ({
+  //   type: ActionType.SET_OFFER,
+  //   payload: offer,
+  // }),
+  // setNeighboringOffers: (offers) => ({
+  //   type: ActionType.SET_NEIGHBORING_OFFERS,
+  //   payload: offers,
+  // }),
   login: (userInfo) => ({
     type: ActionType.LOGIN,
     payload: userInfo,

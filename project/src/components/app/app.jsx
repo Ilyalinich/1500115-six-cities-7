@@ -37,6 +37,7 @@ function App({authorizationStatus, isDataLoaded}) {
         />
         <Route exact path={`${AppRoute.OFFER}/:id`} component={Room} />
         <PrivateRoute exact path={AppRoute.FAVORITES} render={() => <Favorites />} />
+        <Route exact path={`${AppRoute.NOT_FOUND}`} component={NotFoundScreen} />
         <Route component={NotFoundScreen} />
       </Switch>
     </BrowserRouter>

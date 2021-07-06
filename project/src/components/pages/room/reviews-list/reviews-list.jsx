@@ -33,7 +33,6 @@ function ReviewsList({isReviewsLoaded, reviews, offerId, onInit}) {
   useEffect(() => {
     onInit(offerId, loadFailAction);
 
-    // return () => ;
   }, [onInit, offerId]);
 
   if (isNeedErrorMessage) {

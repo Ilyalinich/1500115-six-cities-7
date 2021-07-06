@@ -10,6 +10,7 @@ function SignIn ({onSubmit}) {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit({
@@ -18,16 +19,20 @@ function SignIn ({onSubmit}) {
     });
   };
 
+  // const checkEmailValid = () => {
+  //   emailRef.current.setCustomValidity('Заполните адрес электронной почты в соответствии с указанным примером. Пример корректного адреса: info@wikipedia.org');
+  // };
+
   const onPasswordInput = () => {
-    const password = passwordRef.current.value;
+    const passwordInput = passwordRef.current;
     let validationMessage = '';
 
-    if (password && !Array.from(password).find((symbol) => symbol !== ' ')) {
+    if (passwordInput.value && !Array.from(passwordInput.value).find((symbol) => symbol !== ' ')) {
       validationMessage = 'Пароль не должен состоять только из пробелов';
     }
 
-    passwordRef.current.setCustomValidity(validationMessage);
-    passwordRef.current.reportValidity();
+    passwordInput.setCustomValidity(validationMessage);
+    passwordInput.reportValidity();
   };
 
   return (
@@ -51,6 +56,8 @@ function SignIn ({onSubmit}) {
                   placeholder="Email"
                   ref={emailRef}
                   required
+                  // onInvalid={checkEmailValid}
+                  pattern="([A-Za-z0-9_.-]{1,})@([A-Za-z0-9_.-]{1,}\.)([A-Za-z]{2,8})"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
