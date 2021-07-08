@@ -3,22 +3,19 @@ import {getRatingInPercents} from '../../../util/common';
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-// import {offerFullProp} from '../../ui/offer/offer-prop';
-// import {reviewProp} from '../room/review/review-prop';
 import Header from '../../ui/header/header';
-import ReviewsForm from './reviews-form/reviews-form';
 import OfferGallery from './offer-gallery/offer-gallery';
-import ReviewsList from './reviews-list/reviews-list';
+import ReviewsBoard from './reviews-board/reviews-board';
 import Map from '../../ui/map/map';
 import NeighboringList from './neighboring-list/neighboring-list';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
-import {loadRoomPageData} from '../../../store/api-action';
+import {getRoomPageData} from '../../../store/api-action';
 
 
 const MAX_IMAGES_COUNT = 6;
 
 
-function Room({match, onInit}) {
+function Room({match, loadPageData}) {
   const [pageData, setPageData] = useState(
     {
       currentOffer: {},
@@ -27,21 +24,26 @@ function Room({match, onInit}) {
   );
 
   const {currentOffer, neighboringOffers} = pageData;
-
   const offerId = match.params.id;
 
-  useEffect(() => {
-    onInit(offerId, setPageData);
 
-    // return () => ;
-  }, [onInit, offerId]);
+  useEffect(() => {
+    loadPageData(offerId)
+      .then(([offer, offers]) => setPageData(
+        {
+          currentOffer: offer,
+          neighboringOffers: offers,
+        },
+      ));
+  }, [loadPageData, offerId]);
+
 
   if (Object.keys(currentOffer).length === 0) {
     return <LoadingScreen />;
   }
 
-  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images} = pageData.currentOffer;
 
+  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images} = pageData.currentOffer;
   const imagesToRender = images.length > MAX_IMAGES_COUNT ? images.slice(0, MAX_IMAGES_COUNT) : images;
   const ratingInPercents = getRatingInPercents(rating);
 
@@ -65,7 +67,7 @@ function Room({match, onInit}) {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`${isFavorite && 'property__bookmark-button--active'} property__bookmark-button button`} type="button">
+                <button className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -110,7 +112,7 @@ function Room({match, onInit}) {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ${host.isPro && 'property__avatar-wrapper--pro'} user__avatar-wrapper`}>
+                  <div className={`property__avatar-wrapper ${host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
                     <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
@@ -128,10 +130,7 @@ function Room({match, onInit}) {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <ReviewsList offerId={offerId}/>
-                <ReviewsForm offerId={offerId}/>
-              </section>
+              <ReviewsBoard offerId={offerId}/>
             </div>
           </div>
           <section className="property__map map">
@@ -162,13 +161,13 @@ Room.propTypes = {
     path: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
   }),
-  onInit: PropTypes.func.isRequired,
+  loadPageData: PropTypes.func.isRequired,
 };
 
 
 const mapDispatchToProps = (dispatch) => ({
-  onInit(currentOfferId, updateInnerState) {
-    dispatch(loadRoomPageData(currentOfferId, updateInnerState));
+  loadPageData(currentOfferId) {
+    return dispatch(getRoomPageData(currentOfferId));
   },
 });
 

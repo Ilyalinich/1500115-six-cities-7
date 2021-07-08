@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {reviewProp} from '../review/review-prop';
 import Review from '../review/review';
 import {compareDate} from '../../../../util/day-js';
 import ReviewsLoadingScreen from '../reviews-loading-screen/reviews-loading-screen';
-import {loadReviews} from '../../../../store/api-action';
+import {getReviews} from '../../../../store/api-action';
 
 
 const REVIEWS_MAX_COUNT = 10;
@@ -23,31 +22,58 @@ const sortReviews = (reviews) => {
 };
 
 
-function ReviewsList({isReviewsLoaded, reviews, offerId, onInit}) {
-  const [isNeedErrorMessage, setIsNeedErrorMessage] = useState(false);
+function ReviewsList({offerId, loadReviews}) {
+  const [state, setState] = useState(
+    {
+      isLoading: true,
+      reviews: [],
+    },
+  );
 
-  const loadFailAction = () => {
-    setIsNeedErrorMessage(true);
-  };
+  const {isLoading, reviews} = state;
+
 
   useEffect(() => {
-    onInit(offerId, loadFailAction);
+    loadReviews(offerId)
+      .then((reviewsList) => setState(
+        {
+          isLoading: false,
+          reviews: reviewsList,
+        },
+      ))
+      .catch(() => setState(
+        {
+          isLoading: false,
+          reviews: null,
+        },
+      ));
 
-  }, [onInit, offerId]);
+  }, [loadReviews, offerId]);
 
-  if (isNeedErrorMessage) {
+
+  if (!reviews) {
     return (
-      <span style={{color: 'red'}}>
+      <p
+        style={
+          {
+            color: 'red',
+            marginBottom: '50px',
+            textAlign: 'center',
+          }
+        }
+      >
         Reviews loading error, please try again later...
-      </span>
+      </p>
     );
   }
 
-  if (!isReviewsLoaded) {
+
+  if (isLoading) {
     return <ReviewsLoadingScreen />;
   }
 
   const sortedReviews = sortReviews(reviews);
+
 
   return (
     <>
@@ -68,25 +94,17 @@ function ReviewsList({isReviewsLoaded, reviews, offerId, onInit}) {
 
 
 ReviewsList.propTypes = {
-  isReviewsLoaded: PropTypes.bool.isRequired,
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape(reviewProp),
-  ),
-  onInit: PropTypes.func.isRequired,
+  loadReviews: PropTypes.func.isRequired,
   offerId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({isReviewsLoaded, reviews}) => ({
-  isReviewsLoaded,
-  reviews,
-});
 
 const mapDispatchToProps = (dispatch) => ({
-  onInit(offerId, loadFailAction) {
-    dispatch(loadReviews(offerId, loadFailAction));
+  loadReviews(offerId) {
+    return dispatch(getReviews(offerId));
   },
 });
 
 
 export {ReviewsList};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsList);
+export default connect(null, mapDispatchToProps)(ReviewsList);

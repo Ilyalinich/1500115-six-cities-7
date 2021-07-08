@@ -122,8 +122,8 @@ const mapStateToProps = ({authorizationStatus}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendReview(offerId, newReview, onSuccess, onFail) {
-    dispatch(postReview(offerId, newReview, onSuccess, onFail));
+  sendReview(offerId, newReview) {
+    dispatch(postReview(offerId, newReview));
   },
 });
 
