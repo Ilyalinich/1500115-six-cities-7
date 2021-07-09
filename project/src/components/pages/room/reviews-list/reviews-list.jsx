@@ -1,13 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {reviewProp} from '../../room/review/review-prop';
 import Review from '../review/review';
 import {compareDate} from '../../../../util/day-js';
-import ReviewsLoadingScreen from '../reviews-loading-screen/reviews-loading-screen';
-import {getReviews} from '../../../../store/api-action';
 
 
 const REVIEWS_MAX_COUNT = 10;
+
 
 const sortReviews = (reviews) => {
   const sortedReviews = reviews
@@ -22,36 +21,8 @@ const sortReviews = (reviews) => {
 };
 
 
-function ReviewsList({offerId, loadReviews}) {
-  const [state, setState] = useState(
-    {
-      isLoading: true,
-      reviews: [],
-    },
-  );
-
-  const {isLoading, reviews} = state;
-
-
-  useEffect(() => {
-    loadReviews(offerId)
-      .then((reviewsList) => setState(
-        {
-          isLoading: false,
-          reviews: reviewsList,
-        },
-      ))
-      .catch(() => setState(
-        {
-          isLoading: false,
-          reviews: null,
-        },
-      ));
-
-  }, [loadReviews, offerId]);
-
-
-  if (!reviews) {
+function ReviewsList({reviews, isLoadingError}) {
+  if (isLoadingError) {
     return (
       <p
         style={
@@ -68,12 +39,7 @@ function ReviewsList({offerId, loadReviews}) {
   }
 
 
-  if (isLoading) {
-    return <ReviewsLoadingScreen />;
-  }
-
   const sortedReviews = sortReviews(reviews);
-
 
   return (
     <>
@@ -94,17 +60,11 @@ function ReviewsList({offerId, loadReviews}) {
 
 
 ReviewsList.propTypes = {
-  loadReviews: PropTypes.func.isRequired,
-  offerId: PropTypes.string.isRequired,
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape(reviewProp),
+  ),
+  isLoadingError: PropTypes.bool.isRequired,
 };
 
 
-const mapDispatchToProps = (dispatch) => ({
-  loadReviews(offerId) {
-    return dispatch(getReviews(offerId));
-  },
-});
-
-
-export {ReviewsList};
-export default connect(null, mapDispatchToProps)(ReviewsList);
+export default ReviewsList;

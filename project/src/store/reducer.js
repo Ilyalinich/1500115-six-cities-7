@@ -29,8 +29,6 @@ const initialState ={
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   userInfo: {},
-  // reviews: [],
-  // isReviewsLoaded: false,
 };
 
 
@@ -78,14 +76,6 @@ const reducer = (state = initialState, action) => {
         isDataLoaded: true,
       };
     }
-
-    // case ActionType.SET_REVIEWS: {
-    //   return {
-    //     ...state,
-    //     reviews: action.payload,
-    //     isReviewsLoaded: true,
-    //   };
-    // }
 
     case ActionType.LOGIN:
       return {

@@ -24,11 +24,17 @@ const RatingValuesMap = {
 };
 
 
-function ReviewsForm({authorizationStatus, offerId, sendReview}) {
-  const [rating, setRatingValue] = useState('');
-  const [comment, setComment] = useState('');
-  const [isBlocked, setIsBlocked] = useState(false);
-  const [isNeedErrorMessage, setIsNeedErrorMessage] = useState(false);
+function ReviewsForm({authorizationStatus, offerId, sendReview, updateReviewsList}) {
+  const initialState = {
+    rating: '',
+    comment: '',
+    isBlocked: false,
+    isNeedErrorMessage: false,
+  };
+
+  const [state, setState] = useState(initialState);
+  const {rating, comment, isBlocked, isNeedErrorMessage} = state;
+
 
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
@@ -36,35 +42,43 @@ function ReviewsForm({authorizationStatus, offerId, sendReview}) {
     return '';
   }
 
+
   const isStateValid = rating && comment.length > CommentLength.MIN && comment.length < CommentLength.MAX;
 
-  const onSendSuccess = () => {
-    setIsBlocked(false);
-    setRatingValue('');
-    setComment('');
-  };
+  const onSendSuccess = () => setState(initialState);
 
   const onSendFail = () => {
-    setIsNeedErrorMessage(true);
+    setState((prevState) => ({
+      ...prevState,
+      isNeedErrorMessage: true,
+    }));
+
     setTimeout(() => {
-      setIsNeedErrorMessage(false);
-      setIsBlocked(false);
+      setState((prevState) => ({
+        ...prevState,
+        isNeedErrorMessage: false,
+        isBlocked: false,
+      }));
     }, ERROR_MESSAGE_SHOW_TIME);
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    setIsBlocked(true);
-    sendReview(
-      offerId,
-      {
-        comment,
-        rating,
-      },
-      onSendSuccess,
-      onSendFail,
-    );
+    const newReview = {
+      comment,
+      rating,
+    };
+
+    setState((prevState) => ({
+      ...prevState,
+      isBlocked: true,
+    }));
+
+    sendReview(offerId, newReview)
+      .then((reviews) => updateReviewsList(reviews))
+      .then(() => onSendSuccess())
+      .catch(() => onSendFail());
   };
 
   return (
@@ -85,8 +99,13 @@ function ReviewsForm({authorizationStatus, offerId, sendReview}) {
                 value={value}
                 title={RatingValuesMap[value]}
                 currentRatingValue={rating}
-                changeHandler={({target}) => setRatingValue(target.value)}
-                isBlocked={isBlocked}
+                changeHandler={
+                  ({target}) => setState((prevState) => ({
+                    ...prevState,
+                    rating: target.value,
+                  }))
+                }
+                isDisabled={isBlocked}
               />
             ))
         }
@@ -98,7 +117,10 @@ function ReviewsForm({authorizationStatus, offerId, sendReview}) {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
         required
-        onChange={({target}) => setComment(target.value)}
+        onChange={({target}) => setState((prevState) => ({
+          ...prevState,
+          comment: target.value,
+        }))}
         disabled={isBlocked}
       />
       <div className="reviews__button-wrapper">
@@ -112,9 +134,10 @@ function ReviewsForm({authorizationStatus, offerId, sendReview}) {
 }
 
 ReviewsForm.propTypes = {
-  sendReview: PropTypes.func.isRequired,
-  offerId: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  offerId: PropTypes.string.isRequired,
+  sendReview: PropTypes.func.isRequired,
+  updateReviewsList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({authorizationStatus}) => ({
@@ -123,7 +146,7 @@ const mapStateToProps = ({authorizationStatus}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendReview(offerId, newReview) {
-    dispatch(postReview(offerId, newReview));
+    return dispatch(postReview(offerId, newReview));
   },
 });
 

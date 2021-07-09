@@ -55,9 +55,6 @@ const getReviews = (offerId) => (_dispatch, _getState, api) => (
 const postReview = (offerId, newReview) => (_dispatch, _getState, api) => (
   api.post(`${ApiRoute.REVIEWS}/${offerId}`, newReview)
     .then(({data}) => data.map((review) => adaptReviewToClient(review)))
-    // .then((reviews) => dispatch(ActionCreator.setReviews(reviews)))
-    // .then(() => onSuccess())
-    // .catch(() => onFail())
 );
 
 
