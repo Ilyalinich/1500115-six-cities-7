@@ -10,6 +10,7 @@ function SignIn ({onSubmit}) {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit({
@@ -18,16 +19,36 @@ function SignIn ({onSubmit}) {
     });
   };
 
-  const onPasswordInput = () => {
-    const password = passwordRef.current.value;
+  const setEmailValidation = () => {
+    const emailInput = emailRef.current;
     let validationMessage = '';
 
-    if (password && !Array.from(password).find((symbol) => symbol !== ' ')) {
+    if (emailRef.current.validity.patternMismatch) {
+      validationMessage = 'Заполните адрес электронной почты в соответствии с указанным примером. Пример корректного адреса: info@wikipedia.org';
+    } else if (emailRef.current.validity.valueMissing) {
+      validationMessage = 'Заполните это поле';
+    } else {
+      validationMessage = '';
+    }
+
+    emailInput.setCustomValidity(validationMessage);
+  };
+
+  // const resetEmailValidation = () => {
+  //   emailRef.current.setCustomValidity('');
+  //   emailRef.current.reportValidity();
+  // };
+
+  const setPasswordValidation = () => {
+    const passwordInput = passwordRef.current;
+    let validationMessage = '';
+
+    if (passwordInput.value && !passwordInput.value.split('').find((symbol) => symbol !== ' ')) {
       validationMessage = 'Пароль не должен состоять только из пробелов';
     }
 
-    passwordRef.current.setCustomValidity(validationMessage);
-    passwordRef.current.reportValidity();
+    passwordInput.setCustomValidity(validationMessage);
+    passwordInput.reportValidity();
   };
 
   return (
@@ -51,6 +72,8 @@ function SignIn ({onSubmit}) {
                   placeholder="Email"
                   ref={emailRef}
                   required
+                  // onInput={resetEmailValidation}
+                  pattern="([A-Za-z0-9_.-]{1,})@([A-Za-z0-9_.-]{1,}\.)([A-Za-z]{2,8})"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -61,13 +84,14 @@ function SignIn ({onSubmit}) {
                   name="password"
                   placeholder="Password"
                   ref={passwordRef}
-                  onInput={onPasswordInput}
+                  onInput={setPasswordValidation}
                   required
                 />
               </div>
               <button
                 className="login__submit form__submit button"
                 type="submit"
+                onClick={setEmailValidation}
               >
                 Sign in
               </button>

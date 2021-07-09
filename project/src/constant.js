@@ -3,12 +3,15 @@ const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer',
+  NOT_FOUND: '/not found',
 };
 
 const ApiRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  REVIEWS: '/comments',
+  NEARBY: '/nearby',
 };
 
 const AuthorizationStatus = {
