@@ -1,13 +1,17 @@
 import {SortType} from '../../../../constant';
 import React, {useState, useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../../../store/action';
+import {useSelector, useDispatch} from 'react-redux';
+import {changeSortType} from '../../../../store/action';
+import {getCurrentSortType} from '../../../../store/operation-process/selectors';
 
 
-function OffersSortForm({currentSortType, changeSortType}) {
+function OffersSortForm() {
   const [isOpened, setIsOpened] = useState(false);
   const optionsListRef = useRef(null);
+
+  const currentSortType = useSelector(getCurrentSortType);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     const onDocumentClick = (evt) => {
@@ -40,7 +44,7 @@ function OffersSortForm({currentSortType, changeSortType}) {
                 key={sortType}
                 className={`places__option ${sortType === currentSortType ? 'places__option--active' : ''}`}
                 tabIndex="0"
-                onClick={() => changeSortType(sortType)}
+                onClick={() => dispatch(changeSortType(sortType))}
               >
                 {sortType}
               </li>
@@ -52,21 +56,4 @@ function OffersSortForm({currentSortType, changeSortType}) {
 }
 
 
-OffersSortForm.propTypes = {
-  currentSortType: PropTypes.string.isRequired,
-  changeSortType: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({currentSortType}) => ({
-  currentSortType,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeSortType(sortType) {
-    dispatch(ActionCreator.changeSortType(sortType));
-  },
-});
-
-
-export {OffersSortForm};
-export default connect(mapStateToProps, mapDispatchToProps)(OffersSortForm);
+export default OffersSortForm;

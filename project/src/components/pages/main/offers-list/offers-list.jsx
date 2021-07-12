@@ -1,16 +1,41 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {offerFullProp} from '../../../ui/offer/offer-prop';
-import {connect} from 'react-redux';
+import {SortType} from '../../../../constant';
+import {useSelector, useDispatch} from 'react-redux';
 import CityOffer from '../city-offer/city-offer';
-import {ActionCreator} from '../../../../store/action';
+import {changeActiveOfferId, restActiveOfferId} from '../../../../store/action';
+import {getCurrentCityOffers} from '../../../../store/data/selectors';
+import {getCurrentSortType} from '../../../../store/operation-process/selectors';
 
 
-function OffersList({offers, onListItemHover, onListItemHoverLost}) {
+const sortOffers = (offers, sortType) => {
+  switch (sortType) {
+    case SortType.PRICE_LOW_TO_HIGH:
+      return offers.slice().sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
+
+    case SortType.PRICE_HIGH_TO_LOW:
+      return offers.slice().sort((prevOffer, nextOffer) => nextOffer.price - prevOffer.price);
+
+    case SortType.TOP_RATED_FIRST:
+      return offers.slice().sort((prevOffer, nextOffer) => nextOffer.rating - prevOffer.rating);
+
+    default:
+      return offers;
+  }
+};
+
+
+function OffersList() {
+  const currentCityoffers = useSelector(getCurrentCityOffers);
+  const currentSortType = useSelector(getCurrentSortType);
+
+  const sortedOffers = sortOffers(currentCityoffers, currentSortType);
+  // console.log(sortedOffers);
+  const dispatch = useDispatch();
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {
-        offers.map((offer) => (
+        sortedOffers.map((offer) => (
           <CityOffer
             key={offer.id.toString()}
             id={offer.id}
@@ -21,8 +46,8 @@ function OffersList({offers, onListItemHover, onListItemHoverLost}) {
             previewImage={offer.previewImage}
             isFavorite={offer.isFavorite}
             isPremium={offer.isPremium}
-            onMouseEnter={() => onListItemHover(offer.id)}
-            onMouseLeave={() => onListItemHoverLost()}
+            onMouseEnter={() => dispatch(changeActiveOfferId(offer.id))}
+            onMouseLeave={() => dispatch(restActiveOfferId())}
           />
         ))
       }
@@ -31,28 +56,4 @@ function OffersList({offers, onListItemHover, onListItemHoverLost}) {
 }
 
 
-OffersList.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
-  ),
-  onListItemHover: PropTypes.func.isRequired,
-  onListItemHoverLost: PropTypes.func.isRequired,
-};
-
-
-const mapStateToProps = ({sortedCityOffers}) => ({
-  offers: sortedCityOffers,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onListItemHover(offerId) {
-    dispatch(ActionCreator.changeActiveOfferId(offerId));
-  },
-  onListItemHoverLost() {
-    dispatch(ActionCreator.restActiveOfferId());
-  },
-});
-
-
-export {OffersList};
-export default connect(mapStateToProps, mapDispatchToProps)(OffersList);
+export default OffersList;

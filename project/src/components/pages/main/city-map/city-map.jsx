@@ -1,11 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {offerFullProp} from '../../../ui/offer/offer-prop';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Map from '../../../ui/map/map';
+import {getCurrentCityOffers} from '../../../../store/data/selectors';
+import {getActiveOfferId} from '../../../../store/operation-process/selectors';
 
 
-function CityMap({currentCityOffers, activeOfferId}) {
+function CityMap() {
+  const currentCityOffers = useSelector(getCurrentCityOffers);
+  const activeOfferId = useSelector(getActiveOfferId);
+
   return (
     <Map
       offers={currentCityOffers}
@@ -16,19 +19,5 @@ function CityMap({currentCityOffers, activeOfferId}) {
   );
 }
 
-CityMap.propTypes = {
-  currentCityOffers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
-  ),
-  activeOfferId: PropTypes.number,
-};
 
-
-const mapStateToProps = ({currentCityOffers, activeOfferId}) => ({
-  currentCityOffers,
-  activeOfferId,
-});
-
-
-export {CityMap};
-export default connect(mapStateToProps)(CityMap);
+export default CityMap;

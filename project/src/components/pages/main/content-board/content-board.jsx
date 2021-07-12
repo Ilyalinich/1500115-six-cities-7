@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import CitiesNavMenu from '../cities-nav-menu/cities-nav-menu';
 import ContentContainer from '../content-container/content-container';
+import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
 
 
-function ContentBoard({offersCount}) {
+function ContentBoard() {
+  const offersCount = useSelector(getCurrentCityOffersCount);
   const isOffersListEmpty = offersCount === 0;
 
   return (
@@ -20,14 +21,4 @@ function ContentBoard({offersCount}) {
 }
 
 
-ContentBoard.propTypes = {
-  offersCount: PropTypes.number.isRequired,
-};
-
-const mapStateToProps = ({currentCityOffers}) => ({
-  offersCount: currentCityOffers.length,
-});
-
-
-export {ContentBoard};
-export default connect(mapStateToProps)(ContentBoard);
+export default ContentBoard;

@@ -2,20 +2,20 @@ import {PropertyTypesMap, SINGULAR_NUMBER} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Header from '../../ui/header/header';
 import OfferGallery from './offer-gallery/offer-gallery';
 import ReviewsBoard from './reviews-board/reviews-board';
 import Map from '../../ui/map/map';
 import NeighboringList from './neighboring-list/neighboring-list';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
-import {getRoomPageData} from '../../../store/api-action';
+import {loadRoomPageData} from '../../../store/api-action';
 
 
 const MAX_IMAGES_COUNT = 6;
 
 
-function Room({match, loadPageData}) {
+function Room({match}) {
   const [pageData, setPageData] = useState(
     {
       currentOffer: {},
@@ -25,17 +25,18 @@ function Room({match, loadPageData}) {
 
   const {currentOffer, neighboringOffers} = pageData;
   const offerId = match.params.id;
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
-    loadPageData(offerId)
+    dispatch(loadRoomPageData(offerId))
       .then(([offer, offers]) => setPageData(
         {
           currentOffer: offer,
           neighboringOffers: offers,
         },
       ));
-  }, [loadPageData, offerId]);
+  }, [dispatch, offerId]);
 
 
   if (Object.keys(currentOffer).length === 0) {
@@ -161,16 +162,7 @@ Room.propTypes = {
     path: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
   }),
-  loadPageData: PropTypes.func.isRequired,
 };
 
 
-const mapDispatchToProps = (dispatch) => ({
-  loadPageData(currentOfferId) {
-    return dispatch(getRoomPageData(currentOfferId));
-  },
-});
-
-
-export {Room};
-export default connect(null, mapDispatchToProps)(Room);
+export default Room;

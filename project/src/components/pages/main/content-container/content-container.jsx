@@ -1,14 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import OffersList from '../offers-list/offers-list';
 import CityMap from '../city-map/city-map';
 import FoundOffersTitle from '../found-offers-title/found-offers-title';
 import OffersSortForm from '../offers-sort-form/offers-sort-form';
 import EmptyList from '../empty-list/empty-list';
+import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
 
 
-function ContentContainer({offersCount}) {
+function ContentContainer() {
+  const offersCount = useSelector(getCurrentCityOffersCount);
   const isOffersListEmpty = offersCount === 0;
 
   return (
@@ -41,14 +42,5 @@ function ContentContainer({offersCount}) {
   );
 }
 
-ContentContainer.propTypes = {
-  offersCount: PropTypes.number.isRequired,
-};
 
-const mapStateToProps = ({currentCityOffers}) => ({
-  offersCount: currentCityOffers.length,
-});
-
-
-export {ContentContainer};
-export default connect(mapStateToProps)(ContentContainer);
+export default ContentContainer;

@@ -1,53 +1,30 @@
-const ActionType = {
-  CHANGE_CITY: 'citySelect/changeCity',
-  CHANGE_ACTIVE_OFFER_ID: 'offerSelect/changeActiveOfferId',
-  REST_ACTIVE_OFFER_ID: 'offerSelect/restActiveOfferId',
-  CHANGE_SORT_TYPE: 'sort/changeSortType',
+import {createAction} from '@reduxjs/toolkit';
+
+
+export const ActionType = {
+  CHANGE_CITY: 'operation/changeCity',
+  CHANGE_ACTIVE_OFFER_ID: 'operation/changeActiveOfferId',
+  REST_ACTIVE_OFFER_ID: 'operation/restActiveOfferId',
+  CHANGE_SORT_TYPE: 'operation/changeSortType',
+  REDIRECT_TO_ROUTE: 'service/redirectToRoute',
   SET_OFFERS: 'data/setOffers',
-  SET_OFFER: 'data/setOffer',
-  SET_REVIEWS: 'data/setReviews',
-  SET_NEIGHBORING_OFFERS: 'data/setNeighboringOffers',
-  LOGIN: 'user/login',
-  LOGOUT: 'user/logout',
-  REDIRECT_TO_ROUTE: 'redirect/redirectToRoute',
+  AUTHORIZE: 'authorization/authorize',
+  DEAUTHORIZE: 'authorization/deauthorize',
 };
 
 
-const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
-  changeActiveOfferId: (id) => ({
-    type: ActionType.CHANGE_ACTIVE_OFFER_ID,
-    payload: id,
-  }),
-  restActiveOfferId: () => ({
-    type: ActionType.REST_ACTIVE_OFFER_ID,
-  }),
-  changeSortType: (sortType) => ({
-    type: ActionType.CHANGE_SORT_TYPE,
-    payload: sortType,
-  }),
-  setOffers: (offers) => ({
-    type: ActionType.SET_OFFERS,
-    payload: offers,
-  }),
-  setReviews: (reviews) => ({
-    type: ActionType.SET_REVIEWS,
-    payload: reviews,
-  }),
-  login: (userInfo) => ({
-    type: ActionType.LOGIN,
-    payload: userInfo,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-};
+export const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({payload: city}));
 
-export {ActionType, ActionCreator};
+export const changeActiveOfferId = createAction(ActionType.CHANGE_ACTIVE_OFFER_ID, (id) => ({payload: id}));
+
+export const restActiveOfferId = createAction(ActionType.REST_ACTIVE_OFFER_ID);
+
+export const changeSortType = createAction(ActionType.CHANGE_SORT_TYPE, (sortType) => ({payload: sortType}));
+
+export const setOffers = createAction(ActionType.SET_OFFERS, (offers) => ({payload: offers}));
+
+export const authorize = createAction(ActionType.AUTHORIZE, (userInfo) => ({payload: userInfo}));
+
+export const deauthorize = createAction(ActionType.DEAUTHORIZE);
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({payload: url}));

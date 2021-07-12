@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsLoadingScreen from '../reviews-loading-screen/reviews-loading-screen';
-import {getReviews} from '../../../../store/api-action';
+import {loadReviews} from '../../../../store/api-action';
 
 
-function ReviewsBoard({offerId, loadReviews}) {
+function ReviewsBoard({offerId}) {
   const [state, setState] = useState(
     {
       isLoading: true,
@@ -15,11 +15,13 @@ function ReviewsBoard({offerId, loadReviews}) {
       isLoadingError: false,
     },
   );
+
   const {isLoading, reviews, isLoadingError} = state;
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
-    loadReviews(offerId)
+    dispatch(loadReviews(offerId))
       .then((reviewsList) => setState(
         {
           isLoading: false,
@@ -35,7 +37,7 @@ function ReviewsBoard({offerId, loadReviews}) {
         },
       ));
 
-  }, [loadReviews, offerId]);
+  }, [dispatch, offerId]);
 
 
   if (isLoading) {
@@ -62,16 +64,7 @@ function ReviewsBoard({offerId, loadReviews}) {
 
 ReviewsBoard.propTypes = {
   offerId: PropTypes.string.isRequired,
-  loadReviews: PropTypes.func.isRequired,
 };
 
 
-const mapDispatchToProps = (dispatch) => ({
-  loadReviews(offerId) {
-    return dispatch(getReviews(offerId));
-  },
-});
-
-
-export {ReviewsBoard};
-export default connect(null, mapDispatchToProps)(ReviewsBoard);
+export default ReviewsBoard;
