@@ -15,7 +15,7 @@ const authorization = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.AUTH;
       state.userInfo = action.payload;
     })
-    .addCase(deauthorize, (state, action) => {
+    .addCase(deauthorize, (state) => {
       state.authorizationStatus = AuthorizationStatus.NO_AUTH;
       state.userInfo = initialState.userInfo;
     });
@@ -23,25 +23,3 @@ const authorization = createReducer(initialState, (builder) => {
 
 
 export {authorization};
-
-
-// const authorization = (state = initialState, action) => {
-//   switch (action.type) {
-//     case ActionType.LOGIN:
-//       return {
-//         ...state,
-//         authorizationStatus: AuthorizationStatus.AUTH,
-//         userInfo: action.payload,
-//       };
-
-//     case ActionType.LOGOUT:
-//       return {
-//         ...state,
-//         authorizationStatus: AuthorizationStatus.NO_AUTH,
-//         userInfo: initialState.userInfo,
-//       };
-
-//     default:
-//       return state;
-//   }
-// };
