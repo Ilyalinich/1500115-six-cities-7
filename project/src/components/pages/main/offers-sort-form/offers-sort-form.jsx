@@ -56,4 +56,4 @@ function OffersSortForm() {
 }
 
 
-export default OffersSortForm;
+export default React.memo(OffersSortForm);
