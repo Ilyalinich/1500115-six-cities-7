@@ -1,12 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {CITIES} from '../../../../constant';
 import City from '../../../ui/city/city';
-import {ActionCreator} from '../../../../store/action';
+import {changeCity} from '../../../../store/action';
+import {getCurrentCity} from '../../../../store/operation-process/selectors';
 
 
-function CitiesNavMenu({currentCity, changeCity}) {
+function CitiesNavMenu() {
+  const currentCity = useSelector(getCurrentCity);
+  const dispatch = useDispatch();
+
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -16,7 +19,7 @@ function CitiesNavMenu({currentCity, changeCity}) {
               key={city}
               cityName={city}
               isActive={city === currentCity}
-              onClick={() => changeCity(city)}
+              onClick={() => dispatch(changeCity(city))}
             />
           ))
         }
@@ -26,21 +29,4 @@ function CitiesNavMenu({currentCity, changeCity}) {
 }
 
 
-CitiesNavMenu.propTypes = {
-  currentCity: PropTypes.string.isRequired,
-  changeCity: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = ({currentCity}) => ({
-  currentCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-});
-
-
-export {CitiesNavMenu};
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesNavMenu);
+export default CitiesNavMenu;

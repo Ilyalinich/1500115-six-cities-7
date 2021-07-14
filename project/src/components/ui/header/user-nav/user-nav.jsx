@@ -1,12 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {AppRoute, AuthorizationStatus} from '../../../constant';
+import {useSelector, useDispatch} from 'react-redux';
+import {AppRoute, AuthorizationStatus} from '../../../../constant';
 import {Link} from 'react-router-dom';
-import {logout} from '../../../store/api-action';
+import {logout} from '../../../../store/api-action';
+import {getAuthStatus, getUserAvatar, getUserEmail} from '../../../../store/authorization/selectors';
 
 
-function UserNav({authorizationStatus, avatar, email, onSignOutClick}) {
+function UserNav() {
+  const authorizationStatus = useSelector(getAuthStatus);
+  const userAvatar = useSelector(getUserAvatar);
+  const userEmail = useSelector(getUserEmail);
+  const dispatch = useDispatch();
+
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
 
   return (
@@ -22,7 +27,7 @@ function UserNav({authorizationStatus, avatar, email, onSignOutClick}) {
               style={
                 isUserAuthorized
                   ? ({
-                    backgroundImage: `url(${avatar})`,
+                    backgroundImage: `url(${userAvatar})`,
                     borderRadius: '10px',
                   })
                   : ({})
@@ -31,7 +36,7 @@ function UserNav({authorizationStatus, avatar, email, onSignOutClick}) {
             </div>
             {
               isUserAuthorized
-                ? <span className="header__user-name user__name">{email}</span>
+                ? <span className="header__user-name user__name">{userEmail}</span>
                 : <span className="header__login">Sign in</span>
             }
           </Link>
@@ -39,7 +44,7 @@ function UserNav({authorizationStatus, avatar, email, onSignOutClick}) {
         {
           isUserAuthorized && (
             <li className="header__nav-item">
-              <Link className="header__nav-link" to="#" onClick={onSignOutClick}>
+              <Link className="header__nav-link" to="#" onClick={() => dispatch(logout())}>
                 <span className="header__signout">Sign out</span>
               </Link>
             </li>
@@ -51,26 +56,4 @@ function UserNav({authorizationStatus, avatar, email, onSignOutClick}) {
 }
 
 
-UserNav.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  avatar: PropTypes.string,
-  email: PropTypes.string,
-  onSignOutClick: PropTypes.func.isRequired,
-};
-
-
-const mapStateToProps = ({authorizationStatus, userInfo}) => ({
-  authorizationStatus,
-  avatar: userInfo.avatarUrl,
-  email: userInfo.email,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSignOutClick() {
-    dispatch(logout());
-  },
-});
-
-
-export {UserNav};
-export default connect(mapStateToProps, mapDispatchToProps)(UserNav);
+export default UserNav;

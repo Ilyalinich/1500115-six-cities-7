@@ -1,15 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AppRoute} from '../../../constant';
-import {offerFullProp} from '../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
 import Header from '../../ui/header/header';
 import FavoritesList from './favorites-list/favorites-list';
 import EmptyFavoritesList from './empty-favorites-list/empty-favorites-list';
+import {getFavoriteOffers} from '../../../store/data/selectors';
 
 
-function Favorites({offers}) {
+function Favorites() {
+  const offers = useSelector(getFavoriteOffers);
   const isOffersListEmpty = offers.length === 0;
 
   return (
@@ -33,17 +33,5 @@ function Favorites({offers}) {
   );
 }
 
-Favorites.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
-  ),
-};
 
-
-const mapStateToProps = ({offers}) => ({
-  offers: offers.filter((offer) => offer.isFavorite),
-});
-
-
-export {Favorites};
-export default connect(mapStateToProps)(Favorites);
+export default Favorites;

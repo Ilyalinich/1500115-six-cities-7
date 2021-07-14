@@ -1,10 +1,14 @@
 import {SINGULAR_NUMBER} from '../../../../constant';
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
+import {getCurrentCity} from '../../../../store/operation-process/selectors';
 
 
-function FoundOffersTitle({offersCount, currentCity}) {
+function FoundOffersTitle() {
+  const offersCount = useSelector(getCurrentCityOffersCount);
+  const currentCity = useSelector(getCurrentCity);
+
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
@@ -13,17 +17,5 @@ function FoundOffersTitle({offersCount, currentCity}) {
   );
 }
 
-FoundOffersTitle.propTypes = {
-  offersCount: PropTypes.number.isRequired,
-  currentCity: PropTypes.string.isRequired,
-};
 
-
-const mapStateToProps = ({currentCity, currentCityOffers}) => ({
-  offersCount: currentCityOffers.length,
-  currentCity,
-});
-
-
-export {FoundOffersTitle};
-export default connect(mapStateToProps)(FoundOffersTitle);
+export default FoundOffersTitle;

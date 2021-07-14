@@ -1,9 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getCurrentCity} from '../../../../store/operation-process/selectors';
 
 
-function EmptyList({cityName}) {
+function EmptyList() {
+  const cityName = useSelector(getCurrentCity);
+
   return (
     <div className="cities__status-wrapper tabs__content">
       <b className="cities__status">No places to stay available</b>
@@ -12,14 +14,5 @@ function EmptyList({cityName}) {
   );
 }
 
-EmptyList.propTypes = {
-  cityName: PropTypes.string.isRequired,
-};
 
-const mapStateToProps = ({currentCity}) => ({
-  cityName: currentCity,
-});
-
-
-export {EmptyList};
-export default connect(mapStateToProps)(EmptyList);
+export default EmptyList;

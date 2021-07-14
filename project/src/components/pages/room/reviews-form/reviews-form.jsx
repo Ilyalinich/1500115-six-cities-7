@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
-import RatingChanger from '../rating-changer/rating-changer';
-import {connect} from 'react-redux';
+import RatingScale from './rating-scale/rating-scale';
+import CommentField from './comment-field/comment-field';
+import {useSelector, useDispatch} from 'react-redux';
 import {AuthorizationStatus} from '../../../../constant';
 import {postReview} from '../../../../store/api-action';
 import HelpMessage from './help-message/help-message';
 import PostErrorMessage from './post-error-message/post-error-message';
+import {getAuthStatus} from '../../../../store/authorization/selectors';
 
 
 const ERROR_MESSAGE_SHOW_TIME = 5000;
@@ -15,16 +17,8 @@ const CommentLength = {
   MAX: 300,
 };
 
-const RatingValuesMap = {
-  1: 'terribly',
-  2: 'badly',
-  3: 'not bad',
-  4: 'good',
-  5: 'perfect',
-};
 
-
-function ReviewsForm({authorizationStatus, offerId, sendReview, updateReviewsList}) {
+function ReviewsForm({offerId, updateReviewsList}) {
   const initialState = {
     rating: '',
     comment: '',
@@ -35,8 +29,27 @@ function ReviewsForm({authorizationStatus, offerId, sendReview, updateReviewsLis
   const [state, setState] = useState(initialState);
   const {rating, comment, isBlocked, isNeedErrorMessage} = state;
 
-
+  const authorizationStatus = useSelector(getAuthStatus);
   const isUserAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const dispatch = useDispatch();
+
+  const ratingChangerClickHandler = useCallback(
+    ({target}) => setState((prevState) => ({
+      ...prevState,
+      rating: target.value,
+    })),
+    [],
+  );
+
+  const commentChangeHandler = useCallback(
+    ({target}) => setState((prevState) => ({
+      ...prevState,
+      comment: target.value,
+    })),
+    [],
+  );
+
 
   if (!isUserAuthorized) {
     return '';
@@ -75,11 +88,12 @@ function ReviewsForm({authorizationStatus, offerId, sendReview, updateReviewsLis
       isBlocked: true,
     }));
 
-    sendReview(offerId, newReview)
+    dispatch(postReview(offerId, newReview))
       .then((reviews) => updateReviewsList(reviews))
       .then(() => onSendSuccess())
       .catch(() => onSendFail());
   };
+
 
   return (
     <form
@@ -88,39 +102,14 @@ function ReviewsForm({authorizationStatus, offerId, sendReview, updateReviewsLis
       onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        {
-          Object
-            .keys(RatingValuesMap)
-            .sort((valueA, valueB) => valueB - valueA)
-            .map((value) => (
-              <RatingChanger
-                key={value}
-                value={value}
-                title={RatingValuesMap[value]}
-                currentRatingValue={rating}
-                changeHandler={
-                  ({target}) => setState((prevState) => ({
-                    ...prevState,
-                    rating: target.value,
-                  }))
-                }
-                isDisabled={isBlocked}
-              />
-            ))
-        }
-      </div>
-      <textarea
-        className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
-        placeholder="Tell how was your stay, what you like and what can be improved"
+      <RatingScale
+        currentRatingValue={rating}
+        ratingChangeHandler={ratingChangerClickHandler}
+        isDisabled={isBlocked}
+      />
+      <CommentField
         value={comment}
-        required
-        onChange={({target}) => setState((prevState) => ({
-          ...prevState,
-          comment: target.value,
-        }))}
+        onChange={commentChangeHandler}
         disabled={isBlocked}
       />
       <div className="reviews__button-wrapper">
@@ -133,23 +122,11 @@ function ReviewsForm({authorizationStatus, offerId, sendReview, updateReviewsLis
   );
 }
 
+
 ReviewsForm.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.string.isRequired,
-  sendReview: PropTypes.func.isRequired,
   updateReviewsList: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({authorizationStatus}) => ({
-  authorizationStatus,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-  sendReview(offerId, newReview) {
-    return dispatch(postReview(offerId, newReview));
-  },
-});
-
-
-export {ReviewsForm};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsForm);
+export default ReviewsForm;
