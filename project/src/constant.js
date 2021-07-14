@@ -12,6 +12,7 @@ const ApiRoute = {
   LOGOUT: '/logout',
   REVIEWS: '/comments',
   NEARBY: '/nearby',
+  FAVORITE: '/favorite',
 };
 
 const AuthorizationStatus = {

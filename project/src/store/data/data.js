@@ -1,10 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setOffers} from '../action';
+import {setOffers, updateOffers} from '../action';
 
 
 const initialState = {
   offers: [],
-  isDataLoaded: false,
+  isOffersLoading: true,
 };
 
 
@@ -12,7 +12,16 @@ const data = createReducer(initialState, (builder) => {
   builder
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
-      state.isDataLoaded = true;
+      state.isOffersLoading = false;
+    })
+    .addCase(updateOffers, (state, action) => {
+      const index = state.offers.findIndex(({id}) => id === action.payload.id);
+
+      state.offers = [
+        ...state.offers.slice(0, index),
+        action.payload,
+        ...state.offers.slice(index + 1),
+      ];
     });
 });
 

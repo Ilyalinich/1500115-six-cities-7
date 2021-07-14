@@ -10,6 +10,7 @@ import Map from '../../ui/map/map';
 import NeighboringList from './neighboring-list/neighboring-list';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
 import {loadRoomPageData} from '../../../store/api-action';
+import {updateFavoriteStatus} from '../../../store/api-action';
 
 
 const MAX_IMAGES_COUNT = 6;
@@ -26,6 +27,17 @@ function Room({match}) {
   const {currentOffer, neighboringOffers} = pageData;
   const offerId = match.params.id;
   const dispatch = useDispatch();
+
+
+  const favButtonClickHandler = (evt) => {
+    evt.preventDefault();
+
+    dispatch(updateFavoriteStatus(offerId, Number(!currentOffer.isFavorite)))
+      .then(({payload}) => setPageData((prevState) => ({
+        ...prevState,
+        currentOffer: payload,
+      })));
+  };
 
 
   useEffect(() => {
@@ -68,7 +80,11 @@ function Room({match}) {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`} type="button">
+                <button
+                  className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`}
+                  type="button"
+                  onClick={favButtonClickHandler}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
