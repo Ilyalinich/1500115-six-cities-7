@@ -102,7 +102,10 @@ function SignIn ({onSubmit}) {
               <Link
                 className="locations__item-link"
                 to="#"
-                style={{cursor: 'default'}}
+                style={{
+                  cursor: 'default',
+                  pointerEvents: 'none',
+                }}
               >
                 <span>Amsterdam</span>
               </Link>

@@ -11,16 +11,16 @@ import LoadingScreen from '../ui/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
 import {getAuthStatus} from '../../store/authorization/selectors';
-import {getDataLoadStatus} from '../../store/data/selectors';
+import {getOffersLoadingStatus} from '../../store/data/selectors';
 
 
 function App() {
   const authorizationStatus = useSelector(getAuthStatus);
-  const isDataLoaded = useSelector(getDataLoadStatus);
+  const isOffersLoading = useSelector(getOffersLoadingStatus);
 
   const isCheckedAuthStatus = authorizationStatus !== AuthorizationStatus.UNKNOWN;
 
-  if (!isCheckedAuthStatus || !isDataLoaded) {
+  if (!isCheckedAuthStatus || isOffersLoading) {
     return (
       <LoadingScreen />
     );

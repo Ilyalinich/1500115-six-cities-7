@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import Offer from '../../../ui/offer/offer';
 
@@ -29,7 +30,10 @@ function FavoriteOffer(props) {
 }
 
 
-FavoriteOffer.propTypes = offerBasicProp;
+FavoriteOffer.propTypes = {
+  ...offerBasicProp,
+  favButtonClickHandler: PropTypes.func.isRequired,
+};
 
 
 export default FavoriteOffer;

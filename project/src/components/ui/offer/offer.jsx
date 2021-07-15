@@ -2,9 +2,11 @@ import {PropertyTypesMap} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 import {offerBasicProp} from '../../ui/offer/offer-prop';
 import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
+import {updateFavoriteStatus} from '../../../store/api-action';
 
 
 const StandartImageSize = {
@@ -20,12 +22,28 @@ function Offer(props) {
     cardInfoClassName = '',
     imageWidth = StandartImageSize.WiDTH,
     imageHeigth = StandartImageSize.HEIGTH,
+    favButtonClickHandler,
     ...restProps
   } = props;
 
   const {id, price, rating, title, type, previewImage, isFavorite, isPremium, onMouseEnter, onMouseLeave} = restProps;
 
   const ratingInPercents = getRatingInPercents(rating);
+
+  const dispatch = useDispatch();
+
+  const changeFavoriteStatus = (evt) => {
+    evt.preventDefault();
+
+    if (favButtonClickHandler) {
+      dispatch(updateFavoriteStatus(id, Number(!isFavorite)))
+        .then(({payload}) => favButtonClickHandler(payload));
+
+      return;
+    }
+
+    dispatch(updateFavoriteStatus(id, Number(!isFavorite)));
+  };
 
   return (
     <article className={`${cardClassName} place-card`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
@@ -45,7 +63,11 @@ function Offer(props) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite && 'place-card__bookmark-button--active'} button`} type="button">
+          <button
+            className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
+            type="button"
+            onClick={changeFavoriteStatus}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
@@ -77,6 +99,8 @@ Offer.propTypes = {
   imageHeigth: PropTypes.number,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
+  favButtonClickHandler: PropTypes.func,
 };
+
 
 export default Offer;

@@ -1,4 +1,4 @@
-import {authorize, deauthorize, setOffers, redirectToRoute} from './action';
+import {authorize, deauthorize, setOffers, updateOffers, redirectToRoute} from './action';
 import {ApiRoute, AppRoute} from '../constant';
 import {adaptOfferToClient, adaptUserInfoToClient, adaptReviewToClient} from '../util/adapter';
 
@@ -32,6 +32,7 @@ const loadOffers = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.OFFERS)
     .then(({data}) => data.map((offer) => adaptOfferToClient(offer)))
     .then((offers) => dispatch(setOffers(offers)))
+    .catch(() => dispatch(setOffers([])))
 );
 
 const loadRoomPageData = (offerId) => (dispatch, _getState, api) => (
@@ -41,7 +42,7 @@ const loadRoomPageData = (offerId) => (dispatch, _getState, api) => (
         .then(({data}) => adaptOfferToClient(data))
         .catch(() => dispatch(redirectToRoute(AppRoute.NOT_FOUND))),
       api.get(`${ApiRoute.OFFERS}/${offerId}${ApiRoute.NEARBY}`)
-        .then(({data}) => data.map((offers) => adaptOfferToClient(offers)))
+        .then(({data}) => data.map((offer) => adaptOfferToClient(offer)))
         .catch(() => {}),
     ],
   )
@@ -57,5 +58,17 @@ const postReview = (offerId, newReview) => (_dispatch, _getState, api) => (
     .then(({data}) => data.map((review) => adaptReviewToClient(review)))
 );
 
+const loadFavoriteOffers = () => (_dispatch, _getState, api) => (
+  api.get(ApiRoute.FAVORITE)
+    .then(({data}) => data.map((offer) => adaptOfferToClient(offer)))
+);
 
-export {loadOffers, checkAuth, login, logout, loadReviews, loadRoomPageData, postReview};
+const updateFavoriteStatus = (offerId, status) => (dispatch, _getState, api) => (
+  api.post(`${ApiRoute.FAVORITE}/${offerId}/${status}`)
+    .then(({data}) => adaptOfferToClient(data))
+    .then((offer) => dispatch(updateOffers(offer)))
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
+
+
+export {loadOffers, checkAuth, login, logout, loadReviews, loadRoomPageData, postReview, loadFavoriteOffers, updateFavoriteStatus};

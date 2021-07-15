@@ -4,7 +4,7 @@ import {offerFullProp} from '../../../ui/offer/offer-prop';
 import FavoritesLocations from '../favorites-locations/favorites-locations';
 
 
-function FavoritesList({offers}) {
+function FavoritesList({offers, updateOffers}) {
 
   const offersMap = offers.reduce((accumulator, offer) => {
     if (accumulator[offer.city.name]) {
@@ -24,7 +24,7 @@ function FavoritesList({offers}) {
         {
           Object
             .keys(offersMap)
-            .map((city) => <FavoritesLocations key={city} city={city} offers={offersMap[city]}/>)
+            .map((city) => <FavoritesLocations key={city} city={city} offers={offersMap[city]} updateOffers={updateOffers} />)
         }
       </ul>
     </section>
@@ -35,6 +35,7 @@ FavoritesList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerFullProp),
   ),
+  updateOffers: PropTypes.func.isRequired,
 };
 
 

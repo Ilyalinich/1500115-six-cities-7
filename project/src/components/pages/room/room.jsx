@@ -10,27 +10,28 @@ import Map from '../../ui/map/map';
 import NeighboringList from './neighboring-list/neighboring-list';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
 import {loadRoomPageData} from '../../../store/api-action';
+import {updateFavoriteStatus} from '../../../store/api-action';
 
 
 const MAX_IMAGES_COUNT = 6;
 
 
 function Room({match}) {
-  const [pageData, setPageData] = useState(
+  const [state, setState] = useState(
     {
       currentOffer: {},
       neighboringOffers: [],
     },
   );
 
-  const {currentOffer, neighboringOffers} = pageData;
+  const {currentOffer, neighboringOffers} = state;
   const offerId = match.params.id;
   const dispatch = useDispatch();
 
 
   useEffect(() => {
     dispatch(loadRoomPageData(offerId))
-      .then(([offer, offers]) => setPageData(
+      .then(([offer, offers]) => setState(
         {
           currentOffer: offer,
           neighboringOffers: offers,
@@ -39,12 +40,37 @@ function Room({match}) {
   }, [dispatch, offerId]);
 
 
+  const favButtonClickHandler = (evt) => {
+    evt.preventDefault();
+
+    dispatch(updateFavoriteStatus(offerId, Number(!currentOffer.isFavorite)))
+      .then(({payload}) => setState((prevState) => ({
+        ...prevState,
+        currentOffer: payload,
+      })));
+  };
+
+
+  const updateNeighboringOffers = (updatedOffer) => setState((prevState) => {
+    const index = prevState.neighboringOffers.findIndex(({id}) => id === updatedOffer.id);
+
+    return {
+      ...prevState,
+      neighboringOffers: [
+        ...prevState.neighboringOffers.slice(0, index),
+        updatedOffer,
+        ...prevState.neighboringOffers.slice(index + 1),
+      ],
+    };
+  });
+
+
   if (Object.keys(currentOffer).length === 0) {
     return <LoadingScreen />;
   }
 
 
-  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images} = pageData.currentOffer;
+  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images} = state.currentOffer;
   const imagesToRender = images.length > MAX_IMAGES_COUNT ? images.slice(0, MAX_IMAGES_COUNT) : images;
   const ratingInPercents = getRatingInPercents(rating);
 
@@ -68,7 +94,11 @@ function Room({match}) {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`} type="button">
+                <button
+                  className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`}
+                  type="button"
+                  onClick={favButtonClickHandler}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>
@@ -145,7 +175,7 @@ function Room({match}) {
           </section>
         </section>
         <div className="container">
-          <NeighboringList offers={neighboringOffers}/>
+          <NeighboringList offers={neighboringOffers} updateNeighboringOffers={updateNeighboringOffers} />
         </div>
       </main>
     </div>
