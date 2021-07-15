@@ -17,32 +17,21 @@ const MAX_IMAGES_COUNT = 6;
 
 
 function Room({match}) {
-  const [pageData, setPageData] = useState(
+  const [state, setState] = useState(
     {
       currentOffer: {},
       neighboringOffers: [],
     },
   );
 
-  const {currentOffer, neighboringOffers} = pageData;
+  const {currentOffer, neighboringOffers} = state;
   const offerId = match.params.id;
   const dispatch = useDispatch();
 
 
-  const favButtonClickHandler = (evt) => {
-    evt.preventDefault();
-
-    dispatch(updateFavoriteStatus(offerId, Number(!currentOffer.isFavorite)))
-      .then(({payload}) => setPageData((prevState) => ({
-        ...prevState,
-        currentOffer: payload,
-      })));
-  };
-
-
   useEffect(() => {
     dispatch(loadRoomPageData(offerId))
-      .then(([offer, offers]) => setPageData(
+      .then(([offer, offers]) => setState(
         {
           currentOffer: offer,
           neighboringOffers: offers,
@@ -51,12 +40,37 @@ function Room({match}) {
   }, [dispatch, offerId]);
 
 
+  const favButtonClickHandler = (evt) => {
+    evt.preventDefault();
+
+    dispatch(updateFavoriteStatus(offerId, Number(!currentOffer.isFavorite)))
+      .then(({payload}) => setState((prevState) => ({
+        ...prevState,
+        currentOffer: payload,
+      })));
+  };
+
+
+  const updateNeighboringOffers = (updatedOffer) => setState((prevState) => {
+    const index = prevState.neighboringOffers.findIndex(({id}) => id === updatedOffer.id);
+
+    return {
+      ...prevState,
+      neighboringOffers: [
+        ...prevState.neighboringOffers.slice(0, index),
+        updatedOffer,
+        ...prevState.neighboringOffers.slice(index + 1),
+      ],
+    };
+  });
+
+
   if (Object.keys(currentOffer).length === 0) {
     return <LoadingScreen />;
   }
 
 
-  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images} = pageData.currentOffer;
+  const {description, price, maxAdults, goods, host, rating, title, type, bedrooms, isFavorite, isPremium, images} = state.currentOffer;
   const imagesToRender = images.length > MAX_IMAGES_COUNT ? images.slice(0, MAX_IMAGES_COUNT) : images;
   const ratingInPercents = getRatingInPercents(rating);
 
@@ -161,7 +175,7 @@ function Room({match}) {
           </section>
         </section>
         <div className="container">
-          <NeighboringList offers={neighboringOffers}/>
+          <NeighboringList offers={neighboringOffers} updateNeighboringOffers={updateNeighboringOffers} />
         </div>
       </main>
     </div>

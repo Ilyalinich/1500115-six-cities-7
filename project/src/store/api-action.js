@@ -67,6 +67,7 @@ const updateFavoriteStatus = (offerId, status) => (dispatch, _getState, api) => 
   api.post(`${ApiRoute.FAVORITE}/${offerId}/${status}`)
     .then(({data}) => adaptOfferToClient(data))
     .then((offer) => dispatch(updateOffers(offer)))
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
 );
 
 

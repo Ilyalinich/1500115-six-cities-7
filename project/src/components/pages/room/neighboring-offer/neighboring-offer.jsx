@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import Offer from '../../../ui/offer/offer';
 
@@ -20,6 +21,9 @@ function NeighboringOffer(props) {
 }
 
 
-NeighboringOffer.propTypes = offerBasicProp;
+NeighboringOffer.propTypes = {
+  ...offerBasicProp,
+  favButtonClickHandler: PropTypes.func.isRequired,
+};
 
 export default NeighboringOffer;

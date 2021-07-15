@@ -45,7 +45,6 @@ function Favorites() {
       ...prevState,
       offers: [
         ...prevState.offers.slice(0, index),
-        // updatedOffer,
         ...prevState.offers.slice(index + 1),
       ],
     };

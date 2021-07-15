@@ -10,7 +10,14 @@ function FavoritesLocations({city, offers, updateOffers}) {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <Link className="locations__item-link" to="#">
+          <Link
+            className="locations__item-link"
+            to="#"
+            style={{
+              cursor: 'default',
+              pointerEvents: 'none',
+            }}
+          >
             <span>{city}</span>
           </Link>
         </div>
