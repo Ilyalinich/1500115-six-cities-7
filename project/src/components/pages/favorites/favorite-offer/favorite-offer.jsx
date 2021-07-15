@@ -1,8 +1,9 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+// import {useDispatch} from 'react-redux';
+import PropTypes from 'prop-types';
 import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import Offer from '../../../ui/offer/offer';
-import {updateFavoriteStatus} from '../../../../store/api-action';
+// import {updateFavoriteStatus} from '../../../../store/api-action';
 
 
 const SpecialClassName = {
@@ -18,16 +19,16 @@ const SpecialImageSize = {
 
 
 function FavoriteOffer(props) {
-  const {id, isFavorite, listUpdateHandler} = props;
+  // const {id, isFavorite, listUpdateHandler} = props;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const favButtonClickHandler = (evt) => {
-    evt.preventDefault();
+  // const favButtonClickHandler = (evt) => {
+  //   evt.preventDefault();
 
-    dispatch(updateFavoriteStatus(id, Number(!isFavorite)))
-      .then(({payload}) => listUpdateHandler(payload));
-  };
+  //   dispatch(updateFavoriteStatus(id, Number(!isFavorite)))
+  //     .then(({payload}) => listUpdateHandler(payload));
+  // };
 
   return (
     <Offer
@@ -36,7 +37,7 @@ function FavoriteOffer(props) {
       cardInfoClassName={SpecialClassName.CARD_INFO_CLASS}
       imageWidth={SpecialImageSize.WIDTH}
       imageHeigth={SpecialImageSize.HEIGTH}
-      favButtonClickHandler={favButtonClickHandler}
+      // favButtonClickHandler={favButtonClickHandler}
       {...props}
     />
   );
@@ -44,6 +45,11 @@ function FavoriteOffer(props) {
 
 
 FavoriteOffer.propTypes = offerBasicProp;
+
+FavoriteOffer.propTypes = {
+  ...offerBasicProp,
+  favButtonClickHandler: PropTypes.func.isRequired,
+};
 
 
 export default FavoriteOffer;

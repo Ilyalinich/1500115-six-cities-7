@@ -29,7 +29,6 @@ function OffersList() {
   const currentSortType = useSelector(getCurrentSortType);
 
   const sortedOffers = sortOffers(currentCityoffers, currentSortType);
-  // console.log(sortedOffers);
   const dispatch = useDispatch();
 
   return (

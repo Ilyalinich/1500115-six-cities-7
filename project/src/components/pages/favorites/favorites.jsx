@@ -38,7 +38,7 @@ function Favorites() {
     return <LoadingScreen />;
   }
 
-  const listUpdateHandler = (updatedOffer) => setState((prevState) => {
+  const updateOffers = (updatedOffer) => setState((prevState) => {
     const index = prevState.offers.findIndex(({id}) => id === updatedOffer.id);
 
     return {
@@ -62,7 +62,7 @@ function Favorites() {
           {
             isOffersListEmpty
               ? <EmptyFavoritesList />
-              : <FavoritesList offers={offers} listUpdateHandler={listUpdateHandler}/>
+              : <FavoritesList offers={offers} updateOffers={updateOffers}/>
           }
         </div>
       </main>

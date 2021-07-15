@@ -2,9 +2,11 @@ import {PropertyTypesMap} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 import {offerBasicProp} from '../../ui/offer/offer-prop';
 import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
+import {updateFavoriteStatus} from '../../../store/api-action';
 
 
 const StandartImageSize = {
@@ -28,6 +30,21 @@ function Offer(props) {
 
   const ratingInPercents = getRatingInPercents(rating);
 
+  const dispatch = useDispatch();
+
+  const changeFavoriteStatus = (evt) => {
+    evt.preventDefault();
+
+    if (favButtonClickHandler) {
+      dispatch(updateFavoriteStatus(id, Number(!isFavorite)))
+        .then(({payload}) => favButtonClickHandler(payload));
+
+      return;
+    }
+
+    dispatch(updateFavoriteStatus(id, Number(!isFavorite)));
+  };
+
   return (
     <article className={`${cardClassName} place-card`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {isPremium && (
@@ -49,7 +66,7 @@ function Offer(props) {
           <button
             className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
-            onClick={favButtonClickHandler}
+            onClick={changeFavoriteStatus}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
@@ -82,7 +99,8 @@ Offer.propTypes = {
   imageHeigth: PropTypes.number,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
-  favButtonClickHandler: PropTypes.func.isRequired,
+  favButtonClickHandler: PropTypes.func,
 };
+
 
 export default Offer;
