@@ -12,7 +12,4 @@ export const getCurrentCityOffers = createSelector(getCurrentCity, getOffers, (c
 
 export const getCurrentCityOffersCount = createSelector(getCurrentCityOffers, (offers) => offers.length);
 
-// export const getFavoriteOffers = (state) => state[ReducerType.DATA].offers
-//   .filter((offer) => offer.isFavorite);
-
 export const getOffersLoadingStatus = (state) => state[ReducerType.DATA].isOffersLoading;
