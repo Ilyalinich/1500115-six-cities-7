@@ -1,22 +1,25 @@
 import React, {useRef} from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {login} from '../../../store/api-action';
 import Header from '../../ui/header/header';
 
 
-function SignIn ({onSubmit}) {
+function SignIn () {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit({
+
+    const authData = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    });
+    };
+
+    dispatch(login(authData));
   };
 
   const setEmailValidation = () => {
@@ -57,7 +60,7 @@ function SignIn ({onSubmit}) {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <h1 className="login__title" data-testid="form title">Sign in</h1>
             <form
               className="login__form form"
               action=""
@@ -74,6 +77,7 @@ function SignIn ({onSubmit}) {
                   required
                   // onInput={resetEmailValidation}
                   pattern="([A-Za-z0-9_.-]{1,})@([A-Za-z0-9_.-]{1,}\.)([A-Za-z]{2,8})"
+                  data-testid="email"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -86,12 +90,14 @@ function SignIn ({onSubmit}) {
                   ref={passwordRef}
                   onInput={setPasswordValidation}
                   required
+                  data-testid="password"
                 />
               </div>
               <button
                 className="login__submit form__submit button"
                 type="submit"
                 onClick={setEmailValidation}
+                data-testid="submit button"
               >
                 Sign in
               </button>
@@ -118,17 +124,4 @@ function SignIn ({onSubmit}) {
 }
 
 
-SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  },
-});
-
-
-export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

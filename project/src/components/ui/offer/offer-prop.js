@@ -10,6 +10,12 @@ const offerBasicProp = {
   previewImage: PropTypes.string.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   isPremium: PropTypes.bool.isRequired,
+  city: PropTypes.shape(
+    {
+      location: PropTypes.objectOf(PropTypes.number.isRequired),
+      name: PropTypes.string.isRequired,
+    },
+  ),
 };
 
 const offerFullProp = {
@@ -19,12 +25,6 @@ const offerFullProp = {
   description: PropTypes.stringisRequired,
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
-  city: PropTypes.shape(
-    {
-      location: PropTypes.objectOf(PropTypes.number.isRequired),
-      name: PropTypes.string.isRequired,
-    },
-  ),
   location: PropTypes.objectOf(PropTypes.number.isRequired),
   host: PropTypes.shape(
     {

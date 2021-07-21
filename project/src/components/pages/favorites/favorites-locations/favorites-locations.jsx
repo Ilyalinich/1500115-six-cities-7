@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../../../ui/offer/offer-prop';
+import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
 import FavoriteOffer from '../favorite-offer/favorite-offer';
 
@@ -47,7 +47,7 @@ function FavoritesLocations({city, offers, updateOffers}) {
 FavoritesLocations.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
+    PropTypes.shape(offerBasicProp),
   ),
   updateOffers: PropTypes.func.isRequired,
 };
