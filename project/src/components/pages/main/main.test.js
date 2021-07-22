@@ -2,27 +2,28 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import NotFoundScreen from './not-found-screen';
+import Main from './main';
 
 
 const fakeHeaderComponent = () => (<p>Correct render of Header component</p>);
 jest.mock('../../ui/header/header', () => fakeHeaderComponent);
 
+const fakeContentBoardComponent = () => (<p>Correct render of ContentBoard component</p>);
+jest.mock('./content-board/content-board', () => fakeContentBoardComponent);
 
-describe('Component: NotFoundScreen', () => {
+
+describe('Component: Main', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
     render(
       <Router history={history}>
-        <NotFoundScreen />
+        <Main />
       </Router>,
     );
 
 
     expect(screen.getByText(/Correct render of Header component/i)).toBeInTheDocument();
-    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
-    expect(screen.getByText('We could not find the page with the specified address')).toBeInTheDocument();
-    expect(screen.getByText('Return to the main page')).toBeInTheDocument();
+    expect(screen.getByText(/Correct render of ContentBoard component/i)).toBeInTheDocument();
   });
 });

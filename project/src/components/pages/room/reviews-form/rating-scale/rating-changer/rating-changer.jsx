@@ -19,7 +19,7 @@ function RatingChanger({value, title, isDisabled, currentRatingValue, ratingChan
         htmlFor={`${value}-stars`}
         className="reviews__rating-label form__rating-label"
         title={title}
-        data-testid={`rating changer ${value}`}
+        data-testid="rating changer"
       >
         <svg className="form__star-image" width="37" height="33">
           <use xlinkHref="#icon-star"/>

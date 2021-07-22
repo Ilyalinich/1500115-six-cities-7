@@ -15,5 +15,6 @@ describe('Component: HelpMessage', () => {
     );
 
     expect(screen.getByText(/To submit review please make sure to set/i)).toBeInTheDocument();
+    expect(screen.getByText(/and describe your stay with at least/i)).toBeInTheDocument();
   });
 });

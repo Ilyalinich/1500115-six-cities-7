@@ -2,18 +2,22 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import FavoritesList from './favorites-list';
+import FavoritesLocations from './favorites-locations';
+import {CITIES} from '../../../../constant';
 
 
-const fakeFavoritesLocations = () => (<p>Correct render of FavoritesLocations component</p>);
-jest.mock('../favorites-locations/favorites-locations', () => fakeFavoritesLocations);
+const fakeFavOfferComponent = () => (<p>Correct render of FavoriteOffer component</p>);
+jest.mock('../favorite-offer/favorite-offer', () => fakeFavOfferComponent);
 
 
-describe('Component: FavoritesList', () => {
+describe('Component: FavoritesLocations', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
-    const fakeProps = {
+    const fakeCityName = CITIES[0];
+
+    const fakeProps ={
+      city: fakeCityName,
       offers: [
         {
           id: 1,
@@ -24,7 +28,6 @@ describe('Component: FavoritesList', () => {
           previewImage: '',
           isFavorite: true,
           isPremium: false,
-          city: {name: ''},
         },
       ],
       updateOffers: () => {},
@@ -32,15 +35,14 @@ describe('Component: FavoritesList', () => {
 
     render(
       <Router history={history}>
-        <FavoritesList
+        <FavoritesLocations
           {...fakeProps}
         />
       </Router>,
     );
 
 
-    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
-    // expect(screen.getByText(/Correct render of FavoritesLocations component/i)).toBeInTheDocument();
-    expect(screen.queryAllByText(/Correct render of FavoritesLocations component/i)).toHaveLength(1);
+    expect(screen.getByText(new RegExp(`${fakeCityName}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(/Correct render of FavoriteOffer component/i)).toBeInTheDocument();
   });
 });

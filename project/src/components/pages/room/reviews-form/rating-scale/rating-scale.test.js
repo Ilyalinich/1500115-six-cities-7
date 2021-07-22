@@ -23,10 +23,6 @@ describe('Component: RatingScale', () => {
       </Router>,
     );
 
-    expect(screen.getByTestId('rating changer 1')).toBeInTheDocument();
-    expect(screen.getByTestId('rating changer 2')).toBeInTheDocument();
-    expect(screen.getByTestId('rating changer 3')).toBeInTheDocument();
-    expect(screen.getByTestId('rating changer 4')).toBeInTheDocument();
-    expect(screen.getByTestId('rating changer 5')).toBeInTheDocument();
+    expect(screen.queryAllByTestId('rating changer')).toHaveLength(5);
   });
 });

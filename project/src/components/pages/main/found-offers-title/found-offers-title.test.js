@@ -11,22 +11,25 @@ import {CITIES, SINGULAR_NUMBER} from '../../../../constant';
 describe('Component: FoundOffersTitle', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+
+    const fakeCityName = CITIES[0];
+
     const fakeState = {
       [ReducerType.DATA]: {
         offers: [
           {city: {
-            name: CITIES[0],
+            name: fakeCityName,
           }},
           {city: {
-            name: CITIES[0],
+            name: fakeCityName,
           }},
           {city: {
-            name: CITIES[0],
+            name: fakeCityName,
           }},
         ],
       },
       [ReducerType.OPERATION]: {
-        currentCity: CITIES[0],
+        currentCity: fakeCityName,
       },
     };
 
@@ -44,6 +47,6 @@ describe('Component: FoundOffersTitle', () => {
     );
 
 
-    expect(screen.getByText(new RegExp(`${offersCount} ${offersCount === SINGULAR_NUMBER ? 'place' : 'places'} to stay in ${CITIES[0]}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${offersCount} ${offersCount === SINGULAR_NUMBER ? 'place' : 'places'} to stay in ${fakeCityName}`, 'i'))).toBeInTheDocument();
   });
 });

@@ -25,6 +25,6 @@ describe('Component: RatingChanger', () => {
       </Router>,
     );
 
-    expect(screen.getByTestId('rating changer 1')).toBeInTheDocument();
+    expect(screen.getByTestId('rating changer')).toBeInTheDocument();
   });
 });

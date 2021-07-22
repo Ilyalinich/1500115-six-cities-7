@@ -6,37 +6,37 @@ import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import OffersList from './offers-list';
 import {ReducerType} from '../../../../store/root-reducer';
-import {SortType} from '../../../../constant';
+import {SortType, CITIES} from '../../../../constant';
+
+
+const fakeCityOfferComponent = () => (<p>Correct render of CityOffer component</p>);
+jest.mock('../city-offer/city-offer', () => fakeCityOfferComponent);
 
 
 describe('Component: OffersList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+
+    const fakeCityName = CITIES[0];
+
     const fakeState = {
       [ReducerType.DATA]: {
         offers: [
           {
             id: 1,
-            price: 222,
-            rating: 5,
-            title: 'Nice place',
-            type: 'apartment',
-            previewImage: '',
-            isFavorite: true,
-            isPremium: false,
-            city: {name: 'cityName'},
+            city: {name: fakeCityName},
           },
         ],
       },
       [ReducerType.OPERATION]: {
-        currentCity: 'cityName',
+        currentCity: fakeCityName,
         currentSortType: SortType.POPULAR,
       },
     };
 
-
     const createFakeStore = configureStore({});
     const store = createFakeStore(fakeState);
+
 
     render(
       <Provider store={store}>
@@ -47,9 +47,7 @@ describe('Component: OffersList', () => {
     );
 
 
-    expect(screen.getByText(/€222/i)).toBeInTheDocument();
-    expect(screen.getByText(/Nice place/i)).toBeInTheDocument();
-    expect(screen.getByText(/Apartment/i)).toBeInTheDocument();
-    expect(screen.getByTestId('fav button')).toBeInTheDocument();
+    expect(screen.getByText(/Correct render of CityOffer component/i)).toBeInTheDocument();
+    expect(screen.queryAllByText(/Correct render of CityOffer component/i)).toHaveLength(1);
   });
 });

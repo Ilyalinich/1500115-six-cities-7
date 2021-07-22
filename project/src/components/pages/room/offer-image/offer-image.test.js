@@ -19,6 +19,6 @@ describe('Component: OfferImage', () => {
       </Router>,
     );
 
-    expect(screen.getByTestId('offer image imgUrl1')).toBeInTheDocument();
+    expect(screen.getByTestId('offer image')).toBeInTheDocument();
   });
 });

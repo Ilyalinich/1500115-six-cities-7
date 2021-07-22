@@ -19,7 +19,6 @@ describe('Component: OfferGallery', () => {
       </Router>,
     );
 
-    expect(screen.getByTestId('offer image imgUrl1')).toBeInTheDocument();
-    expect(screen.getByTestId('offer image imgUrl2')).toBeInTheDocument();
+    expect(screen.queryAllByTestId('offer image')).toHaveLength(2);
   });
 });

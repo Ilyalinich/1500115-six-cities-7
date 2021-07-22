@@ -6,18 +6,21 @@ import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import UserNav from './user-nav';
 import {ReducerType} from '../../../../store/root-reducer';
-// import {SortType} from '../../../../constant';
+import {AuthorizationStatus} from '../../../../constant';
 
 
 describe('Component: UserNav', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+
+    const fakeEmail = 'noname@mail.ru';
+
     const fakeState = {
       [ReducerType.AUTHORIZATION]: {
-        authorizationStatus: 'AUTH',
+        authorizationStatus: AuthorizationStatus.AUTH,
         userInfo: {
           avatarUrl: '',
-          email: 'noname@mail.ru',
+          email: fakeEmail,
         },
       },
     };
@@ -35,7 +38,7 @@ describe('Component: UserNav', () => {
     );
 
 
-    expect(screen.getByText(/noname@mail.ru/i)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${fakeEmail}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
   });
 });

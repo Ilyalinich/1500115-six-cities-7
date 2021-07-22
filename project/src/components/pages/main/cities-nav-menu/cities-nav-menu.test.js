@@ -8,6 +8,7 @@ import CitiesNavMenu from './cities-nav-menu';
 import {ReducerType} from '../../../../store/root-reducer';
 import {CITIES} from '../../../../constant';
 
+
 describe('Component: CitiesNavMenu', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
@@ -27,11 +28,7 @@ describe('Component: CitiesNavMenu', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(new RegExp(`${CITIES[0]}`, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${CITIES[1]}`, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${CITIES[2]}`, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${CITIES[3]}`, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${CITIES[4]}`, 'i'))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${CITIES[5]}`, 'i'))).toBeInTheDocument();
+
+    CITIES.forEach((city) => expect(screen.getByText(new RegExp(`${city}`, 'i'))).toBeInTheDocument());
   });
 });
