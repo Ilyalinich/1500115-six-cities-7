@@ -10,6 +10,7 @@ function CommentField(props) {
       name="review"
       placeholder="Tell how was your stay, what you like and what can be improved"
       required
+      data-testid="comment field"
       {...props}
     />
   );

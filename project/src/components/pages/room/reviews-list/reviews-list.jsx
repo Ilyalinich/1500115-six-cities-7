@@ -21,29 +21,17 @@ const sortReviews = (reviews) => {
 };
 
 
-function ReviewsList({reviews, isLoadingError}) {
-  if (isLoadingError) {
-    return (
-      <p
-        style={
-          {
-            color: 'red',
-            marginBottom: '50px',
-            textAlign: 'center',
-          }
-        }
-      >
-        Reviews loading error, please try again later...
-      </p>
-    );
-  }
-
-
+function ReviewsList({reviews}) {
   const sortedReviews = sortReviews(reviews);
 
   return (
     <>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{sortedReviews.length}</span></h2>
+      <h2 className="reviews__title">
+        Reviews &middot;
+        <span className="reviews__amount" data-testid="reviews counter">
+          {sortedReviews.length}
+        </span>
+      </h2>
       <ul className="reviews__list">
         {
           sortedReviews.map((review) => (
@@ -63,7 +51,6 @@ ReviewsList.propTypes = {
   reviews: PropTypes.arrayOf(
     PropTypes.shape(reviewProp),
   ),
-  isLoadingError: PropTypes.bool.isRequired,
 };
 
 

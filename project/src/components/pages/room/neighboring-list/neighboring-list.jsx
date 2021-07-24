@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../../../ui/offer/offer-prop';
+import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import NeighboringOffer from '../neighboring-offer/neighboring-offer';
 
 
@@ -37,7 +37,7 @@ function NeighboringList({offers, updateNeighboringOffers}) {
 
 NeighboringList.propTypes = {
   offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
+    PropTypes.shape(offerBasicProp),
   ),
   updateNeighboringOffers: PropTypes.func.isRequired,
 };

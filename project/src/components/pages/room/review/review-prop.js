@@ -13,5 +13,5 @@ export const reviewProp = {
       isPro: PropTypes.bool.isRequired,
       name: PropTypes.string.isRequired,
     },
-  ),
+  ).isRequired,
 };

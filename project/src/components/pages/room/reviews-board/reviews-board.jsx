@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsLoadingScreen from '../reviews-loading-screen/reviews-loading-screen';
+import ReviewsLoadingErrorMessage from '../reviews-loading-error-message/reviews-loading-error-message';
 import {loadReviews} from '../../../../store/api-action';
 
 
@@ -46,7 +47,9 @@ function ReviewsBoard({offerId}) {
 
   return (
     <section className="property__reviews reviews">
-      <ReviewsList reviews={reviews} isLoadingError={isLoadingError} />
+      {
+        isLoadingError ? <ReviewsLoadingErrorMessage /> : <ReviewsList reviews={reviews} />
+      }
       <ReviewsForm
         offerId={offerId}
         updateReviewsList={
