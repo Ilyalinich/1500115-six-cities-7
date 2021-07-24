@@ -6,7 +6,8 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import SignIn from './sign-in';
-import {AppRoute} from '../../../constant';
+import {AppRoute, AuthorizationStatus} from '../../../constant';
+import {ReducerType} from '../../../store/root-reducer';
 
 
 describe('Component: SignIn', () => {
@@ -15,8 +16,8 @@ describe('Component: SignIn', () => {
     history.push(AppRoute.LOGIN);
 
     const fakeState = {
-      AUTHORIZATION: {
-        authorizationStatus: 'NO_AUTH',
+      [ReducerType.AUTHORIZATION]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
         userInfo: {
           avatarUrl: '',
           email: 'noname@mail.ru',

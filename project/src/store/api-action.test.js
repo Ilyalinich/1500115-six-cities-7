@@ -74,8 +74,8 @@ describe('Async operations', () => {
 
     return checkAuthLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).nthCalledWith(1, {
           type: ActionType.AUTHORIZE,
           payload: adaptUserInfoToClient(fakeUserInfo),
         });
@@ -88,6 +88,8 @@ describe('Async operations', () => {
     const fakeUser = {email: 'noname@mail.ru', password: '123456'};
     const loginLoader = login(fakeUser);
 
+    Storage.prototype.setItem = jest.fn();
+
     apiMock
       .onPost(ApiRoute.LOGIN)
       .reply(200, fakeUserInfo);
@@ -95,14 +97,17 @@ describe('Async operations', () => {
 
     return loginLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(api.defaults.headers['x-token']).toBe(fakeUserInfo.token);
 
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(Storage.prototype.setItem).toBeCalledTimes(1);
+        expect(Storage.prototype.setItem).nthCalledWith(1, 'token', fakeUserInfo.token);
+
+        expect(dispatch).toBeCalledTimes(2);
+        expect(dispatch).nthCalledWith(1, {
           type: ActionType.AUTHORIZE,
           payload: adaptUserInfoToClient(fakeUserInfo),
         });
-
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
+        expect(dispatch).nthCalledWith(2, {
           type: ActionType.REDIRECT_TO_ROUTE,
           payload: AppRoute.ROOT,
         });
@@ -114,6 +119,8 @@ describe('Async operations', () => {
     const dispatch = jest.fn();
     const logoutLoader = logout();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock
       .onDelete(ApiRoute.LOGOUT)
       .reply(204);
@@ -121,8 +128,13 @@ describe('Async operations', () => {
 
     return logoutLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(api.defaults.headers['x-token']).toBe('');
+
+        expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+        expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
+
+        expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).nthCalledWith(1, {
           type: ActionType.DEAUTHORIZE,
         });
       });
@@ -140,8 +152,8 @@ describe('Async operations', () => {
 
     return offersLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).nthCalledWith(1, {
           type: ActionType.SET_OFFERS,
           payload: [adaptOfferToClient(fakeOffer)],
         });
@@ -166,7 +178,7 @@ describe('Async operations', () => {
     return dataLoader(dispatch, () => {}, api)
       .then((response) => {
         expect(response).toStrictEqual([adaptOfferToClient(fakeOffer), [adaptOfferToClient(fakeOffer)]]);
-        expect(dispatch).toHaveBeenCalledTimes(0);
+        expect(dispatch).not.toBeCalled();
       });
   });
 
@@ -184,7 +196,7 @@ describe('Async operations', () => {
     return reviewsLoader(dispatch, () => {}, api)
       .then((response) => {
         expect(response).toStrictEqual([adaptReviewToClient(fakeReview)]);
-        expect(dispatch).toHaveBeenCalledTimes(0);
+        expect(dispatch).not.toBeCalled();
       });
   });
 
@@ -207,7 +219,7 @@ describe('Async operations', () => {
     return reviewLoader(dispatch, () => {}, api)
       .then((response) => {
         expect(response).toStrictEqual([adaptReviewToClient(fakeReview)]);
-        expect(dispatch).toHaveBeenCalledTimes(0);
+        expect(dispatch).not.toBeCalled();
       });
   });
 
@@ -224,7 +236,7 @@ describe('Async operations', () => {
     return favoriteOffersLoader(dispatch, () => {}, api)
       .then((response) => {
         expect(response).toStrictEqual([adaptOfferToClient(fakeOffer)]);
-        expect(dispatch).toHaveBeenCalledTimes(0);
+        expect(dispatch).not.toBeCalled();
       });
   });
 
@@ -242,8 +254,8 @@ describe('Async operations', () => {
 
     return favoriteStatusChanger(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
+        expect(dispatch).toBeCalledTimes(1);
+        expect(dispatch).nthCalledWith(1, {
           type: ActionType.UPDATE_OFFERS,
           payload: adaptOfferToClient(fakeOffer),
         });

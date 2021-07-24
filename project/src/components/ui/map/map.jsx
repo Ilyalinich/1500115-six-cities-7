@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {offerFullProp} from '../../ui/offer/offer-prop';
+import {offerBasicProp} from '../../ui/offer/offer-prop';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../../hooks/use-map/use-map';
@@ -54,6 +54,7 @@ function Map({offers, activeOfferId, initialPosition}) {
     <div
       style={{height: '100%'}}
       ref={mapRef}
+      data-testid="map container"
     >
     </div>
   );
@@ -61,7 +62,7 @@ function Map({offers, activeOfferId, initialPosition}) {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(
-    PropTypes.shape(offerFullProp),
+    PropTypes.shape(offerBasicProp),
   ),
   activeOfferId: PropTypes.number,
   initialPosition: PropTypes.objectOf(PropTypes.number.isRequired),
