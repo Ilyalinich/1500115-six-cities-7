@@ -29,7 +29,7 @@ function OffersSortForm() {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex="0" onClick={() => setIsOpened(!isOpened)}>
+      <span className="places__sorting-type" tabIndex="0" onClick={() => setIsOpened(!isOpened)} data-testid="current sort type frame">
         {currentSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
@@ -45,6 +45,7 @@ function OffersSortForm() {
                 className={`places__option ${sortType === currentSortType ? 'places__option--active' : ''}`}
                 tabIndex="0"
                 onClick={() => dispatch(changeSortType(sortType))}
+                data-testid="sort type option"
               >
                 {sortType}
               </li>
