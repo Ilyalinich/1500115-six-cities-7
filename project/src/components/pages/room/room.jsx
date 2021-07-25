@@ -40,7 +40,7 @@ function Room({match}) {
   }, [dispatch, offerId]);
 
 
-  const favButtonClickHandler = (evt) => {
+  const favoriteStatusChangeHandler = (evt) => {
     evt.preventDefault();
 
     dispatch(updateFavoriteStatus(offerId, Number(!currentOffer.isFavorite)))
@@ -101,7 +101,7 @@ function Room({match}) {
                 <button
                   className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`}
                   type="button"
-                  onClick={favButtonClickHandler}
+                  onClick={favoriteStatusChangeHandler}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
@@ -179,7 +179,7 @@ function Room({match}) {
           </section>
         </section>
         <div className="container">
-          <NeighboringList offers={neighboringOffers} updateNeighboringOffers={updateNeighboringOffers} />
+          <NeighboringList offers={neighboringOffers} onFavoriteStatusChange={updateNeighboringOffers} />
         </div>
       </main>
     </div>

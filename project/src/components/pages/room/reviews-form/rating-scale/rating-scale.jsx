@@ -26,7 +26,7 @@ function RatingScale(props) {
 
 
 RatingScale.propTypes = {
-  ratingChangeHandler: PropTypes.func.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
   currentRatingValue: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool.isRequired,
 };

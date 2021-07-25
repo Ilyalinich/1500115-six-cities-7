@@ -22,7 +22,7 @@ describe('Component: NeighboringOffer', () => {
       previewImage: '',
       isFavorite: true,
       isPremium: false,
-      favButtonClickHandler: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
     render(

@@ -10,7 +10,7 @@ describe('Component: RatingChanger', () => {
       title: 'terribly',
       isDisabled: false,
       currentRatingValue: '1',
-      ratingChangeHandler: jest.fn(),
+      onRatingChange: jest.fn(),
     };
 
     render(

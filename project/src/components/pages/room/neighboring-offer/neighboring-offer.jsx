@@ -23,7 +23,7 @@ function NeighboringOffer(props) {
 
 NeighboringOffer.propTypes = {
   ...offerBasicProp,
-  favButtonClickHandler: PropTypes.func.isRequired,
+  onFavoriteStatusChange: PropTypes.func.isRequired,
 };
 
 export default NeighboringOffer;

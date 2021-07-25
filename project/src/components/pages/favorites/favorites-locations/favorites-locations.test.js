@@ -30,7 +30,7 @@ describe('Component: FavoritesLocations', () => {
           isPremium: false,
         },
       ],
-      updateOffers: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
     render(

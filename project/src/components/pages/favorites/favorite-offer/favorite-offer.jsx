@@ -32,7 +32,7 @@ function FavoriteOffer(props) {
 
 FavoriteOffer.propTypes = {
   ...offerBasicProp,
-  favButtonClickHandler: PropTypes.func.isRequired,
+  onFavoriteStatusChange: PropTypes.func.isRequired,
 };
 
 

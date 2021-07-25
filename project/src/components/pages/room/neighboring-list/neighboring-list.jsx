@@ -4,7 +4,7 @@ import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import NeighboringOffer from '../neighboring-offer/neighboring-offer';
 
 
-function NeighboringList({offers, updateNeighboringOffers}) {
+function NeighboringList({offers, onFavoriteStatusChange}) {
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
@@ -23,7 +23,7 @@ function NeighboringList({offers, updateNeighboringOffers}) {
                   previewImage={offer.previewImage}
                   isFavorite={offer.isFavorite}
                   isPremium={offer.isPremium}
-                  favButtonClickHandler={updateNeighboringOffers}
+                  onFavoriteStatusChange={onFavoriteStatusChange}
                 />
               ))
             )
@@ -39,7 +39,7 @@ NeighboringList.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerBasicProp),
   ),
-  updateNeighboringOffers: PropTypes.func.isRequired,
+  onFavoriteStatusChange: PropTypes.func.isRequired,
 };
 
 

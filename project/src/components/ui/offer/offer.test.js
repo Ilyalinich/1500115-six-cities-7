@@ -13,19 +13,23 @@ describe('Component: Offer', () => {
     const store = createFakeStore({});
     const history = createMemoryHistory();
 
+    const fakePrice = 222;
+    const fakeTitle = 'Nice place';
+
     const fakeProps = {
       id: 1,
-      price: 222,
+      price: fakePrice,
       rating: 5,
-      title: 'Nice place',
-      type: 'apartment',
+      title: fakeTitle,
+      type: '',
       previewImage: '',
       isFavorite: true,
       isPremium: false,
       cardClassName: '',
       imageWrapperClassName: '',
-      onMouseEnter: () => {},
-      onMouseLeave: () => {},
+      onMouseEnter: jest.fn(),
+      onMouseLeave: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
     render(
@@ -38,9 +42,8 @@ describe('Component: Offer', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(/€222/i)).toBeInTheDocument();
-    expect(screen.getByText(/Nice place/i)).toBeInTheDocument();
-    expect(screen.getByText(/Apartment/i)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`€${fakePrice}`, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${fakeTitle}`, 'i'))).toBeInTheDocument();
     expect(screen.getByTestId('fav button')).toBeInTheDocument();
   });
 });

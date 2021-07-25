@@ -24,7 +24,7 @@ jest.mock('./post-error-message/post-error-message', () => fakePostErrorMessageC
 
 let history = null;
 let fakeOfferId = null;
-let fakeUpdateReviewsList = null;
+let fakeOnAddReview = null;
 
 
 describe('Component: ReviewsForm', () => {
@@ -32,7 +32,7 @@ describe('Component: ReviewsForm', () => {
     history = createMemoryHistory();
 
     fakeOfferId = '1';
-    fakeUpdateReviewsList = jest.fn();
+    fakeOnAddReview = jest.fn();
   });
 
   it('should render correctly if user authorized', () => {
@@ -46,7 +46,7 @@ describe('Component: ReviewsForm', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <ReviewsForm offerId={fakeOfferId} updateReviewsList={fakeUpdateReviewsList}/>
+          <ReviewsForm offerId={fakeOfferId} onAddReview={fakeOnAddReview}/>
         </Router>
       </Provider>,
     );
@@ -71,7 +71,7 @@ describe('Component: ReviewsForm', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <ReviewsForm offerId={fakeOfferId} updateReviewsList={fakeUpdateReviewsList}/>
+          <ReviewsForm offerId={fakeOfferId} onAddReview={fakeOnAddReview}/>
         </Router>
       </Provider>,
     );

@@ -23,7 +23,7 @@ describe('Component: FavoritesList', () => {
           city: {name: ''},
         },
       ],
-      updateOffers: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
     render(

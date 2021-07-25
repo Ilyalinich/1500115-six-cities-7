@@ -52,7 +52,7 @@ function ReviewsBoard({offerId}) {
       }
       <ReviewsForm
         offerId={offerId}
-        updateReviewsList={
+        onAddReview={
           (update) => setState((prevState) => ({
             ...prevState,
             reviews: update,

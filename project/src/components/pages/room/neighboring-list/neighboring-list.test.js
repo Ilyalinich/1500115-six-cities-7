@@ -27,7 +27,7 @@ describe('Component: NeighboringList', () => {
           city: {name: ''},
         },
       ],
-      updateNeighboringOffers: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
 

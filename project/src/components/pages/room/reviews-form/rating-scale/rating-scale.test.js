@@ -9,7 +9,7 @@ describe('Component: RatingScale', () => {
     const fakeProps = {
       isDisabled: false,
       currentRatingValue: '1',
-      ratingChangeHandler: jest.fn(),
+      onRatingChange: jest.fn(),
     };
 
     render(
