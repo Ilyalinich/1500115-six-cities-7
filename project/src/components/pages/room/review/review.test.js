@@ -1,14 +1,10 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
 import Review from './review';
 
 
 describe('Component: Review', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-
     const fakeReview = {
       comment: 'We loved it so much, the house, the veiw, the location just great..',
       date: '2021-06-30T16:51:35.215Z',
@@ -23,11 +19,9 @@ describe('Component: Review', () => {
     };
 
     render(
-      <Router history={history}>
-        <Review
-          review={fakeReview}
-        />
-      </Router>,
+      <Review
+        review={fakeReview}
+      />,
     );
 
     expect(screen.getByText(/We loved it so much, the house, the veiw, the location just great../i)).toBeInTheDocument();

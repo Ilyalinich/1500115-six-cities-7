@@ -30,7 +30,7 @@ describe('Component: FavoritesLocations', () => {
           isPremium: false,
         },
       ],
-      updateOffers: () => {},
+      updateOffers: jest.fn(),
     };
 
     render(
@@ -40,7 +40,6 @@ describe('Component: FavoritesLocations', () => {
         />
       </Router>,
     );
-
 
     expect(screen.getByText(new RegExp(`${fakeCityName}`, 'i'))).toBeInTheDocument();
     expect(screen.getByText(/Correct render of FavoriteOffer component/i)).toBeInTheDocument();

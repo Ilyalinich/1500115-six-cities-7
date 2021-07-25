@@ -45,7 +45,7 @@ function Review({review}) {
 
 
 Review.propTypes = {
-  review: PropTypes.shape(reviewProp),
+  review: PropTypes.shape(reviewProp).isRequired,
 };
 
 

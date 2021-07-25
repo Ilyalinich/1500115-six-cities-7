@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewsForm from '../reviews-form/reviews-form';
-import ReviewsLoadingScreen from '../reviews-loading-screen/reviews-loading-screen';
+import ReviewsLoadingSpinner from '../reviews-loading-spinner/reviews-loading-spinner';
 import ReviewsLoadingErrorMessage from '../reviews-loading-error-message/reviews-loading-error-message';
 import {loadReviews} from '../../../../store/api-action';
 
@@ -42,7 +42,7 @@ function ReviewsBoard({offerId}) {
 
 
   if (isLoading) {
-    return <ReviewsLoadingScreen />;
+    return <ReviewsLoadingSpinner />;
   }
 
   return (

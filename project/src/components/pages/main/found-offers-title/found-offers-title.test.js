@@ -11,7 +11,6 @@ import {CITIES, SINGULAR_NUMBER} from '../../../../constant';
 describe('Component: FoundOffersTitle', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-
     const fakeCityName = CITIES[0];
 
     const fakeState = {
@@ -34,7 +33,6 @@ describe('Component: FoundOffersTitle', () => {
     };
 
     const offersCount = fakeState[ReducerType.DATA].offers.length;
-
     const createFakeStore = configureStore({});
     const store = createFakeStore(fakeState);
 
@@ -45,7 +43,6 @@ describe('Component: FoundOffersTitle', () => {
         </Router>
       </Provider>,
     );
-
 
     expect(screen.getByText(new RegExp(`${offersCount} ${offersCount === SINGULAR_NUMBER ? 'place' : 'places'} to stay in ${fakeCityName}`, 'i'))).toBeInTheDocument();
   });

@@ -22,9 +22,8 @@ describe('Component: NeighboringOffer', () => {
       previewImage: '',
       isFavorite: true,
       isPremium: false,
-      favButtonClickHandler: () => {},
+      favButtonClickHandler: jest.fn(),
     };
-
 
     render(
       <Router history={history}>
@@ -33,7 +32,6 @@ describe('Component: NeighboringOffer', () => {
         />
       </Router>,
     );
-
 
     expect(screen.getByText(/Correct render of Offer component/i)).toBeInTheDocument();
   });

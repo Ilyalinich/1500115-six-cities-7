@@ -27,7 +27,7 @@ describe('Component: NeighboringList', () => {
           city: {name: ''},
         },
       ],
-      updateNeighboringOffers: () => {},
+      updateNeighboringOffers: jest.fn(),
     };
 
 
@@ -39,6 +39,6 @@ describe('Component: NeighboringList', () => {
 
 
     expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
-    expect(screen.queryAllByText(/Correct render of NeighboringOffer component/i)).toHaveLength(1);
+    expect(screen.queryAllByText(/Correct render of NeighboringOffer component/i)).toHaveLength(fakeProps.offers.length);
   });
 });

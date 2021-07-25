@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './reviews-loading-screen.module.css';
+import styles from './reviews-loading-spinner.module.css';
 
 
-function ReviewsLoadingScreen() {
+function ReviewsLoadingSpinner() {
   return (
     <div className={styles.container}>
       <span className={styles.text}>Reviews loading </span>
@@ -14,4 +14,4 @@ function ReviewsLoadingScreen() {
 }
 
 
-export default ReviewsLoadingScreen;
+export default ReviewsLoadingSpinner;

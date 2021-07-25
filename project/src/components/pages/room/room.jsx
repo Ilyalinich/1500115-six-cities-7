@@ -11,6 +11,7 @@ import NeighboringList from './neighboring-list/neighboring-list';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
 import {loadRoomPageData} from '../../../store/api-action';
 import {updateFavoriteStatus} from '../../../store/api-action';
+import {ActionType} from '../../../store/action';
 
 
 const MAX_IMAGES_COUNT = 6;
@@ -44,10 +45,14 @@ function Room({match}) {
     evt.preventDefault();
 
     dispatch(updateFavoriteStatus(offerId, Number(!currentOffer.isFavorite)))
-      .then(({payload}) => setState((prevState) => ({
-        ...prevState,
-        currentOffer: payload,
-      })));
+      .then((action) => {
+        if (action.type === ActionType.UPDATE_OFFERS) {
+          setState((prevState) => ({
+            ...prevState,
+            currentOffer: action.payload,
+          }));
+        }
+      });
   };
 
 

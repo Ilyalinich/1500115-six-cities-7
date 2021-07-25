@@ -1,7 +1,5 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
 import FavoritesList from './favorites-list';
 
 
@@ -11,8 +9,6 @@ jest.mock('../favorites-locations/favorites-locations', () => fakeFavoritesLocat
 
 describe('Component: FavoritesList', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-
     const fakeProps = {
       offers: [
         {
@@ -27,20 +23,16 @@ describe('Component: FavoritesList', () => {
           city: {name: ''},
         },
       ],
-      updateOffers: () => {},
+      updateOffers: jest.fn(),
     };
 
     render(
-      <Router history={history}>
-        <FavoritesList
-          {...fakeProps}
-        />
-      </Router>,
+      <FavoritesList
+        {...fakeProps}
+      />,
     );
 
-
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
-    // expect(screen.getByText(/Correct render of FavoritesLocations component/i)).toBeInTheDocument();
-    expect(screen.queryAllByText(/Correct render of FavoritesLocations component/i)).toHaveLength(1);
+    expect(screen.queryAllByText(/Correct render of FavoritesLocations component/i)).toHaveLength(fakeProps.offers.length);
   });
 });

@@ -12,7 +12,6 @@ import {CITIES} from '../../../../constant';
 describe('Component: EmptyList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-
     const fakeCityName = CITIES[0];
 
     const createFakeStore = configureStore({});
