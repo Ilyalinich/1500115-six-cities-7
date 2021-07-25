@@ -1,13 +1,13 @@
 import React, {useCallback, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
+import {AuthorizationStatus} from '../../../../constant';
+import {getAuthStatus} from '../../../../store/authorization/selectors';
+import {postReview} from '../../../../store/api-action';
 import RatingScale from './rating-scale/rating-scale';
 import CommentField from './comment-field/comment-field';
-import {useSelector, useDispatch} from 'react-redux';
-import {AuthorizationStatus} from '../../../../constant';
-import {postReview} from '../../../../store/api-action';
 import HelpMessage from './help-message/help-message';
 import PostErrorMessage from './post-error-message/post-error-message';
-import {getAuthStatus} from '../../../../store/authorization/selectors';
 
 
 const ERROR_MESSAGE_SHOW_TIME = 5000;

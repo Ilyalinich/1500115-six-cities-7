@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../../../constant';
+import {loadFavoriteOffers} from '../../../store/api-action';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
 import Header from '../../ui/header/header';
 import FavoritesList from './favorites-list/favorites-list';
 import EmptyFavoritesList from './empty-favorites-list/empty-favorites-list';
-import {loadFavoriteOffers} from '../../../store/api-action';
 
 
 function Favorites() {

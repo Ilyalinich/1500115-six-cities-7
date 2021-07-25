@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
+import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import FavoriteOffer from '../favorite-offer/favorite-offer';
 
 

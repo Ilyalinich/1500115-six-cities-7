@@ -1,10 +1,10 @@
 import React from 'react';
-import {render, waitFor, screen} from '@testing-library/react';
-import {Router, Switch, Route} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import * as Redux from 'react-redux';
+import {Provider} from 'react-redux';
+import {Router, Switch, Route} from 'react-router-dom';
+import {createMemoryHistory} from 'history';
+import {render, waitFor, screen} from '@testing-library/react';
 import {AppRoute} from '../../../constant';
 import Room from './room';
 

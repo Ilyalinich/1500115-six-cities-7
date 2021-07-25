@@ -1,9 +1,9 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {AppRoute, AuthorizationStatus} from '../../../../constant';
 import {Link} from 'react-router-dom';
-import {logout} from '../../../../store/api-action';
+import {AppRoute, AuthorizationStatus} from '../../../../constant';
 import {getAuthStatus, getUserAvatar, getUserEmail} from '../../../../store/authorization/selectors';
+import {logout} from '../../../../store/api-action';
 
 
 function UserNav() {

@@ -1,9 +1,9 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {CITIES} from '../../../../constant';
-import City from '../../../ui/city/city';
 import {changeCity} from '../../../../store/action';
 import {getCurrentCity} from '../../../../store/operation-process/selectors';
+import City from '../../../ui/city/city';
 
 
 function CitiesNavMenu() {

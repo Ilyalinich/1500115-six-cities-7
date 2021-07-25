@@ -1,5 +1,5 @@
-import {data} from './data';
 import {setOffers, updateOffers} from '../action';
+import {data} from './data';
 
 
 const initialState = {

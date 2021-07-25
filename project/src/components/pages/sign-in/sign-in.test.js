@@ -1,14 +1,14 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import configureStore from 'redux-mock-store';
+import * as Redux from 'react-redux';
+import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
-import * as Redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import SignIn from './sign-in';
+import {render, screen} from '@testing-library/react';
 import {AppRoute, AuthorizationStatus} from '../../../constant';
 import {ReducerType} from '../../../store/root-reducer';
+import SignIn from './sign-in';
 
 
 let history = null;

@@ -1,11 +1,11 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import OffersList from '../offers-list/offers-list';
-import CityMap from '../city-map/city-map';
+import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
 import FoundOffersTitle from '../found-offers-title/found-offers-title';
 import OffersSortForm from '../offers-sort-form/offers-sort-form';
+import OffersList from '../offers-list/offers-list';
 import EmptyList from '../empty-list/empty-list';
-import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
+import CityMap from '../city-map/city-map';
 
 
 function ContentContainer() {

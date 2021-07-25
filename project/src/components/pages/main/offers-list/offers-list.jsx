@@ -1,10 +1,10 @@
 import React from 'react';
-import {SortType} from '../../../../constant';
 import {useSelector, useDispatch} from 'react-redux';
-import CityOffer from '../city-offer/city-offer';
-import {changeActiveOfferId, restActiveOfferId} from '../../../../store/action';
+import {SortType} from '../../../../constant';
 import {getCurrentCityOffers} from '../../../../store/data/selectors';
 import {getCurrentSortType} from '../../../../store/operation-process/selectors';
+import {changeActiveOfferId, restActiveOfferId} from '../../../../store/action';
+import CityOffer from '../city-offer/city-offer';
 
 
 const sortOffers = (offers, sortType) => {

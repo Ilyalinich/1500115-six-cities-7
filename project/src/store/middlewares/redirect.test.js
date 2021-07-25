@@ -1,6 +1,6 @@
-import {redirect} from './redirect';
-import {redirectToRoute} from '../action';
 import {AppRoute} from '../../constant';
+import {redirectToRoute} from '../action';
+import {redirect} from './redirect';
 
 
 const mockRedux = () => {

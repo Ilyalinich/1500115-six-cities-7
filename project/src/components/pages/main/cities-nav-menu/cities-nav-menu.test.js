@@ -6,10 +6,10 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import * as Redux from 'react-redux';
-import CitiesNavMenu from './cities-nav-menu';
-import {ReducerType} from '../../../../store/root-reducer';
 import {CITIES} from '../../../../constant';
+import {ReducerType} from '../../../../store/root-reducer';
 import {ActionType} from '../../../../store/action';
+import CitiesNavMenu from './cities-nav-menu';
 
 
 let store = null;

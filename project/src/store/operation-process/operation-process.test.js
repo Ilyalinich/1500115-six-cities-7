@@ -1,6 +1,6 @@
-import {operationProcess} from './operation-process';
-import {changeCity, changeActiveOfferId, restActiveOfferId, changeSortType} from '../action';
 import {CITIES, SortType} from '../../constant';
+import {changeCity, changeActiveOfferId, restActiveOfferId, changeSortType} from '../action';
+import {operationProcess} from './operation-process';
 
 
 const initialState = {

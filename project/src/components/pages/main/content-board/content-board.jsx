@@ -1,8 +1,8 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
 import CitiesNavMenu from '../cities-nav-menu/cities-nav-menu';
 import ContentContainer from '../content-container/content-container';
-import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
 
 
 function ContentBoard() {

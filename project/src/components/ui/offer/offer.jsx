@@ -1,11 +1,10 @@
-import {PropertyTypesMap} from '../../../constant';
-import {getRatingInPercents} from '../../../util/common';
 import React from 'react';
-import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
-import {offerBasicProp} from '../../ui/offer/offer-prop';
-import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {PropertyTypesMap, AppRoute} from '../../../constant';
+import {getRatingInPercents} from '../../../util/common';
+import {offerBasicProp} from '../../ui/offer/offer-prop';
 import {updateFavoriteStatus} from '../../../store/api-action';
 import {ActionType} from '../../../store/action';
 

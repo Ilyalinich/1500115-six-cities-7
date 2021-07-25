@@ -1,6 +1,6 @@
 import React from 'react';
-import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../../../constant';
 import Header from '../../ui/header/header';
 
 

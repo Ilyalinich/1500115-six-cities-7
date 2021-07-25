@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
+import PropTypes from 'prop-types';
+import {loadReviews} from '../../../../store/api-action';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsLoadingSpinner from '../reviews-loading-spinner/reviews-loading-spinner';
 import ReviewsLoadingErrorMessage from '../reviews-loading-error-message/reviews-loading-error-message';
-import {loadReviews} from '../../../../store/api-action';
 
 
 function ReviewsBoard({offerId}) {

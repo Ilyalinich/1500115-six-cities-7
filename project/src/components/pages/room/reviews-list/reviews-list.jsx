@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {reviewProp} from '../../room/review/review-prop';
-import Review from '../review/review';
 import {compareDate} from '../../../../util/day-js';
+import Review from '../review/review';
 
 
 const REVIEWS_MAX_COUNT = 10;

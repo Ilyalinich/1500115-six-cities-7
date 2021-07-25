@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import RatingScale from './rating-scale';
 import {RatingValuesMap} from '../../../../../constant';
+import RatingScale from './rating-scale';
 
 
 describe('Component: RatingScale', () => {
