@@ -1,4 +1,4 @@
-import {setOffers, updateOffers} from '../action';
+import {setOffers, updateOffers, deauthorize} from '../action';
 import {data} from './data';
 
 
@@ -7,18 +7,14 @@ const initialState = {
   isOffersLoading: true,
 };
 
-const offers = [
+const loadedOffers = [
   {
     id: 1,
     isFavorite: false,
-    price: 291,
-    type: 'hotel',
   },
   {
     id: 2,
-    isFavorite: false,
-    price: 500,
-    type: 'house',
+    isFavorite: true,
   },
 ];
 
@@ -29,37 +25,57 @@ describe('Reducer: data', () => {
       .toEqual(initialState);
   });
 
-  it('should set loaded offers and rest loading status', () => {
-    expect(data(initialState, setOffers(offers)))
+  it('should set loaded offers and reset loading status', () => {
+    expect(data(initialState, setOffers(loadedOffers)))
       .toEqual({
-        offers,
+        offers: loadedOffers,
         isOffersLoading: false,
       });
   });
 
   it('should update offers by loaded updated offer', () => {
-    const state = {offers, isOffersLoading: false};
-    const offer = {
-      id: 1,
-      isFavorite: true,
-      price: 291,
-      type: 'hotel',
+    const state = {
+      offers: loadedOffers,
+      isOffersLoading: false,
     };
 
-    expect(data(state, updateOffers(offer)))
+    const updatedOffer = {
+      id: 1,
+      isFavorite: true,
+    };
+
+    expect(data(state, updateOffers(updatedOffer)))
       .toEqual({
         offers: [
           {
             id: 1,
             isFavorite: true,
-            price: 291,
-            type: 'hotel',
+          },
+          {
+            id: 2,
+            isFavorite: true,
+          },
+        ],
+        isOffersLoading: false,
+      });
+  });
+
+  it('should reset offers favorite status to "false" value when user deauthorized', () => {
+    const state = {
+      offers: loadedOffers,
+      isOffersLoading: false,
+    };
+
+    expect(data(state, deauthorize()))
+      .toEqual({
+        offers: [
+          {
+            id: 1,
+            isFavorite: false,
           },
           {
             id: 2,
             isFavorite: false,
-            price: 500,
-            type: 'house',
           },
         ],
         isOffersLoading: false,
