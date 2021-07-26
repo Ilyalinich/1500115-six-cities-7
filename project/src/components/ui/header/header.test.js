@@ -13,13 +13,11 @@ describe('Component: Header', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
-
     render(
       <Router history={history}>
         <Header />
       </Router>,
     );
-
 
     expect(screen.getByAltText(/6 cities logo/i)).toBeInTheDocument();
     expect(screen.getByText(/Correct render of UserNav component/i)).toBeInTheDocument();

@@ -6,24 +6,27 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import * as Redux from 'react-redux';
-import CitiesNavMenu from './cities-nav-menu';
+import OffersSortForm from './offers-sort-form';
 import {ReducerType} from '../../../../store/root-reducer';
-import {CITIES} from '../../../../constant';
 import {ActionType} from '../../../../store/action';
+import {SortType} from '../../../../constant';
 
 
 let store = null;
 let history = null;
+let fakeSortType = null;
 
 
-describe('Component: CitiesNavMenu', () => {
+describe('Component: OffersSortForm', () => {
   beforeAll(() => {
     history = createMemoryHistory();
+
+    fakeSortType = SortType.POPULAR;
 
     const createFakeStore = configureStore({});
     store = createFakeStore({
       [ReducerType.OPERATION]: {
-        currentCity: CITIES[0],
+        currentSortType: fakeSortType,
       },
     });
   });
@@ -32,15 +35,16 @@ describe('Component: CitiesNavMenu', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <CitiesNavMenu />
+          <OffersSortForm />
         </Router>
       </Provider>,
     );
 
-    CITIES.forEach((city) => expect(screen.getByText(new RegExp(`${city}`, 'i'))).toBeInTheDocument());
+    expect(screen.getByText(/Sort by/i)).toBeInTheDocument();
+    expect(screen.getByTestId('current sort type frame')).toHaveTextContent(fakeSortType);
   });
 
-  it('should make a correct onClick call to change currentCity in Store', () => {
+  it('should make a correct onClick call to change currentSortType in Store', () => {
     const dispatch = jest.fn();
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
@@ -48,17 +52,19 @@ describe('Component: CitiesNavMenu', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <CitiesNavMenu />
+          <OffersSortForm />
         </Router>
       </Provider>,
     );
 
-    userEvent.click(screen.getByText(new RegExp(`${CITIES[1]}`, 'i')));
+    expect(screen.getByText(new RegExp(`${SortType.PRICE_HIGH_TO_LOW}`, 'i'))).toBeInTheDocument();
+
+    userEvent.click(screen.getByText(new RegExp(`${SortType.PRICE_HIGH_TO_LOW}`, 'i')));
 
     expect(dispatch).toBeCalledTimes(1);
     expect(dispatch).nthCalledWith(1, {
-      type: ActionType.CHANGE_CITY,
-      payload: CITIES[1],
+      type: ActionType.CHANGE_SORT_TYPE,
+      payload: SortType.PRICE_HIGH_TO_LOW,
     });
   });
 });

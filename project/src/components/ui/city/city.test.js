@@ -15,7 +15,7 @@ describe('Component: City', () => {
     const fakeProps = {
       cityName: fakeCityName,
       isActive: false,
-      onClick: () => {},
+      onClick: jest.fn(),
     };
 
     render(

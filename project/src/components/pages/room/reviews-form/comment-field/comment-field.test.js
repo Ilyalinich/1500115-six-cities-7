@@ -1,29 +1,44 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
 import CommentField from './comment-field';
+import userEvent from '@testing-library/user-event';
 
 
 describe('Component: CommentField', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-
     const fakeProps = {
       value: '',
       disabled: false,
-      onChange: () => {},
+      onChange: jest.fn(),
     };
 
     render(
-      <Router history={history}>
-        <CommentField
-          {...fakeProps}
-        />
-      </Router>,
+      <CommentField
+        {...fakeProps}
+      />,
     );
 
     expect(screen.getByTestId('comment field')).toHaveTextContent('');
     expect(screen.getByPlaceholderText(/Tell how was your stay, what you like and what can be improved/i)).toBeInTheDocument();
+  });
+
+  it('should make a correct onChange call', () => {
+    const fakeChangeHandler = jest.fn();
+    const fakeSymbol = '1';
+    const fakeProps = {
+      value: '',
+      disabled: false,
+      onChange: fakeChangeHandler,
+    };
+
+    render(
+      <CommentField
+        {...fakeProps}
+      />,
+    );
+
+    userEvent.type(screen.getByTestId('comment field'), fakeSymbol);
+
+    expect(fakeChangeHandler).toBeCalledTimes(fakeSymbol.length);
   });
 });

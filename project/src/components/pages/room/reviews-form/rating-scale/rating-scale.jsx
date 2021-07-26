@@ -1,15 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RatingChanger from './rating-changer/rating-changer';
-
-
-const RatingValuesMap = {
-  1: 'terribly',
-  2: 'badly',
-  3: 'not bad',
-  4: 'good',
-  5: 'perfect',
-};
+import {RatingValuesMap} from '../../../../../constant';
 
 
 function RatingScale(props) {

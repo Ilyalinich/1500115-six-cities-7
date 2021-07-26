@@ -1,7 +1,5 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
 import ReviewsList from './reviews-list';
 
 
@@ -11,8 +9,6 @@ jest.mock('../review/review', () => fakeReviewComponent);
 
 describe('Component: ReviewsList', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-
     const fakeReviews = [
       {
         comment: '',
@@ -30,16 +26,14 @@ describe('Component: ReviewsList', () => {
 
 
     render(
-      <Router history={history}>
-        <ReviewsList
-          reviews={fakeReviews}
-        />
-      </Router>,
+      <ReviewsList
+        reviews={fakeReviews}
+      />,
     );
 
 
     expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
     expect(screen.getByTestId('reviews counter')).toHaveTextContent(new RegExp(`${fakeReviews.length}`, 'i'));
-    expect(screen.queryAllByText(/Correct render of Review component/i)).toHaveLength(1);
+    expect(screen.queryAllByText(/Correct render of Review component/i)).toHaveLength(fakeReviews.length);
   });
 });

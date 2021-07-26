@@ -37,10 +37,6 @@ function SignIn () {
     emailInput.setCustomValidity(validationMessage);
   };
 
-  // const resetEmailValidation = () => {
-  //   emailRef.current.setCustomValidity('');
-  //   emailRef.current.reportValidity();
-  // };
 
   const setPasswordValidation = () => {
     const passwordInput = passwordRef.current;
@@ -75,7 +71,6 @@ function SignIn () {
                   placeholder="Email"
                   ref={emailRef}
                   required
-                  // onInput={resetEmailValidation}
                   pattern="([A-Za-z0-9_.-]{1,})@([A-Za-z0-9_.-]{1,}\.)([A-Za-z]{2,8})"
                   data-testid="email"
                 />

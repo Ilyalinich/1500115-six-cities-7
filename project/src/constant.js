@@ -35,9 +35,17 @@ const SortType = {
   TOP_RATED_FIRST: 'Top rated first',
 };
 
+const RatingValuesMap = {
+  1: 'terribly',
+  2: 'badly',
+  3: 'not bad',
+  4: 'good',
+  5: 'perfect',
+};
+
 const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam','Hamburg', 'Dusseldorf'];
 
 const SINGULAR_NUMBER = 1;
 
 
-export {AppRoute, ApiRoute, AuthorizationStatus, PropertyTypesMap, SortType, CITIES, SINGULAR_NUMBER};
+export {AppRoute, ApiRoute, AuthorizationStatus, PropertyTypesMap, SortType, CITIES, SINGULAR_NUMBER, RatingValuesMap};

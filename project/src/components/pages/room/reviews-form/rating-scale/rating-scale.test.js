@@ -1,28 +1,23 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
 import RatingScale from './rating-scale';
+import {RatingValuesMap} from '../../../../../constant';
 
 
 describe('Component: RatingScale', () => {
   it('should render correctly', () => {
-    const history = createMemoryHistory();
-
     const fakeProps = {
       isDisabled: false,
       currentRatingValue: '1',
-      ratingChangeHandler: () => {},
+      ratingChangeHandler: jest.fn(),
     };
 
     render(
-      <Router history={history}>
-        <RatingScale
-          {...fakeProps}
-        />
-      </Router>,
+      <RatingScale
+        {...fakeProps}
+      />,
     );
 
-    expect(screen.queryAllByTestId('rating changer')).toHaveLength(5);
+    expect(screen.queryAllByTestId('rating changer')).toHaveLength(Object.keys(RatingValuesMap).length);
   });
 });

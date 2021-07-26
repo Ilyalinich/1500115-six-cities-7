@@ -16,7 +16,6 @@ jest.mock('../city-offer/city-offer', () => fakeCityOfferComponent);
 describe('Component: OffersList', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-
     const fakeCityName = CITIES[0];
 
     const fakeState = {
@@ -37,7 +36,6 @@ describe('Component: OffersList', () => {
     const createFakeStore = configureStore({});
     const store = createFakeStore(fakeState);
 
-
     render(
       <Provider store={store}>
         <Router history={history}>
@@ -46,8 +44,7 @@ describe('Component: OffersList', () => {
       </Provider>,
     );
 
-
     expect(screen.getByText(/Correct render of CityOffer component/i)).toBeInTheDocument();
-    expect(screen.queryAllByText(/Correct render of CityOffer component/i)).toHaveLength(1);
+    expect(screen.queryAllByText(/Correct render of CityOffer component/i)).toHaveLength(fakeState[ReducerType.DATA].offers.length);
   });
 });

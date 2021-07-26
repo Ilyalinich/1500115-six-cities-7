@@ -4,19 +4,26 @@ import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
+import * as Redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import SignIn from './sign-in';
-import {AppRoute} from '../../../constant';
+import {AppRoute, AuthorizationStatus} from '../../../constant';
+import {ReducerType} from '../../../store/root-reducer';
+
+
+let history = null;
+let store = null;
+let fakeState = null;
 
 
 describe('Component: SignIn', () => {
-  it('should render "SignIn page" when user navigate to "/login" url', () => {
-    const history = createMemoryHistory();
+  beforeAll(() => {
+    history = createMemoryHistory();
     history.push(AppRoute.LOGIN);
 
-    const fakeState = {
-      AUTHORIZATION: {
-        authorizationStatus: 'NO_AUTH',
+    fakeState = {
+      [ReducerType.AUTHORIZATION]: {
+        authorizationStatus: AuthorizationStatus.AUTH,
         userInfo: {
           avatarUrl: '',
           email: 'noname@mail.ru',
@@ -25,8 +32,10 @@ describe('Component: SignIn', () => {
     };
 
     const createFakeStore = configureStore({});
-    const store = createFakeStore(fakeState);
+    store = createFakeStore(fakeState);
+  });
 
+  it('should render "SignIn page" when user navigate to "/login" url', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
@@ -45,5 +54,23 @@ describe('Component: SignIn', () => {
 
     expect(screen.getByDisplayValue(/user/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/123456/i)).toBeInTheDocument();
+  });
+
+  it('should should make a correct API call to POST /login when user clicked to submit button', () => {
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <SignIn />
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.click(screen.getByTestId('submit button'));
+
+    expect(dispatch).toBeCalledTimes(1);
   });
 });

@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setOffers, updateOffers} from '../action';
+import {setOffers, updateOffers, deauthorize} from '../action';
 
 
 const initialState = {
@@ -22,6 +22,16 @@ const data = createReducer(initialState, (builder) => {
         action.payload,
         ...state.offers.slice(index + 1),
       ];
+    })
+    .addCase(deauthorize, (state) => {
+      // const resetedOffers = state.offers.map((offer) => (
+      //   {...offer,
+      //     isFavorite: false,
+      //   }));
+
+      // state.offers = resetedOffers;
+
+      state.offers.forEach((offer) => (offer.isFavorite) && (offer.isFavorite = false));
     });
 });
 

@@ -25,10 +25,15 @@ const fakeEmptyListComponent = () => (<p>Correct render of EmptyList component</
 jest.mock('../empty-list/empty-list', () => fakeEmptyListComponent);
 
 
-describe('Component: ContentBoard', () => {
-  it('should render correctly when offers array contains any offers for current city', () => {
-    const history = createMemoryHistory();
+let history = null;
 
+
+describe('Component: ContentBoard', () => {
+  beforeAll(() => {
+    history = createMemoryHistory();
+  });
+
+  it('should render correctly when offers array contains any offers for current city', () => {
     const createFakeStore = configureStore({});
     const store = createFakeStore({
       [ReducerType.OPERATION]: {
@@ -43,7 +48,6 @@ describe('Component: ContentBoard', () => {
       },
     });
 
-
     render(
       <Provider store={store}>
         <Router history={history}>
@@ -51,7 +55,6 @@ describe('Component: ContentBoard', () => {
         </Router>
       </Provider>,
     );
-
 
     expect(screen.getByText(/Correct render of FoundOffersTitle component/i)).toBeInTheDocument();
     expect(screen.getByText(/Correct render of OffersSortForm component/i)).toBeInTheDocument();
@@ -62,8 +65,6 @@ describe('Component: ContentBoard', () => {
 
 
   it('should render correctly when offers array doesn\'t contains any offers for current city', () => {
-    const history = createMemoryHistory();
-
     const createFakeStore = configureStore({});
     const store = createFakeStore({
       [ReducerType.OPERATION]: {
@@ -78,7 +79,6 @@ describe('Component: ContentBoard', () => {
       },
     });
 
-
     render(
       <Provider store={store}>
         <Router history={history}>
@@ -86,7 +86,6 @@ describe('Component: ContentBoard', () => {
         </Router>
       </Provider>,
     );
-
 
     expect(screen.getByText(/Correct render of EmptyList component/i)).toBeInTheDocument();
     expect(screen.queryByText(/Correct render of OffersSortForm component/i)).not.toBeInTheDocument();

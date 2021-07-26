@@ -7,6 +7,7 @@ import {offerBasicProp} from '../../ui/offer/offer-prop';
 import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
 import {updateFavoriteStatus} from '../../../store/api-action';
+import {ActionType} from '../../../store/action';
 
 
 const StandartImageSize = {
@@ -37,7 +38,7 @@ function Offer(props) {
 
     if (favButtonClickHandler) {
       dispatch(updateFavoriteStatus(id, Number(!isFavorite)))
-        .then(({payload}) => favButtonClickHandler(payload));
+        .then((action) => action.type === ActionType.UPDATE_OFFERS && favButtonClickHandler(action.payload));
 
       return;
     }
