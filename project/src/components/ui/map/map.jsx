@@ -8,7 +8,7 @@ import {offerBasicProp} from '../../ui/offer/offer-prop';
 
 const IconSize = {
   WIDTH: 30,
-  HEIGTH: 30,
+  HEIGHT: 30,
 };
 
 const MarkerTypeUrl = {
@@ -19,8 +19,8 @@ const MarkerTypeUrl = {
 const createIcon = (iconUrl) => leaflet.icon(
   {
     iconUrl,
-    iconSize: [IconSize.WIDTH, IconSize.HEIGTH],
-    iconAnchor: [IconSize.WIDTH/2, IconSize.HEIGTH],
+    iconSize: [IconSize.WIDTH, IconSize.HEIGHT],
+    iconAnchor: [IconSize.WIDTH/2, IconSize.HEIGHT],
   },
 );
 

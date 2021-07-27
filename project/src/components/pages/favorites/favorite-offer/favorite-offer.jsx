@@ -12,7 +12,7 @@ const SpecialClassName = {
 
 const SpecialImageSize = {
   WIDTH: 150,
-  HEIGTH: 110,
+  HEIGHT: 110,
 };
 
 
@@ -23,7 +23,7 @@ function FavoriteOffer(props) {
       imageWrapperClassName={SpecialClassName.IMAGE_WRAPPER_CLASS}
       cardInfoClassName={SpecialClassName.CARD_INFO_CLASS}
       imageWidth={SpecialImageSize.WIDTH}
-      imageHeigth={SpecialImageSize.HEIGTH}
+      imageHeight={SpecialImageSize.HEIGHT}
       {...props}
     />
   );

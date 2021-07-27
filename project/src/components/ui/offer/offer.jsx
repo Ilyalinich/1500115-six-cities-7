@@ -11,7 +11,7 @@ import {ActionType} from '../../../store/action';
 
 const StandartImageSize = {
   WiDTH: 260,
-  HEIGTH: 200,
+  HEIGHT: 200,
 };
 
 
@@ -21,7 +21,7 @@ function Offer(props) {
     imageWrapperClassName,
     cardInfoClassName = '',
     imageWidth = StandartImageSize.WiDTH,
-    imageHeigth = StandartImageSize.HEIGTH,
+    imageHeight = StandartImageSize.HEIGHT,
     onFavoriteStatusChange,
     ...restProps
   } = props;
@@ -54,7 +54,7 @@ function Offer(props) {
       )}
       <div className={`${imageWrapperClassName} place-card__image-wrapper`}>
         <Link to={`${AppRoute.OFFER}/${id}`}>
-          <img className="place-card__image" src={previewImage} width={imageWidth} height={imageHeigth} alt=""/>
+          <img className="place-card__image" src={previewImage} width={imageWidth} height={imageHeight} alt=""/>
         </Link>
       </div>
       <div className={`${cardInfoClassName} place-card__info`}>
@@ -97,7 +97,7 @@ Offer.propTypes = {
   imageWrapperClassName: PropTypes.string.isRequired,
   cardInfoClassName: PropTypes.string,
   imageWidth: PropTypes.number,
-  imageHeigth: PropTypes.number,
+  imageHeight: PropTypes.number,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   onFavoriteStatusChange: PropTypes.func,
