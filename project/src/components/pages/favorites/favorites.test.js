@@ -1,10 +1,10 @@
 import React from 'react';
-import {render, waitFor, screen} from '@testing-library/react';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+import * as Redux from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
-import configureStore from 'redux-mock-store';
-import * as Redux from 'react-redux';
+import {render, waitFor, screen} from '@testing-library/react';
 import Favorites from './favorites';
 
 

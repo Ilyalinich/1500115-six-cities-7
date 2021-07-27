@@ -1,11 +1,11 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import ContentBoard from './content-board';
+import {render, screen} from '@testing-library/react';
 import {ReducerType} from '../../../../store/root-reducer';
+import ContentBoard from './content-board';
 
 
 const fakeCitiesNavMenuComponent = () => (<p>Correct render of citiesNavMenu component</p>);

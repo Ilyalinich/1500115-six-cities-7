@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-function RatingChanger({value, title, isDisabled, currentRatingValue, ratingChangeHandler}) {
+function RatingChanger({value, title, isDisabled, currentRatingValue, onRatingChange}) {
   return (
     <>
       <input
@@ -11,7 +11,7 @@ function RatingChanger({value, title, isDisabled, currentRatingValue, ratingChan
         value={value}
         id={`${value}-stars`}
         type="radio"
-        onChange={ratingChangeHandler}
+        onChange={onRatingChange}
         checked={currentRatingValue === value}
         disabled={isDisabled}
       />
@@ -34,7 +34,7 @@ RatingChanger.propTypes = {
   value: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   currentRatingValue: PropTypes.string.isRequired,
-  ratingChangeHandler: PropTypes.func.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool.isRequired,
 };
 

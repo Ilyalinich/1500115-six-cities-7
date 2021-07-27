@@ -24,13 +24,6 @@ const data = createReducer(initialState, (builder) => {
       ];
     })
     .addCase(deauthorize, (state) => {
-      // const resetedOffers = state.offers.map((offer) => (
-      //   {...offer,
-      //     isFavorite: false,
-      //   }));
-
-      // state.offers = resetedOffers;
-
       state.offers.forEach((offer) => (offer.isFavorite) && (offer.isFavorite = false));
     });
 });

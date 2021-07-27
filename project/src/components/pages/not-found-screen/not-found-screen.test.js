@@ -1,10 +1,10 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
 import {Router, Switch, Route} from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 import {createMemoryHistory} from 'history';
-import NotFoundScreen from './not-found-screen';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {AppRoute} from '../../../constant';
+import NotFoundScreen from './not-found-screen';
 
 
 const fakeHeaderComponent = () => (<p>Correct render of Header component</p>);

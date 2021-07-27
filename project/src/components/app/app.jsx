@@ -2,6 +2,8 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../constant';
+import {getAuthStatus} from '../../store/authorization/selectors';
+import {getOffersLoadingStatus} from '../../store/data/selectors';
 import Main from '../pages/main/main';
 import SignIn from '../pages/sign-in/sign-in';
 import Favorites from '../pages/favorites/favorites';
@@ -9,8 +11,6 @@ import Room from '../pages/room/room';
 import NotFoundScreen from '../pages/not-found-screen/not-found-screen';
 import LoadingScreen from '../ui/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
-import {getAuthStatus} from '../../store/authorization/selectors';
-import {getOffersLoadingStatus} from '../../store/data/selectors';
 
 
 function App() {

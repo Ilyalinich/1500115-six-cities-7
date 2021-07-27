@@ -1,17 +1,16 @@
+import React, {useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
+import PropTypes from 'prop-types';
 import {PropertyTypesMap, SINGULAR_NUMBER} from '../../../constant';
 import {getRatingInPercents} from '../../../util/common';
-import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import {useDispatch} from 'react-redux';
+import {updateFavoriteStatus, loadRoomPageData} from '../../../store/api-action';
+import {ActionType} from '../../../store/action';
 import Header from '../../ui/header/header';
 import OfferGallery from './offer-gallery/offer-gallery';
 import ReviewsBoard from './reviews-board/reviews-board';
 import Map from '../../ui/map/map';
 import NeighboringList from './neighboring-list/neighboring-list';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
-import {loadRoomPageData} from '../../../store/api-action';
-import {updateFavoriteStatus} from '../../../store/api-action';
-import {ActionType} from '../../../store/action';
 
 
 const MAX_IMAGES_COUNT = 6;
@@ -41,7 +40,7 @@ function Room({match}) {
   }, [dispatch, offerId]);
 
 
-  const favButtonClickHandler = (evt) => {
+  const favoriteStatusChangeHandler = (evt) => {
     evt.preventDefault();
 
     dispatch(updateFavoriteStatus(offerId, Number(!currentOffer.isFavorite)))
@@ -102,7 +101,7 @@ function Room({match}) {
                 <button
                   className={`${isFavorite ? 'property__bookmark-button--active' : ''} property__bookmark-button button`}
                   type="button"
-                  onClick={favButtonClickHandler}
+                  onClick={favoriteStatusChangeHandler}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
@@ -180,7 +179,7 @@ function Room({match}) {
           </section>
         </section>
         <div className="container">
-          <NeighboringList offers={neighboringOffers} updateNeighboringOffers={updateNeighboringOffers} />
+          <NeighboringList offers={neighboringOffers} onFavoriteStatusChange={updateNeighboringOffers} />
         </div>
       </main>
     </div>

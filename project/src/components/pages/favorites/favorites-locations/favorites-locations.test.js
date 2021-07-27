@@ -1,9 +1,9 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import FavoritesLocations from './favorites-locations';
+import {render, screen} from '@testing-library/react';
 import {CITIES} from '../../../../constant';
+import FavoritesLocations from './favorites-locations';
 
 
 const fakeFavOfferComponent = () => (<p>Correct render of FavoriteOffer component</p>);
@@ -30,7 +30,7 @@ describe('Component: FavoritesLocations', () => {
           isPremium: false,
         },
       ],
-      updateOffers: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
     render(

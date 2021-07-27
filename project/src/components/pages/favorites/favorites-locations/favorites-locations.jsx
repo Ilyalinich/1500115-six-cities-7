@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import {Link} from 'react-router-dom';
+import {offerBasicProp} from '../../../ui/offer/offer-prop';
 import FavoriteOffer from '../favorite-offer/favorite-offer';
 
 
-function FavoritesLocations({city, offers, updateOffers}) {
+function FavoritesLocations({city, offers, onFavoriteStatusChange}) {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -35,7 +35,7 @@ function FavoritesLocations({city, offers, updateOffers}) {
               previewImage={offer.previewImage}
               isFavorite={offer.isFavorite}
               isPremium={offer.isPremium}
-              favButtonClickHandler={updateOffers}
+              onFavoriteStatusChange={onFavoriteStatusChange}
             />
           ))
         }
@@ -49,7 +49,7 @@ FavoritesLocations.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerBasicProp),
   ),
-  updateOffers: PropTypes.func.isRequired,
+  onFavoriteStatusChange: PropTypes.func.isRequired,
 };
 
 

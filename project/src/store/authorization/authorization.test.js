@@ -1,6 +1,6 @@
-import {authorization} from './authorization';
-import {authorize, deauthorize} from '../action';
 import {AuthorizationStatus} from '../../constant';
+import {authorize, deauthorize} from '../action';
+import {authorization} from './authorization';
 
 
 const initialState = {

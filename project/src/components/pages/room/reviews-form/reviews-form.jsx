@@ -1,13 +1,13 @@
 import React, {useCallback, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import PropTypes from 'prop-types';
+import {AuthorizationStatus} from '../../../../constant';
+import {getAuthStatus} from '../../../../store/authorization/selectors';
+import {postReview} from '../../../../store/api-action';
 import RatingScale from './rating-scale/rating-scale';
 import CommentField from './comment-field/comment-field';
-import {useSelector, useDispatch} from 'react-redux';
-import {AuthorizationStatus} from '../../../../constant';
-import {postReview} from '../../../../store/api-action';
 import HelpMessage from './help-message/help-message';
 import PostErrorMessage from './post-error-message/post-error-message';
-import {getAuthStatus} from '../../../../store/authorization/selectors';
 
 
 const ERROR_MESSAGE_SHOW_TIME = 5000;
@@ -18,7 +18,7 @@ const CommentLength = {
 };
 
 
-function ReviewsForm({offerId, updateReviewsList}) {
+function ReviewsForm({offerId, onAddReview}) {
   const initialState = {
     rating: '',
     comment: '',
@@ -34,7 +34,7 @@ function ReviewsForm({offerId, updateReviewsList}) {
 
   const dispatch = useDispatch();
 
-  const ratingChangerClickHandler = useCallback(
+  const ratingChangeHandler = useCallback(
     ({target}) => setState((prevState) => ({
       ...prevState,
       rating: target.value,
@@ -89,7 +89,7 @@ function ReviewsForm({offerId, updateReviewsList}) {
     }));
 
     dispatch(postReview(offerId, newReview))
-      .then((reviews) => updateReviewsList(reviews))
+      .then((reviews) => onAddReview(reviews))
       .then(() => onSendSuccess())
       .catch(() => onSendFail());
   };
@@ -104,7 +104,7 @@ function ReviewsForm({offerId, updateReviewsList}) {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <RatingScale
         currentRatingValue={rating}
-        ratingChangeHandler={ratingChangerClickHandler}
+        onRatingChange={ratingChangeHandler}
         isDisabled={isBlocked}
       />
       <CommentField
@@ -125,7 +125,7 @@ function ReviewsForm({offerId, updateReviewsList}) {
 
 ReviewsForm.propTypes = {
   offerId: PropTypes.string.isRequired,
-  updateReviewsList: PropTypes.func.isRequired,
+  onAddReview: PropTypes.func.isRequired,
 };
 
 

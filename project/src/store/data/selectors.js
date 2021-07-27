@@ -1,5 +1,5 @@
-import {ReducerType} from '../root-reducer';
 import {createSelector} from 'reselect';
+import {ReducerType} from '../root-reducer';
 
 
 const getOffers = (state) => state[ReducerType.DATA].offers;

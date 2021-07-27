@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCity, changeActiveOfferId, restActiveOfferId, changeSortType} from '../action';
 import {SortType, CITIES} from '../../constant';
+import {changeCity, changeActiveOfferId, restActiveOfferId, changeSortType} from '../action';
 
 
 const initialState = {

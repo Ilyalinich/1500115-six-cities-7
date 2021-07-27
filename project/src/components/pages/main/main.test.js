@@ -1,9 +1,9 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import Main from './main';
+import {render, screen} from '@testing-library/react';
 import {AppRoute} from '../../../constant';
+import Main from './main';
 
 
 const fakeHeaderComponent = () => (<p>Correct render of Header component</p>);

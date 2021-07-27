@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {authorize, deauthorize} from '../action';
 import {AuthorizationStatus} from '../../constant';
+import {authorize, deauthorize} from '../action';
 
 
 const initialState = {

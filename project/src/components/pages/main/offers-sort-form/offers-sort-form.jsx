@@ -1,8 +1,8 @@
-import {SortType} from '../../../../constant';
 import React, {useState, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {changeSortType} from '../../../../store/action';
+import {SortType} from '../../../../constant';
 import {getCurrentSortType} from '../../../../store/operation-process/selectors';
+import {changeSortType} from '../../../../store/action';
 
 
 function OffersSortForm() {

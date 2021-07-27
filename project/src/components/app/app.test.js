@@ -1,9 +1,9 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
-import configureStore from 'redux-mock-store';
+import {render, screen} from '@testing-library/react';
 import {AuthorizationStatus, AppRoute} from '../../constant';
 import {ReducerType} from '../../store/root-reducer';
 import App from './app';

@@ -1,15 +1,15 @@
 import React from 'react';
+import configureStore from 'redux-mock-store';
+import * as Redux from 'react-redux';
+import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
-import configureStore from 'redux-mock-store';
-import {createMemoryHistory} from 'history';
-import * as Redux from 'react-redux';
-import OffersSortForm from './offers-sort-form';
+import {SortType} from '../../../../constant';
 import {ReducerType} from '../../../../store/root-reducer';
 import {ActionType} from '../../../../store/action';
-import {SortType} from '../../../../constant';
+import OffersSortForm from './offers-sort-form';
 
 
 let store = null;

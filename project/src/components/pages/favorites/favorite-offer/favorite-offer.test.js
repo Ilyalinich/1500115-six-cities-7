@@ -18,7 +18,7 @@ describe('Component: FavoriteOffer', () => {
       previewImage: '',
       isFavorite: true,
       isPremium: false,
-      favButtonClickHandler: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
     render(

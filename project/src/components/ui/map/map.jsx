@@ -1,9 +1,9 @@
 import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {offerBasicProp} from '../../ui/offer/offer-prop';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../../hooks/use-map/use-map';
+import {offerBasicProp} from '../../ui/offer/offer-prop';
 
 
 const IconSize = {

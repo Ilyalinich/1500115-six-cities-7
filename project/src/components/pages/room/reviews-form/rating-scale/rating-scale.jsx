@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RatingChanger from './rating-changer/rating-changer';
 import {RatingValuesMap} from '../../../../../constant';
+import RatingChanger from './rating-changer/rating-changer';
 
 
 function RatingScale(props) {
@@ -26,7 +26,7 @@ function RatingScale(props) {
 
 
 RatingScale.propTypes = {
-  ratingChangeHandler: PropTypes.func.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
   currentRatingValue: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool.isRequired,
 };

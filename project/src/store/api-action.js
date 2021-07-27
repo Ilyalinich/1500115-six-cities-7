@@ -1,6 +1,6 @@
-import {authorize, deauthorize, setOffers, updateOffers, redirectToRoute} from './action';
 import {ApiRoute, AppRoute} from '../constant';
 import {adaptOfferToClient, adaptUserInfoToClient, adaptReviewToClient} from '../util/adapter';
+import {authorize, deauthorize, setOffers, updateOffers, redirectToRoute} from './action';
 
 
 const checkAuth = () => (dispatch, _getState, api) => (

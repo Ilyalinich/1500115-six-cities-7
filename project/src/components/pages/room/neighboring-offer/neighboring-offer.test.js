@@ -1,7 +1,7 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
 import NeighboringOffer from './neighboring-offer';
 
 
@@ -22,7 +22,7 @@ describe('Component: NeighboringOffer', () => {
       previewImage: '',
       isFavorite: true,
       isPremium: false,
-      favButtonClickHandler: jest.fn(),
+      onFavoriteStatusChange: jest.fn(),
     };
 
     render(

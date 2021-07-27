@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
-import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {login} from '../../../store/api-action';
 import Header from '../../ui/header/header';
 

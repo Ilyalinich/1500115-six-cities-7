@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import {Router as BrowserRouter} from 'react-router-dom';
-import App from './components/app/app';
 import {createApi} from './services/api';
 import {rootReducer} from './store/root-reducer';
 import {loadOffers, checkAuth} from './store/api-action';
 import {deauthorize} from './store/action';
 import {redirect} from './store/middlewares/redirect';
 import browserHistory from './browser-history';
+import App from './components/app/app';
 
 
 const api = createApi(

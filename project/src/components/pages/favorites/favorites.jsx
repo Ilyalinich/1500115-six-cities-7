@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
+import {AppRoute} from '../../../constant';
+import {loadFavoriteOffers} from '../../../store/api-action';
 import LoadingScreen from '../../ui/loading-screen/loading-screen';
 import Header from '../../ui/header/header';
 import FavoritesList from './favorites-list/favorites-list';
 import EmptyFavoritesList from './empty-favorites-list/empty-favorites-list';
-import {loadFavoriteOffers} from '../../../store/api-action';
 
 
 function Favorites() {
@@ -38,7 +38,7 @@ function Favorites() {
     return <LoadingScreen />;
   }
 
-  const updateOffers = (updatedOffer) => setState((prevState) => {
+  const favoriteStatusChangeHandler = (updatedOffer) => setState((prevState) => {
     const index = prevState.offers.findIndex(({id}) => id === updatedOffer.id);
 
     return {
@@ -61,7 +61,7 @@ function Favorites() {
           {
             isOffersListEmpty
               ? <EmptyFavoritesList />
-              : <FavoritesList offers={offers} updateOffers={updateOffers}/>
+              : <FavoritesList offers={offers} onFavoriteStatusChange={favoriteStatusChangeHandler}/>
           }
         </div>
       </main>

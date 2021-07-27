@@ -1,10 +1,10 @@
 import React from 'react';
-import {render, waitFor, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import * as Redux from 'react-redux';
+import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import {createMemoryHistory} from 'history';
+import {render, waitFor, screen} from '@testing-library/react';
 import ReviewsBoard from './reviews-board';
 
 

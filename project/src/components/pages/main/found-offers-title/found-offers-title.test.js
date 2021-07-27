@@ -1,12 +1,12 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import FoundOffersTitle from './found-offers-title';
-import {ReducerType} from '../../../../store/root-reducer';
+import {render, screen} from '@testing-library/react';
 import {CITIES, SINGULAR_NUMBER} from '../../../../constant';
+import {ReducerType} from '../../../../store/root-reducer';
+import FoundOffersTitle from './found-offers-title';
 
 describe('Component: FoundOffersTitle', () => {
   it('should render correctly', () => {

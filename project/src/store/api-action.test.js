@@ -1,9 +1,9 @@
 import MockAdapter from 'axios-mock-adapter';
-import {createApi} from '../services/api';
-import {ActionType} from './action';
-import {checkAuth, login, logout, loadOffers, loadRoomPageData, loadReviews, postReview, loadFavoriteOffers, updateFavoriteStatus} from './api-action';
 import {ApiRoute, AppRoute} from '../constant';
 import {adaptOfferToClient, adaptUserInfoToClient, adaptReviewToClient} from '../util/adapter';
+import {createApi} from '../services/api';
+import {checkAuth, login, logout, loadOffers, loadRoomPageData, loadReviews, postReview, loadFavoriteOffers, updateFavoriteStatus} from './api-action';
+import {ActionType} from './action';
 
 let api = null;
 

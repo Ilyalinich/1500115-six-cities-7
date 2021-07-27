@@ -1,9 +1,9 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import City from './city';
+import {render, screen} from '@testing-library/react';
 import {CITIES} from '../../../constant';
+import City from './city';
 
 
 describe('Component: City', () => {

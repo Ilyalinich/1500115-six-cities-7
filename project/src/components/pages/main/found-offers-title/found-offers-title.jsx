@@ -1,6 +1,6 @@
-import {SINGULAR_NUMBER} from '../../../../constant';
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {SINGULAR_NUMBER} from '../../../../constant';
 import {getCurrentCityOffersCount} from '../../../../store/data/selectors';
 import {getCurrentCity} from '../../../../store/operation-process/selectors';
 

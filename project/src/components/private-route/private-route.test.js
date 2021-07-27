@@ -1,12 +1,12 @@
 import React from 'react';
+import configureStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 import {Router, Route} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
-import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
 import {AuthorizationStatus} from '../../constant';
-import PrivateRoute from './private-route';
 import {ReducerType} from '../../store/root-reducer';
+import PrivateRoute from './private-route';
 
 
 const mockStore = configureStore({});

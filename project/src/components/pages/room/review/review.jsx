@@ -1,7 +1,7 @@
-import {getRatingInPercents} from '../../../../util/common';
-import {formatDate} from '../../../../util/day-js';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {getRatingInPercents} from '../../../../util/common';
+import {formatDate} from '../../../../util/day-js';
 import {reviewProp} from '../review/review-prop';
 
 

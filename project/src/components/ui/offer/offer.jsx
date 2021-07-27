@@ -1,11 +1,10 @@
-import {PropertyTypesMap} from '../../../constant';
-import {getRatingInPercents} from '../../../util/common';
 import React from 'react';
-import PropTypes from 'prop-types';
 import {useDispatch} from 'react-redux';
-import {offerBasicProp} from '../../ui/offer/offer-prop';
-import {AppRoute} from '../../../constant';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {PropertyTypesMap, AppRoute} from '../../../constant';
+import {getRatingInPercents} from '../../../util/common';
+import {offerBasicProp} from '../../ui/offer/offer-prop';
 import {updateFavoriteStatus} from '../../../store/api-action';
 import {ActionType} from '../../../store/action';
 
@@ -23,7 +22,7 @@ function Offer(props) {
     cardInfoClassName = '',
     imageWidth = StandartImageSize.WiDTH,
     imageHeigth = StandartImageSize.HEIGTH,
-    favButtonClickHandler,
+    onFavoriteStatusChange,
     ...restProps
   } = props;
 
@@ -33,12 +32,12 @@ function Offer(props) {
 
   const dispatch = useDispatch();
 
-  const changeFavoriteStatus = (evt) => {
+  const favButtonClickHandler = (evt) => {
     evt.preventDefault();
 
-    if (favButtonClickHandler) {
+    if (onFavoriteStatusChange) {
       dispatch(updateFavoriteStatus(id, Number(!isFavorite)))
-        .then((action) => action.type === ActionType.UPDATE_OFFERS && favButtonClickHandler(action.payload));
+        .then((action) => action.type === ActionType.UPDATE_OFFERS && onFavoriteStatusChange(action.payload));
 
       return;
     }
@@ -67,7 +66,7 @@ function Offer(props) {
           <button
             className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
-            onClick={changeFavoriteStatus}
+            onClick={favButtonClickHandler}
             data-testid="fav button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -101,7 +100,7 @@ Offer.propTypes = {
   imageHeigth: PropTypes.number,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
-  favButtonClickHandler: PropTypes.func,
+  onFavoriteStatusChange: PropTypes.func,
 };
 
 
